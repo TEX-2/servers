@@ -50,6 +50,21 @@ namespace PhyMotionControl_ns
 //		Commands Allowed Methods
 //=================================================
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionControl::is_SendCMD_allowed()
+ *	Description : Execution allowed for SendCMD attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionControl::is_SendCMD_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for SendCMD command.
+	/*----- PROTECTED REGION ID(PhyMotionControl::SendCMDStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::SendCMDStateAllowed
+	return true;
+}
+
 
 /*----- PROTECTED REGION ID(PhyMotionControl::PhyMotionControlStateAllowed.AdditionalMethods) ENABLED START -----*/
 

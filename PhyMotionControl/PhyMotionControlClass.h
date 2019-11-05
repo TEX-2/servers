@@ -52,6 +52,33 @@ namespace PhyMotionControl_ns
 
 /*----- PROTECTED REGION END -----*/	//	PhyMotionControlClass::classes for dynamic creation
 
+//=========================================
+//	Define classes for commands
+//=========================================
+//	Command SendCMD class definition
+class SendCMDClass : public Tango::Command
+{
+public:
+	SendCMDClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	SendCMDClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~SendCMDClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PhyMotionControl *>(dev))->is_SendCMD_allowed(any);}
+};
+
+
 /**
  *	The PhyMotionControlClass singleton definition
  */

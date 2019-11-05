@@ -149,6 +149,25 @@ PhyMotionControlClass *PhyMotionControlClass::instance()
 //===================================================================
 //	Command execution method calls
 //===================================================================
+//--------------------------------------------------------
+/**
+ * method : 		SendCMDClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *SendCMDClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "SendCMDClass::execute(): arrived" << endl;
+	Tango::DevString argin;
+	extract(in_any, argin);
+	return insert((static_cast<PhyMotionControl *>(device))->send_cmd(argin));
+}
+
 
 //===================================================================
 //	Properties management
@@ -218,6 +237,34 @@ void PhyMotionControlClass::set_default_property()
 	//	Set Default Class Properties
 
 	//	Set Default device Properties
+	prop_name = "ip_addr";
+	prop_desc = "Just IP addr for TCP connection to PhyMOTION device";
+	prop_def  = "10.10.7.10";
+	vect_data.clear();
+	vect_data.push_back("10.10.7.10");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "tcp_port";
+	prop_desc = "TCP port for connection to PhyMOTION device";
+	prop_def  = "22222";
+	vect_data.clear();
+	vect_data.push_back("22222");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 }
 
 //--------------------------------------------------------
@@ -368,6 +415,15 @@ void PhyMotionControlClass::command_factory()
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControlClass::command_factory_before
 
+
+	//	Command SendCMD
+	SendCMDClass	*pSendCMDCmd =
+		new SendCMDClass("SendCMD",
+			Tango::DEV_STRING, Tango::DEV_STRING,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pSendCMDCmd);
 
 	/*----- PROTECTED REGION ID(PhyMotionControlClass::command_factory_after) ENABLED START -----*/
 	

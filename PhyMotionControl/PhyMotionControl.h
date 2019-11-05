@@ -61,6 +61,12 @@ class PhyMotionControl : public TANGO_BASE_CLASS
 
 /*----- PROTECTED REGION END -----*/	//	PhyMotionControl::Data Members
 
+//	Device property data members
+public:
+	//	ip_addr:	Just IP addr for TCP connection to PhyMOTION device
+	string	ip_addr;
+	//	tcp_port:	TCP port for connection to PhyMOTION device
+	string	tcp_port;
 
 
 //	Constructors and destructors
@@ -104,6 +110,10 @@ public:
 	 */
 	virtual void init_device();
 	/*
+	 *	Read the device properties from database
+	 */
+	void get_device_property();
+	/*
 	 *	Always executed method before execution command method.
 	 */
 	virtual void always_executed_hook();
@@ -133,6 +143,15 @@ public:
 
 //	Command related methods
 public:
+	/**
+	 *	Command SendCMD related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 *	@returns 
+	 */
+	virtual Tango::DevString send_cmd(Tango::DevString argin);
+	virtual bool is_SendCMD_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

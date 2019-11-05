@@ -53,6 +53,7 @@
 //================================================================
 //  State         |  Inherited (no method)
 //  Status        |  Inherited (no method)
+//  SendCMD       |  send_cmd
 //================================================================
 
 //================================================================
@@ -133,7 +134,9 @@ void PhyMotionControl::init_device()
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device_before
 	
-	//	No device property to be read from database
+
+	//	Get the device properties from database
+	get_device_property();
 	
 	/*----- PROTECTED REGION ID(PhyMotionControl::init_device) ENABLED START -----*/
 	
@@ -142,6 +145,69 @@ void PhyMotionControl::init_device()
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionControl::get_device_property()
+ *	Description : Read database to initialize property data members.
+ */
+//--------------------------------------------------------
+void PhyMotionControl::get_device_property()
+{
+	/*----- PROTECTED REGION ID(PhyMotionControl::get_device_property_before) ENABLED START -----*/
+	
+	//	Initialize property data members
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::get_device_property_before
+
+
+	//	Read device properties from database.
+	Tango::DbData	dev_prop;
+	dev_prop.push_back(Tango::DbDatum("ip_addr"));
+	dev_prop.push_back(Tango::DbDatum("tcp_port"));
+
+	//	is there at least one property to be read ?
+	if (dev_prop.size()>0)
+	{
+		//	Call database and extract values
+		if (Tango::Util::instance()->_UseDb==true)
+			get_db_device()->get_property(dev_prop);
+	
+		//	get instance on PhyMotionControlClass to get class property
+		Tango::DbDatum	def_prop, cl_prop;
+		PhyMotionControlClass	*ds_class =
+			(static_cast<PhyMotionControlClass *>(get_device_class()));
+		int	i = -1;
+
+		//	Try to initialize ip_addr from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  ip_addr;
+		else {
+			//	Try to initialize ip_addr from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  ip_addr;
+		}
+		//	And try to extract ip_addr value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  ip_addr;
+
+		//	Try to initialize tcp_port from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  tcp_port;
+		else {
+			//	Try to initialize tcp_port from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  tcp_port;
+		}
+		//	And try to extract tcp_port value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  tcp_port;
+
+	}
+
+	/*----- PROTECTED REGION ID(PhyMotionControl::get_device_property_after) ENABLED START -----*/
+	
+	//	Check device property data members init
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::get_device_property_after
+}
 
 //--------------------------------------------------------
 /**
@@ -192,6 +258,26 @@ void PhyMotionControl::add_dynamic_attributes()
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::add_dynamic_attributes
 }
 
+//--------------------------------------------------------
+/**
+ *	Command SendCMD related method
+ *	Description: 
+ *
+ *	@param argin 
+ *	@returns 
+ */
+//--------------------------------------------------------
+Tango::DevString PhyMotionControl::send_cmd(Tango::DevString argin)
+{
+	Tango::DevString argout;
+	DEBUG_STREAM << "PhyMotionControl::SendCMD()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PhyMotionControl::send_cmd) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::send_cmd
+	return argout;
+}
 //--------------------------------------------------------
 /**
  *	Method      : PhyMotionControl::add_dynamic_commands()
