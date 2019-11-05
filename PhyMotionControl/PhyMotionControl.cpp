@@ -49,11 +49,13 @@
 //  The following table gives the correspondence
 //  between command and method names.
 //
-//  Command name  |  Method name
+//  Command name     |  Method name
 //================================================================
-//  State         |  Inherited (no method)
-//  Status        |  Inherited (no method)
-//  SendCMD       |  send_cmd
+//  State            |  Inherited (no method)
+//  Status           |  Inherited (no method)
+//  SendCMD          |  send_cmd
+//  OpenConnection   |  open_connection
+//  CloseConnection  |  close_connection
 //================================================================
 
 //================================================================
@@ -277,6 +279,38 @@ Tango::DevString PhyMotionControl::send_cmd(Tango::DevString argin)
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::send_cmd
 	return argout;
+}
+//--------------------------------------------------------
+/**
+ *	Command OpenConnection related method
+ *	Description: 
+ *
+ */
+//--------------------------------------------------------
+void PhyMotionControl::open_connection()
+{
+	DEBUG_STREAM << "PhyMotionControl::OpenConnection()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PhyMotionControl::open_connection) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::open_connection
+}
+//--------------------------------------------------------
+/**
+ *	Command CloseConnection related method
+ *	Description: 
+ *
+ */
+//--------------------------------------------------------
+void PhyMotionControl::close_connection()
+{
+	DEBUG_STREAM << "PhyMotionControl::CloseConnection()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PhyMotionControl::close_connection) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::close_connection
 }
 //--------------------------------------------------------
 /**

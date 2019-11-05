@@ -65,6 +65,36 @@ bool PhyMotionControl::is_SendCMD_allowed(TANGO_UNUSED(const CORBA::Any &any))
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionControl::is_OpenConnection_allowed()
+ *	Description : Execution allowed for OpenConnection attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionControl::is_OpenConnection_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for OpenConnection command.
+	/*----- PROTECTED REGION ID(PhyMotionControl::OpenConnectionStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::OpenConnectionStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionControl::is_CloseConnection_allowed()
+ *	Description : Execution allowed for CloseConnection attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionControl::is_CloseConnection_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for CloseConnection command.
+	/*----- PROTECTED REGION ID(PhyMotionControl::CloseConnectionStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::CloseConnectionStateAllowed
+	return true;
+}
+
 
 /*----- PROTECTED REGION ID(PhyMotionControl::PhyMotionControlStateAllowed.AdditionalMethods) ENABLED START -----*/
 

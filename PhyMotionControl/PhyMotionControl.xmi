@@ -11,7 +11,7 @@
       <DefaultPropValue>10.10.7.10</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="tcp_port" description="TCP port for connection to PhyMOTION device">
-      <type xsi:type="pogoDsl:StringType"/>
+      <type xsi:type="pogoDsl:ShortType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>22222</DefaultPropValue>
     </deviceProperties>
@@ -39,6 +39,24 @@
       </argin>
       <argout description="">
         <type xsi:type="pogoDsl:StringType"/>
+      </argout>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+    </commands>
+    <commands name="OpenConnection" description="" execMethod="open_connection" displayLevel="OPERATOR" polledPeriod="0" isDynamic="false">
+      <argin description="">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argin>
+      <argout description="">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argout>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+    </commands>
+    <commands name="CloseConnection" description="" execMethod="close_connection" displayLevel="OPERATOR" polledPeriod="0" isDynamic="false">
+      <argin description="">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argin>
+      <argout description="">
+        <type xsi:type="pogoDsl:VoidType"/>
       </argout>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
     </commands>

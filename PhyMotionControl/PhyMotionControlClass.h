@@ -78,6 +78,52 @@ public:
 	{return (static_cast<PhyMotionControl *>(dev))->is_SendCMD_allowed(any);}
 };
 
+//	Command OpenConnection class definition
+class OpenConnectionClass : public Tango::Command
+{
+public:
+	OpenConnectionClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	OpenConnectionClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~OpenConnectionClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PhyMotionControl *>(dev))->is_OpenConnection_allowed(any);}
+};
+
+//	Command CloseConnection class definition
+class CloseConnectionClass : public Tango::Command
+{
+public:
+	CloseConnectionClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	CloseConnectionClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~CloseConnectionClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PhyMotionControl *>(dev))->is_CloseConnection_allowed(any);}
+};
+
 
 /**
  *	The PhyMotionControlClass singleton definition

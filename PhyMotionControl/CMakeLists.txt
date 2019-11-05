@@ -28,7 +28,8 @@ add_executable(PhyMotionControl
         PhyMotionControlClass.cpp PhyMotionControlClass.h
         PhyMotionControlStateMachine.cpp
         ClassFactory.cpp
-)
+        TCPConnection.cpp TCPConnection.h
+        )
 
 target_link_libraries(PhyMotionControl
         ${TANGO_LIB}
@@ -38,5 +39,5 @@ target_link_libraries(PhyMotionControl
         ${OMNITHREAD_LIB}
         ${LOG4TANGO_LIB}
         ${ZMQ_LIB}
-)
+        )
 

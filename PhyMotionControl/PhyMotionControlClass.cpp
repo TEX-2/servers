@@ -168,6 +168,42 @@ CORBA::Any *SendCMDClass::execute(Tango::DeviceImpl *device, const CORBA::Any &i
 	return insert((static_cast<PhyMotionControl *>(device))->send_cmd(argin));
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		OpenConnectionClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *OpenConnectionClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "OpenConnectionClass::execute(): arrived" << endl;
+	((static_cast<PhyMotionControl *>(device))->open_connection());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		CloseConnectionClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *CloseConnectionClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "CloseConnectionClass::execute(): arrived" << endl;
+	((static_cast<PhyMotionControl *>(device))->close_connection());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -424,6 +460,24 @@ void PhyMotionControlClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pSendCMDCmd);
+
+	//	Command OpenConnection
+	OpenConnectionClass	*pOpenConnectionCmd =
+		new OpenConnectionClass("OpenConnection",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pOpenConnectionCmd);
+
+	//	Command CloseConnection
+	CloseConnectionClass	*pCloseConnectionCmd =
+		new CloseConnectionClass("CloseConnection",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pCloseConnectionCmd);
 
 	/*----- PROTECTED REGION ID(PhyMotionControlClass::command_factory_after) ENABLED START -----*/
 	

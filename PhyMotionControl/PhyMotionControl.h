@@ -66,7 +66,7 @@ public:
 	//	ip_addr:	Just IP addr for TCP connection to PhyMOTION device
 	string	ip_addr;
 	//	tcp_port:	TCP port for connection to PhyMOTION device
-	string	tcp_port;
+	Tango::DevShort	tcp_port;
 
 
 //	Constructors and destructors
@@ -152,6 +152,20 @@ public:
 	 */
 	virtual Tango::DevString send_cmd(Tango::DevString argin);
 	virtual bool is_SendCMD_allowed(const CORBA::Any &any);
+	/**
+	 *	Command OpenConnection related method
+	 *	Description: 
+	 *
+	 */
+	virtual void open_connection();
+	virtual bool is_OpenConnection_allowed(const CORBA::Any &any);
+	/**
+	 *	Command CloseConnection related method
+	 *	Description: 
+	 *
+	 */
+	virtual void close_connection();
+	virtual bool is_CloseConnection_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------
