@@ -7,9 +7,11 @@
 
 using namespace TCP_Connection;
 
-TCPConnection::TCPConnection() {
-    Open();
+TCPConnection::TCPConnection(std::string addr,int port) {
+    ip_addr = addr;
+    tcp_port = port;
 
+    //Open();   reserved
 }
 
 void TCPConnection::Open() {
@@ -28,7 +30,7 @@ void TCPConnection::Open() {
     }
 
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(port);
+    serv_addr.sin_port = htons(tcp_port);
     bcopy(server->h_addr,&(serv_addr.sin_addr.s_addr),server->h_length);
 
     /* CONNECT */

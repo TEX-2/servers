@@ -36,6 +36,7 @@
 
 #include <tango.h>
 
+#include "TCPConnection.h"
 
 /*----- PROTECTED REGION END -----*/	//	PhyMotionControl.h
 
@@ -57,7 +58,8 @@ class PhyMotionControl : public TANGO_BASE_CLASS
 
 /*----- PROTECTED REGION ID(PhyMotionControl::Data Members) ENABLED START -----*/
 
-//	Add your own data members
+private:
+    TCP_Connection::TCPConnection *tcp_connection;
 
 /*----- PROTECTED REGION END -----*/	//	PhyMotionControl::Data Members
 

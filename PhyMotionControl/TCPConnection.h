@@ -31,7 +31,7 @@ namespace TCP_Connection {
 
 
         std::string ip_addr;
-        short int port;
+        short int tcp_port;
 
         struct sockaddr_in serv_addr;
         struct hostent *server;
@@ -40,7 +40,7 @@ namespace TCP_Connection {
 
     public:
         // constructor
-        TCPConnection();
+        TCPConnection(std::string addr,int port);
 
         // open tcp connection
         void Open(void);

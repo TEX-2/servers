@@ -142,7 +142,9 @@ void PhyMotionControl::init_device()
 	
 	/*----- PROTECTED REGION ID(PhyMotionControl::init_device) ENABLED START -----*/
 	
-	//	Initialize device
+	tcp_connection = new TCP_Connection::TCPConnection(ip_addr,tcp_port);
+
+
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device
 }
@@ -292,7 +294,8 @@ void PhyMotionControl::open_connection()
 	DEBUG_STREAM << "PhyMotionControl::OpenConnection()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionControl::open_connection) ENABLED START -----*/
 	
-	//	Add your own code
+	tcp_connection->Open();
+
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::open_connection
 }
