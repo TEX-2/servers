@@ -132,7 +132,7 @@ void PhyMotionControl::init_device()
 	DEBUG_STREAM << "PhyMotionControl::init_device() create device " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionControl::init_device_before) ENABLED START -----*/
 
-	mux.lock();
+	//mux.lock();
 
 	//	Initialization before get_device_property() call
 	
@@ -152,10 +152,10 @@ void PhyMotionControl::init_device()
 	if(phymotion_command!= nullptr) delete phymotion_command;
 
 	tcp_connection = new TCP_Connection::TCPConnection(ip_addr,tcp_port);
-	open_connection();
+	//open_connection();
 
     phymotion_command = new PhyMotionCommand(tcp_connection);
-    mux.unlock();
+    //mux.unlock();
 
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device
 }
@@ -337,7 +337,7 @@ void PhyMotionControl::open_connection()
             return;
             break;
         case TCP_Connection::ERR_RECV:
-            set_status(std::string("Recevory message error!\n"));
+            set_status(std::string("Recive message error!\n"));
             return;
             break;
     }

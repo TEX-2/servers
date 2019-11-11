@@ -25,7 +25,7 @@ namespace TCP_Connection {
     static const int8_t  ERR_RECV = -5;
 
 
-    static const int BUFFER_SIZE=16;             //in bytes
+    static const int BUFFER_SIZE=1;             //in bytes
 
 
     class TCPConnection {

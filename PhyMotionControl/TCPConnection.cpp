@@ -61,10 +61,13 @@ std::string TCPConnection::recvData() {
     std::string out_data;
     char buffer[BUFFER_SIZE];
     int size;
-    while(size>0){
+    do{
+        std::cout << "recv\n";
         size=recv(sockfd,buffer,BUFFER_SIZE,0);
         out_data.append(buffer);
-    }
+        if(buffer[0]=='\x03') break;                // only PhyMotion ETX message
+        std::cout << " r:size: " << size << "\n";
+    }while(size>0);
     if(size<0){
         errorno = ERR_RECV;
     }
