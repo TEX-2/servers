@@ -58,8 +58,13 @@ int TCPConnection::sendData(std::string data) {
 std::string TCPConnection::recvData() {
     std::string out_data;
     char buffer[32];
-    while(recv(sockfd,buffer,32,0)!=0){
+    int size;
+    while(size>0){
+        size=recv(sockfd,buffer,32,0);
         out_data.append(buffer);
+    }
+    if(size<0){
+        errorno = ERR_RECV;
     }
     return out_data;
 }

@@ -143,9 +143,21 @@ void PhyMotionControl::init_device()
 	/*----- PROTECTED REGION ID(PhyMotionControl::init_device) ENABLED START -----*/
 	
 	tcp_connection = new TCP_Connection::TCPConnection(ip_addr,tcp_port);
+    tcp_connection->Open();
+
+    if(tcp_connection->getErrno()!=0) set_state(Tango::CLOSE);
+
+    switch(tcp_connection->getErrno()){
+        case TCP_Connection::ERR_CONN:
+            set_status(std::string("Error connection to server "+ip_addr+":"+std::to_string(tcp_port)+"!"));
+            return;
+            break;
+    }
+
+    set_state(Tango::OPEN);
+    phymotion_command = new PhyMotionCommand(tcp_connection);
 
 
-	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device
 }
 
@@ -276,9 +288,12 @@ Tango::DevString PhyMotionControl::send_cmd(Tango::DevString argin)
 	Tango::DevString argout;
 	DEBUG_STREAM << "PhyMotionControl::SendCMD()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionControl::send_cmd) ENABLED START -----*/
-	
-	//	Add your own code
-	
+
+	phymotion_command->send(argin);
+	std::string data = tcp_connection->recvData();
+	argout = new char [data.length()];
+	strcpy(argout,data.c_str());
+
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::send_cmd
 	return argout;
 }
@@ -295,7 +310,11 @@ void PhyMotionControl::open_connection()
 	/*----- PROTECTED REGION ID(PhyMotionControl::open_connection) ENABLED START -----*/
 	
 	tcp_connection->Open();
-
+	if(tcp_connection->getErrno()!=0){
+        set_state(Tango::CLOSE);
+	}else{
+        set_state(Tango::OPEN);
+	}
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::open_connection
 }
@@ -311,8 +330,9 @@ void PhyMotionControl::close_connection()
 	DEBUG_STREAM << "PhyMotionControl::CloseConnection()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionControl::close_connection) ENABLED START -----*/
 	
-	//	Add your own code
-	
+	tcp_connection->Close();
+    set_state(Tango::CLOSE);
+
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::close_connection
 }
 //--------------------------------------------------------

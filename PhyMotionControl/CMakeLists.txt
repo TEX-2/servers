@@ -29,7 +29,7 @@ add_executable(PhyMotionControl
         PhyMotionControlStateMachine.cpp
         ClassFactory.cpp
         TCPConnection.cpp TCPConnection.h
-        )
+        PhyMotionCommand.cpp PhyMotionCommand.h)
 
 target_link_libraries(PhyMotionControl
         ${TANGO_LIB}
