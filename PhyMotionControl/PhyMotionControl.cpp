@@ -131,7 +131,9 @@ void PhyMotionControl::init_device()
 {
 	DEBUG_STREAM << "PhyMotionControl::init_device() create device " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionControl::init_device_before) ENABLED START -----*/
-	
+
+	mux.lock();
+
 	//	Initialization before get_device_property() call
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device_before
@@ -141,22 +143,19 @@ void PhyMotionControl::init_device()
 	get_device_property();
 	
 	/*----- PROTECTED REGION ID(PhyMotionControl::init_device) ENABLED START -----*/
-	
+
+	/* close old connection */
+	if(tcp_connection!= nullptr){
+	    tcp_connection->Close();
+	    delete tcp_connection;
+	}
+	if(phymotion_command!= nullptr) delete phymotion_command;
+
 	tcp_connection = new TCP_Connection::TCPConnection(ip_addr,tcp_port);
-    tcp_connection->Open();
+	open_connection();
 
-    if(tcp_connection->getErrno()!=0) set_state(Tango::CLOSE);
-
-    switch(tcp_connection->getErrno()){
-        case TCP_Connection::ERR_CONN:
-            set_status(std::string("Error connection to server "+ip_addr+":"+std::to_string(tcp_port)+"!"));
-            return;
-            break;
-    }
-
-    set_state(Tango::OPEN);
     phymotion_command = new PhyMotionCommand(tcp_connection);
-
+    mux.unlock();
 
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device
 }
@@ -290,7 +289,16 @@ Tango::DevString PhyMotionControl::send_cmd(Tango::DevString argin)
 	/*----- PROTECTED REGION ID(PhyMotionControl::send_cmd) ENABLED START -----*/
 
 	phymotion_command->send(argin);
-	std::string data = tcp_connection->recvData();
+	std::cout << "Send\n";
+    if(tcp_connection->getErrno()==TCP_Connection::ERR_SEND){
+        set_status(std::string("Send message error!\n"));
+        return nullptr;
+    }
+    std::string data = tcp_connection->recvData();
+    if(tcp_connection->getErrno()==TCP_Connection::ERR_RECV){
+        set_status(std::string("Recevory message error!\n"));
+        return nullptr;
+    }
 	argout = new char [data.length()];
 	strcpy(argout,data.c_str());
 
@@ -308,13 +316,38 @@ void PhyMotionControl::open_connection()
 {
 	DEBUG_STREAM << "PhyMotionControl::OpenConnection()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionControl::open_connection) ENABLED START -----*/
-	
-	tcp_connection->Open();
-	if(tcp_connection->getErrno()!=0){
-        set_state(Tango::CLOSE);
-	}else{
-        set_state(Tango::OPEN);
-	}
+
+    tcp_connection->Open();
+
+    switch(tcp_connection->getErrno()){
+        case TCP_Connection::ERR_CONN:
+            set_status(std::string("Error connection to server "+ip_addr+":"+std::to_string(tcp_port)+"!"));
+            return;
+            break;
+        case TCP_Connection::ERR_SOCK:
+            set_status(std::string("Socket error!\n"));
+            return;
+            break;
+        case TCP_Connection::ERR_SERV:
+            set_status(std::string("Server error!\n"));
+            return;
+            break;
+        case TCP_Connection::ERR_SEND:
+            set_status(std::string("Send message error!\n"));
+            return;
+            break;
+        case TCP_Connection::ERR_RECV:
+            set_status(std::string("Recevory message error!\n"));
+            return;
+            break;
+    }
+
+    if(tcp_connection->getErrno()!=0){
+        set_state(Tango::FAULT);
+        return;
+    }
+
+    set_state(Tango::OPEN);
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::open_connection
 }

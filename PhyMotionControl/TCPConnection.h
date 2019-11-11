@@ -16,18 +16,21 @@
 
 namespace TCP_Connection {
     /* Errors */
-    enum{
-        ERR_SOCK,
-        ERR_SERV,
-        ERR_CONN,
-        ERR_SEND,
-        ERR_RECV
-    };
+
+    static const int8_t  ERR_OK = 0;
+    static const int8_t  ERR_SOCK = -1;
+    static const int8_t  ERR_SERV = -2;
+    static const int8_t  ERR_CONN = -3;
+    static const int8_t  ERR_SEND = -4;
+    static const int8_t  ERR_RECV = -5;
+
+
+    static const int BUFFER_SIZE=16;             //in bytes
 
 
     class TCPConnection {
     private:
-        int errorno = 0;
+        int errorno = ERR_OK;
 
 
         std::string ip_addr;

@@ -38,6 +38,8 @@ void TCPConnection::Open() {
         errorno = ERR_CONN;
         return;
     }
+
+    errorno = ERR_OK;
 }
 
 void TCPConnection::Close() {
@@ -57,10 +59,10 @@ int TCPConnection::sendData(std::string data) {
 
 std::string TCPConnection::recvData() {
     std::string out_data;
-    char buffer[32];
+    char buffer[BUFFER_SIZE];
     int size;
     while(size>0){
-        size=recv(sockfd,buffer,32,0);
+        size=recv(sockfd,buffer,BUFFER_SIZE,0);
         out_data.append(buffer);
     }
     if(size<0){

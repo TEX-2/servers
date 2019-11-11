@@ -35,6 +35,7 @@
 #define PhyMotionControl_H
 
 #include <tango.h>
+#include <mutex>
 
 #include "TCPConnection.h"
 #include "PhyMotionCommand.h"
@@ -60,6 +61,7 @@ class PhyMotionControl : public TANGO_BASE_CLASS
 /*----- PROTECTED REGION ID(PhyMotionControl::Data Members) ENABLED START -----*/
 
 private:
+    std::mutex mux;
     TCP_Connection::TCPConnection *tcp_connection;
     PhyMotionCommand *phymotion_command;
 
