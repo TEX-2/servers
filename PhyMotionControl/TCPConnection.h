@@ -7,22 +7,53 @@
 
 #include <iostream>
 #include <string>
+#include <strings.h>
+#include <stdio.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <unistd.h>
 
-class TCPConnection {
-private:
-    int errorno = 0;
+namespace TCP_Connection {
+    /* Errors */
+    enum{
+        ERR_SOCK,
+        ERR_SERV,
+        ERR_CONN,
+        ERR_SEND,
+        ERR_RECV
+    };
 
 
-    std::string ip_addr;
-    short int port;
+    class TCPConnection {
+    private:
+        int errorno = 0;
 
-public:
-    TCPConnection();
-    void open();
-    void close();
-    //void sendData()
-    int getErrno(void);
-};
+
+        std::string ip_addr;
+        short int port;
+
+        struct sockaddr_in serv_addr;
+        struct hostent *server;
+
+        int sockfd;
+
+    public:
+        // constructor
+        TCPConnection();
+
+        // open tcp connection
+        void Open(void);
+        // close tcp connection
+        void Close(void);
+
+        int sendData(std::string data);
+        // get Socket file descriptor
+        int getSocketFd(void){return sockfd;}
+        // get Error number
+        int getErrno(void) {return errorno;}
+    };
+}
 
 
 #endif //PHYMOTIONCONTROL_TCPCONNECTION_H
