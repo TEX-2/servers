@@ -49,6 +49,7 @@ namespace TCP_Connection {
 
         int sendData(std::string data);
         // get Socket file descriptor
+        std::string recvData(void);
         int getSocketFd(void){return sockfd;}
         // get Error number
         int getErrno(void) {return errorno;}

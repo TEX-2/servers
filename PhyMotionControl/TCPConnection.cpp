@@ -14,7 +14,7 @@ TCPConnection::TCPConnection() {
 
 void TCPConnection::Open() {
     if(errorno!=0) return;
-    
+
     sockfd = socket(AF_INET,SOCK_STREAM,0);
     if(sockfd < 0){
         errorno = ERR_SOCK;
@@ -47,5 +47,17 @@ void TCPConnection::Close() {
 int TCPConnection::sendData(std::string data) {
     int size = 0;
     size = send(sockfd,data.c_str(),data.length(),0);
+    if(size<0){
+        errorno = ERR_SEND;
+    }
     return size;
+}
+
+std::string TCPConnection::recvData() {
+    std::string out_data;
+    char buffer[32];
+    while(recv(sockfd,buffer,32,0)!=0){
+        out_data.append(buffer);
+    }
+    return out_data;
 }
