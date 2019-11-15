@@ -289,7 +289,6 @@ Tango::DevString PhyMotionControl::send_cmd(Tango::DevString argin)
 	/*----- PROTECTED REGION ID(PhyMotionControl::send_cmd) ENABLED START -----*/
 
 	phymotion_command->send(argin);
-	std::cout << "Send\n";
     if(tcp_connection->getErrno()==TCP_Connection::ERR_SEND){
         set_status(std::string("Send message error!\n"));
         return nullptr;
