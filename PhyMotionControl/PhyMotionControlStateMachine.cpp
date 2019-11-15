@@ -98,6 +98,21 @@ bool PhyMotionControl::is_CloseConnection_allowed(TANGO_UNUSED(const CORBA::Any 
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionControl::is_ResetDevice_allowed()
+ *	Description : Execution allowed for ResetDevice attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionControl::is_ResetDevice_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for ResetDevice command.
+	/*----- PROTECTED REGION ID(PhyMotionControl::ResetDeviceStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::ResetDeviceStateAllowed
+	return true;
+}
+
 
 /*----- PROTECTED REGION ID(PhyMotionControl::PhyMotionControlStateAllowed.AdditionalMethods) ENABLED START -----*/
 

@@ -172,6 +172,13 @@ public:
 	 */
 	virtual void close_connection();
 	virtual bool is_CloseConnection_allowed(const CORBA::Any &any);
+	/**
+	 *	Command ResetDevice related method
+	 *	Description: 
+	 *
+	 */
+	virtual void reset_device();
+	virtual bool is_ResetDevice_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

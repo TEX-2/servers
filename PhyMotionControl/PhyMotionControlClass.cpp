@@ -204,6 +204,24 @@ CORBA::Any *CloseConnectionClass::execute(Tango::DeviceImpl *device, TANGO_UNUSE
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		ResetDeviceClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *ResetDeviceClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "ResetDeviceClass::execute(): arrived" << endl;
+	((static_cast<PhyMotionControl *>(device))->reset_device());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -478,6 +496,15 @@ void PhyMotionControlClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pCloseConnectionCmd);
+
+	//	Command ResetDevice
+	ResetDeviceClass	*pResetDeviceCmd =
+		new ResetDeviceClass("ResetDevice",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pResetDeviceCmd);
 
 	/*----- PROTECTED REGION ID(PhyMotionControlClass::command_factory_after) ENABLED START -----*/
 	

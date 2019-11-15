@@ -124,6 +124,29 @@ public:
 	{return (static_cast<PhyMotionControl *>(dev))->is_CloseConnection_allowed(any);}
 };
 
+//	Command ResetDevice class definition
+class ResetDeviceClass : public Tango::Command
+{
+public:
+	ResetDeviceClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	ResetDeviceClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~ResetDeviceClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PhyMotionControl *>(dev))->is_ResetDevice_allowed(any);}
+};
+
 
 /**
  *	The PhyMotionControlClass singleton definition

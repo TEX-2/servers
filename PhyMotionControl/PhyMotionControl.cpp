@@ -56,6 +56,7 @@
 //  SendCMD          |  send_cmd
 //  OpenConnection   |  open_connection
 //  CloseConnection  |  close_connection
+//  ResetDevice      |  reset_device
 //================================================================
 
 //================================================================
@@ -132,8 +133,6 @@ void PhyMotionControl::init_device()
 	DEBUG_STREAM << "PhyMotionControl::init_device() create device " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionControl::init_device_before) ENABLED START -----*/
 
-	//mux.lock();
-
 	//	Initialization before get_device_property() call
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device_before
@@ -152,10 +151,9 @@ void PhyMotionControl::init_device()
 	if(phymotion_command!= nullptr) delete phymotion_command;
 
 	tcp_connection = new TCP_Connection::TCPConnection(ip_addr,tcp_port);
-	//open_connection();
+	open_connection();
 
     phymotion_command = new PhyMotionCommand(tcp_connection);
-    //mux.unlock();
 
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device
 }
@@ -369,6 +367,22 @@ void PhyMotionControl::close_connection()
 }
 //--------------------------------------------------------
 /**
+ *	Command ResetDevice related method
+ *	Description: 
+ *
+ */
+//--------------------------------------------------------
+void PhyMotionControl::reset_device()
+{
+	DEBUG_STREAM << "PhyMotionControl::ResetDevice()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PhyMotionControl::reset_device) ENABLED START -----*/
+	
+	send_cmd("@CR");
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::reset_device
+}
+//--------------------------------------------------------
+/**
  *	Method      : PhyMotionControl::add_dynamic_commands()
  *	Description : Create the dynamic commands if any
  *                for specified device.
@@ -386,6 +400,21 @@ void PhyMotionControl::add_dynamic_commands()
 /*----- PROTECTED REGION ID(PhyMotionControl::namespace_ending) ENABLED START -----*/
 
 //	Additional Methods
+// //--------------------------------------------------------
+// /**
+//  *	Command ResetErrorFlags related method
+//  *	Description: 
+//  *
+//  */
+// //--------------------------------------------------------
+// void PhyMotionControl::reset_error_flags()
+// {
+// 	DEBUG_STREAM << "PhyMotionControl::ResetErrorFlags()  - " << device_name << endl;
+// 	
+// 	//	Add your own code
+// 	
+// }
+
 
 /*----- PROTECTED REGION END -----*/	//	PhyMotionControl::namespace_ending
 } //	namespace
