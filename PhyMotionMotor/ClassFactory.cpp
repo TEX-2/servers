@@ -1,4 +1,4 @@
-/*----- PROTECTED REGION ID(PhyMotionotor::ClassFactory.cpp) ENABLED START -----*/
+/*----- PROTECTED REGION ID(PhyMotionMotor::ClassFactory.cpp) ENABLED START -----*/
 //=============================================================================
 //
 // file :        ClassFactory.cpp
@@ -34,18 +34,18 @@
 //=============================================================================
 
 #include <tango.h>
-#include <PhyMotionotorClass.h>
+#include <PhyMotionMotorClass.h>
 
 //	Add class header files if needed
 
 
 /**
- *	Create PhyMotionotor Class singleton and store it in DServer object.
+ *	Create PhyMotionMotor Class singleton and store it in DServer object.
  */
 
 void Tango::DServer::class_factory()
 {
 	//	Add method class init if needed
-	add_class(PhyMotionotor_ns::PhyMotionotorClass::init("PhyMotionotor"));
+	add_class(PhyMotionMotor_ns::PhyMotionMotorClass::init("PhyMotionMotor"));
 }
-/*----- PROTECTED REGION END -----*/	//	PhyMotionotor::ClassFactory.cpp
+/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::ClassFactory.cpp

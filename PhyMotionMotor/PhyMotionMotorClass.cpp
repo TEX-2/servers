@@ -1,13 +1,13 @@
-/*----- PROTECTED REGION ID(PhyMotionotorClass.cpp) ENABLED START -----*/
+/*----- PROTECTED REGION ID(PhyMotionMotorClass.cpp) ENABLED START -----*/
 //=============================================================================
 //
-// file :        PhyMotionotorClass.cpp
+// file :        PhyMotionMotorClass.cpp
 //
-// description : C++ source for the PhyMotionotorClass.
+// description : C++ source for the PhyMotionMotorClass.
 //               A singleton class derived from DeviceClass.
 //               It implements the command and attribute list
 //               and all properties and methods required
-//               by the PhyMotionotor once per process.
+//               by the PhyMotionMotor once per process.
 //
 // project :     
 //
@@ -35,13 +35,13 @@
 //=============================================================================
 
 
-#include <PhyMotionotorClass.h>
+#include <PhyMotionMotorClass.h>
 
-/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass.cpp
+/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass.cpp
 
 //-------------------------------------------------------------------
 /**
- *	Create PhyMotionotorClass singleton and
+ *	Create PhyMotionMotorClass singleton and
  *	return it in a C function for Python usage
  */
 //-------------------------------------------------------------------
@@ -52,50 +52,50 @@ __declspec(dllexport)
 
 #endif
 
-	Tango::DeviceClass *_create_PhyMotionotor_class(const char *name) {
-		return PhyMotionotor_ns::PhyMotionotorClass::init(name);
+	Tango::DeviceClass *_create_PhyMotionMotor_class(const char *name) {
+		return PhyMotionMotor_ns::PhyMotionMotorClass::init(name);
 	}
 }
 
-namespace PhyMotionotor_ns
+namespace PhyMotionMotor_ns
 {
 //===================================================================
 //	Initialize pointer for singleton pattern
 //===================================================================
-PhyMotionotorClass *PhyMotionotorClass::_instance = NULL;
+PhyMotionMotorClass *PhyMotionMotorClass::_instance = NULL;
 
 //--------------------------------------------------------
 /**
- * method : 		PhyMotionotorClass::PhyMotionotorClass(string &s)
- * description : 	constructor for the PhyMotionotorClass
+ * method : 		PhyMotionMotorClass::PhyMotionMotorClass(string &s)
+ * description : 	constructor for the PhyMotionMotorClass
  *
  * @param s	The class name
  */
 //--------------------------------------------------------
-PhyMotionotorClass::PhyMotionotorClass(string &s):Tango::DeviceClass(s)
+PhyMotionMotorClass::PhyMotionMotorClass(string &s):Tango::DeviceClass(s)
 {
-	cout2 << "Entering PhyMotionotorClass constructor" << endl;
+	cout2 << "Entering PhyMotionMotorClass constructor" << endl;
 	set_default_property();
 	write_class_property();
 
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::constructor) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::constructor) ENABLED START -----*/
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::constructor
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::constructor
 
-	cout2 << "Leaving PhyMotionotorClass constructor" << endl;
+	cout2 << "Leaving PhyMotionMotorClass constructor" << endl;
 }
 
 //--------------------------------------------------------
 /**
- * method : 		PhyMotionotorClass::~PhyMotionotorClass()
- * description : 	destructor for the PhyMotionotorClass
+ * method : 		PhyMotionMotorClass::~PhyMotionMotorClass()
+ * description : 	destructor for the PhyMotionMotorClass
  */
 //--------------------------------------------------------
-PhyMotionotorClass::~PhyMotionotorClass()
+PhyMotionMotorClass::~PhyMotionMotorClass()
 {
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::destructor) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::destructor) ENABLED START -----*/
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::destructor
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::destructor
 
 	_instance = NULL;
 }
@@ -103,21 +103,21 @@ PhyMotionotorClass::~PhyMotionotorClass()
 
 //--------------------------------------------------------
 /**
- * method : 		PhyMotionotorClass::init
+ * method : 		PhyMotionMotorClass::init
  * description : 	Create the object if not already done.
  *                  Otherwise, just return a pointer to the object
  *
  * @param	name	The class name
  */
 //--------------------------------------------------------
-PhyMotionotorClass *PhyMotionotorClass::init(const char *name)
+PhyMotionMotorClass *PhyMotionMotorClass::init(const char *name)
 {
 	if (_instance == NULL)
 	{
 		try
 		{
 			string s(name);
-			_instance = new PhyMotionotorClass(s);
+			_instance = new PhyMotionMotorClass(s);
 		}
 		catch (bad_alloc &)
 		{
@@ -129,12 +129,12 @@ PhyMotionotorClass *PhyMotionotorClass::init(const char *name)
 
 //--------------------------------------------------------
 /**
- * method : 		PhyMotionotorClass::instance
+ * method : 		PhyMotionMotorClass::instance
  * description : 	Check if object already created,
  *                  and return a pointer to the object
  */
 //--------------------------------------------------------
-PhyMotionotorClass *PhyMotionotorClass::instance()
+PhyMotionMotorClass *PhyMotionMotorClass::instance()
 {
 	if (_instance == NULL)
 	{
@@ -149,17 +149,35 @@ PhyMotionotorClass *PhyMotionotorClass::instance()
 //===================================================================
 //	Command execution method calls
 //===================================================================
+//--------------------------------------------------------
+/**
+ * method : 		StopClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *StopClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "StopClass::execute(): arrived" << endl;
+	((static_cast<PhyMotionMotor *>(device))->stop());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
 //===================================================================
 //--------------------------------------------------------
 /**
- *	Method      : PhyMotionotorClass::get_class_property()
+ *	Method      : PhyMotionMotorClass::get_class_property()
  *	Description : Get the class property for specified name.
  */
 //--------------------------------------------------------
-Tango::DbDatum PhyMotionotorClass::get_class_property(string &prop_name)
+Tango::DbDatum PhyMotionMotorClass::get_class_property(string &prop_name)
 {
 	for (unsigned int i=0 ; i<cl_prop.size() ; i++)
 		if (cl_prop[i].name == prop_name)
@@ -170,11 +188,11 @@ Tango::DbDatum PhyMotionotorClass::get_class_property(string &prop_name)
 
 //--------------------------------------------------------
 /**
- *	Method      : PhyMotionotorClass::get_default_device_property()
+ *	Method      : PhyMotionMotorClass::get_default_device_property()
  *	Description : Return the default value for device property.
  */
 //--------------------------------------------------------
-Tango::DbDatum PhyMotionotorClass::get_default_device_property(string &prop_name)
+Tango::DbDatum PhyMotionMotorClass::get_default_device_property(string &prop_name)
 {
 	for (unsigned int i=0 ; i<dev_def_prop.size() ; i++)
 		if (dev_def_prop[i].name == prop_name)
@@ -185,11 +203,11 @@ Tango::DbDatum PhyMotionotorClass::get_default_device_property(string &prop_name
 
 //--------------------------------------------------------
 /**
- *	Method      : PhyMotionotorClass::get_default_class_property()
+ *	Method      : PhyMotionMotorClass::get_default_class_property()
  *	Description : Return the default value for class property.
  */
 //--------------------------------------------------------
-Tango::DbDatum PhyMotionotorClass::get_default_class_property(string &prop_name)
+Tango::DbDatum PhyMotionMotorClass::get_default_class_property(string &prop_name)
 {
 	for (unsigned int i=0 ; i<cl_def_prop.size() ; i++)
 		if (cl_def_prop[i].name == prop_name)
@@ -201,14 +219,14 @@ Tango::DbDatum PhyMotionotorClass::get_default_class_property(string &prop_name)
 
 //--------------------------------------------------------
 /**
- *	Method      : PhyMotionotorClass::set_default_property()
+ *	Method      : PhyMotionMotorClass::set_default_property()
  *	Description : Set default property (class and device) for wizard.
  *                For each property, add to wizard property name and description.
  *                If default value has been set, add it to wizard property and
  *                store it in a DbDatum.
  */
 //--------------------------------------------------------
-void PhyMotionotorClass::set_default_property()
+void PhyMotionMotorClass::set_default_property()
 {
 	string	prop_name;
 	string	prop_desc;
@@ -218,15 +236,71 @@ void PhyMotionotorClass::set_default_property()
 	//	Set Default Class Properties
 
 	//	Set Default device Properties
+	prop_name = "control_device";
+	prop_desc = "just path to device of PhyMotionControl";
+	prop_def  = "device/PhyMOTION/control";
+	vect_data.clear();
+	vect_data.push_back("device/PhyMOTION/control");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "module";
+	prop_desc = "number of module";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "axis";
+	prop_desc = "number of axis";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "address";
+	prop_desc = "just address: 0-9,A-F or @ - for all";
+	prop_def  = "@";
+	vect_data.clear();
+	vect_data.push_back("@");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 }
 
 //--------------------------------------------------------
 /**
- *	Method      : PhyMotionotorClass::write_class_property()
+ *	Method      : PhyMotionMotorClass::write_class_property()
  *	Description : Set class description fields as property in database
  */
 //--------------------------------------------------------
-void PhyMotionotorClass::write_class_property()
+void PhyMotionMotorClass::write_class_property()
 {
 	//	First time, check if database used
 	if (Tango::Util::_UseDb == false)
@@ -267,24 +341,24 @@ void PhyMotionotorClass::write_class_property()
 
 //--------------------------------------------------------
 /**
- *	Method      : PhyMotionotorClass::device_factory()
+ *	Method      : PhyMotionMotorClass::device_factory()
  *	Description : Create the device object(s)
  *                and store them in the device list
  */
 //--------------------------------------------------------
-void PhyMotionotorClass::device_factory(const Tango::DevVarStringArray *devlist_ptr)
+void PhyMotionMotorClass::device_factory(const Tango::DevVarStringArray *devlist_ptr)
 {
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::device_factory_before) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::device_factory_before) ENABLED START -----*/
 	
 	//	Add your own code
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::device_factory_before
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::device_factory_before
 
 	//	Create devices and add it into the device list
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
 	{
 		cout4 << "Device name : " << (*devlist_ptr)[i].in() << endl;
-		device_list.push_back(new PhyMotionotor(this, (*devlist_ptr)[i]));
+		device_list.push_back(new PhyMotionMotor(this, (*devlist_ptr)[i]));
 	}
 
 	//	Manage dynamic attributes if any
@@ -294,7 +368,7 @@ void PhyMotionotorClass::device_factory(const Tango::DevVarStringArray *devlist_
 	for (unsigned long i=1 ; i<=devlist_ptr->length() ; i++)
 	{
 		//	Add dynamic attributes if any
-		PhyMotionotor *dev = static_cast<PhyMotionotor *>(device_list[device_list.size()-i]);
+		PhyMotionMotor *dev = static_cast<PhyMotionMotor *>(device_list[device_list.size()-i]);
 		dev->add_dynamic_attributes();
 
 		//	Check before if database used.
@@ -304,76 +378,133 @@ void PhyMotionotorClass::device_factory(const Tango::DevVarStringArray *devlist_
 			export_device(dev, dev->get_name().c_str());
 	}
 
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::device_factory_after) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::device_factory_after) ENABLED START -----*/
 	
 	//	Add your own code
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::device_factory_after
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::device_factory_after
 }
 //--------------------------------------------------------
 /**
- *	Method      : PhyMotionotorClass::attribute_factory()
+ *	Method      : PhyMotionMotorClass::attribute_factory()
  *	Description : Create the attribute object(s)
  *                and store them in the attribute list
  */
 //--------------------------------------------------------
-void PhyMotionotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
+void PhyMotionMotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 {
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::attribute_factory_before) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::attribute_factory_before) ENABLED START -----*/
 	
 	//	Add your own code
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::attribute_factory_before
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::attribute_factory_before
+	//	Attribute : position
+	positionAttrib	*position = new positionAttrib();
+	Tango::UserDefaultAttrProp	position_prop;
+	position_prop.set_description("For read - this is P20 parameter - mechanical zero counter");
+	position_prop.set_label("Position");
+	//	unit	not set for position
+	//	standard_unit	not set for position
+	//	display_unit	not set for position
+	//	format	not set for position
+	//	max_value	not set for position
+	//	min_value	not set for position
+	//	max_alarm	not set for position
+	//	min_alarm	not set for position
+	//	max_warning	not set for position
+	//	min_warning	not set for position
+	//	delta_t	not set for position
+	//	delta_val	not set for position
+	
+	position->set_default_properties(position_prop);
+	//	Not Polled
+	position->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(position);
+
+	//	Attribute : absolute_counter
+	absolute_counterAttrib	*absolute_counter = new absolute_counterAttrib();
+	Tango::UserDefaultAttrProp	absolute_counter_prop;
+	absolute_counter_prop.set_description("P21 Reading");
+	absolute_counter_prop.set_label("Absolute counter");
+	//	unit	not set for absolute_counter
+	//	standard_unit	not set for absolute_counter
+	//	display_unit	not set for absolute_counter
+	//	format	not set for absolute_counter
+	//	max_value	not set for absolute_counter
+	//	min_value	not set for absolute_counter
+	//	max_alarm	not set for absolute_counter
+	//	min_alarm	not set for absolute_counter
+	//	max_warning	not set for absolute_counter
+	//	min_warning	not set for absolute_counter
+	//	delta_t	not set for absolute_counter
+	//	delta_val	not set for absolute_counter
+	
+	absolute_counter->set_default_properties(absolute_counter_prop);
+	//	Not Polled
+	absolute_counter->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(absolute_counter);
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::attribute_factory_after) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::attribute_factory_after) ENABLED START -----*/
 	
 	//	Add your own code
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::attribute_factory_after
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::attribute_factory_after
 }
 //--------------------------------------------------------
 /**
- *	Method      : PhyMotionotorClass::pipe_factory()
+ *	Method      : PhyMotionMotorClass::pipe_factory()
  *	Description : Create the pipe object(s)
  *                and store them in the pipe list
  */
 //--------------------------------------------------------
-void PhyMotionotorClass::pipe_factory()
+void PhyMotionMotorClass::pipe_factory()
 {
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::pipe_factory_before) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::pipe_factory_before) ENABLED START -----*/
 	
 	//	Add your own code
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::pipe_factory_before
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::pipe_factory_after) ENABLED START -----*/
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::pipe_factory_before
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::pipe_factory_after) ENABLED START -----*/
 	
 	//	Add your own code
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::pipe_factory_after
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::pipe_factory_after
 }
 //--------------------------------------------------------
 /**
- *	Method      : PhyMotionotorClass::command_factory()
+ *	Method      : PhyMotionMotorClass::command_factory()
  *	Description : Create the command object(s)
  *                and store them in the command list
  */
 //--------------------------------------------------------
-void PhyMotionotorClass::command_factory()
+void PhyMotionMotorClass::command_factory()
 {
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::command_factory_before) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::command_factory_before) ENABLED START -----*/
 	
 	//	Add your own code
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::command_factory_before
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::command_factory_before
 
 
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::command_factory_after) ENABLED START -----*/
+	//	Command Stop
+	StopClass	*pStopCmd =
+		new StopClass("Stop",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pStopCmd);
+
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::command_factory_after) ENABLED START -----*/
 	
 	//	Add your own code
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::command_factory_after
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::command_factory_after
 }
 
 //===================================================================
@@ -382,13 +513,13 @@ void PhyMotionotorClass::command_factory()
 
 //--------------------------------------------------------
 /**
- * method : 		PhyMotionotorClass::create_static_attribute_list
+ * method : 		PhyMotionMotorClass::create_static_attribute_list
  * description : 	Create the a list of static attributes
  *
  * @param	att_list	the ceated attribute list
  */
 //--------------------------------------------------------
-void PhyMotionotorClass::create_static_attribute_list(vector<Tango::Attr *> &att_list)
+void PhyMotionMotorClass::create_static_attribute_list(vector<Tango::Attr *> &att_list)
 {
 	for (unsigned long i=0 ; i<att_list.size() ; i++)
 	{
@@ -399,29 +530,29 @@ void PhyMotionotorClass::create_static_attribute_list(vector<Tango::Attr *> &att
 
 	cout2 << defaultAttList.size() << " attributes in default list" << endl;
 
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::create_static_att_list) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::create_static_att_list) ENABLED START -----*/
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::create_static_att_list
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::create_static_att_list
 }
 
 
 //--------------------------------------------------------
 /**
- * method : 		PhyMotionotorClass::erase_dynamic_attributes
+ * method : 		PhyMotionMotorClass::erase_dynamic_attributes
  * description : 	delete the dynamic attributes if any.
  *
  * @param	devlist_ptr	the device list pointer
  * @param	list of all attributes
  */
 //--------------------------------------------------------
-void PhyMotionotorClass::erase_dynamic_attributes(const Tango::DevVarStringArray *devlist_ptr, vector<Tango::Attr *> &att_list)
+void PhyMotionMotorClass::erase_dynamic_attributes(const Tango::DevVarStringArray *devlist_ptr, vector<Tango::Attr *> &att_list)
 {
 	Tango::Util *tg = Tango::Util::instance();
 
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
 	{
 		Tango::DeviceImpl *dev_impl = tg->get_device_by_name(((string)(*devlist_ptr)[i]).c_str());
-		PhyMotionotor *dev = static_cast<PhyMotionotor *> (dev_impl);
+		PhyMotionMotor *dev = static_cast<PhyMotionMotor *> (dev_impl);
 
 		vector<Tango::Attribute *> &dev_att_list = dev->get_device_attr()->get_attribute_list();
 		vector<Tango::Attribute *>::iterator ite_att;
@@ -440,18 +571,18 @@ void PhyMotionotorClass::erase_dynamic_attributes(const Tango::DevVarStringArray
 			}
 		}
 	}
-	/*----- PROTECTED REGION ID(PhyMotionotorClass::erase_dynamic_attributes) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(PhyMotionMotorClass::erase_dynamic_attributes) ENABLED START -----*/
 	
-	/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::erase_dynamic_attributes
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::erase_dynamic_attributes
 }
 
 //--------------------------------------------------------
 /**
- *	Method      : PhyMotionotorClass::get_attr_by_name()
+ *	Method      : PhyMotionMotorClass::get_attr_by_name()
  *	Description : returns Tango::Attr * object found by name
  */
 //--------------------------------------------------------
-Tango::Attr *PhyMotionotorClass::get_attr_object_by_name(vector<Tango::Attr *> &att_list, string attname)
+Tango::Attr *PhyMotionMotorClass::get_attr_object_by_name(vector<Tango::Attr *> &att_list, string attname)
 {
 	vector<Tango::Attr *>::iterator it;
 	for (it=att_list.begin() ; it<att_list.end() ; ++it)
@@ -462,7 +593,7 @@ Tango::Attr *PhyMotionotorClass::get_attr_object_by_name(vector<Tango::Attr *> &
 }
 
 
-/*----- PROTECTED REGION ID(PhyMotionotorClass::Additional Methods) ENABLED START -----*/
+/*----- PROTECTED REGION ID(PhyMotionMotorClass::Additional Methods) ENABLED START -----*/
 
-/*----- PROTECTED REGION END -----*/	//	PhyMotionotorClass::Additional Methods
+/*----- PROTECTED REGION END -----*/	//	PhyMotionMotorClass::Additional Methods
 } //	namespace

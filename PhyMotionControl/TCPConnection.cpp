@@ -10,8 +10,6 @@ using namespace TCP_Connection;
 TCPConnection::TCPConnection(std::string addr,int port) {
     ip_addr = addr;
     tcp_port = port;
-
-    //Open();   reserved
 }
 
 void TCPConnection::Open() {
