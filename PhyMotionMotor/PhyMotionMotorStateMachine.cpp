@@ -85,6 +85,22 @@ bool PhyMotionMotor::is_absolute_counter_allowed(TANGO_UNUSED(Tango::AttReqType 
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_axis_status_allowed()
+ *	Description : Execution allowed for axis_status attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_axis_status_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for axis_status attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::axis_statusStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::axis_statusStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods

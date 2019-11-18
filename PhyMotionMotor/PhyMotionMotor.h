@@ -63,6 +63,7 @@ class PhyMotionMotor : public TANGO_BASE_CLASS
 PhyMotionControlCMD *phy_motion_control_cmd = nullptr;
 std::string str_module, str_axis, str_addr_axis_module;
 std::mutex mux;
+uint32_t axis_status;
 
 /*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::Data Members
 
@@ -76,11 +77,30 @@ public:
 	Tango::DevShort	axis;
 	//	address:	just address: 0-9,A-F or @ - for all
 	string	address;
+	//	P01:	Type of movement (free run, relative/absolute, reference run)
+	//  0 = Rotation movement (ignoring limit switches)
+	//  1 = Hardware limit switches are monitored
+	//  2 = Software limit switches are monitored
+	//  3 = Hardware and sofrware limit swtiches are monitored
+	Tango::DevShort	p01;
+	//	P02:	Measuring units of movement: only used for displaying
+	//  1 = step
+	//  2 = mm
+	//  3 = inch
+	//  4 = degree
+	Tango::DevShort	p02;
+	//	P03:	Conversion factor for the thread
+	//  
+	//  Cf = therad/Number_of_steps_perrevolution
+	string	p03;
+	//	P04:	Start/Stop frequency
+	Tango::DevDouble	p04;
 
 //	Attribute data members
 public:
 	Tango::DevDouble	*attr_position_read;
 	Tango::DevDouble	*attr_absolute_counter_read;
+	Tango::DevLong	*attr_axis_status_read;
 
 //	Constructors and destructors
 public:
@@ -168,6 +188,15 @@ public:
  */
 	virtual void read_absolute_counter(Tango::Attribute &attr);
 	virtual bool is_absolute_counter_allowed(Tango::AttReqType type);
+/**
+ *	Attribute axis_status related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_axis_status(Tango::Attribute &attr);
+	virtual bool is_axis_status_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------

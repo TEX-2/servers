@@ -83,6 +83,19 @@ public:
 		{return (static_cast<PhyMotionMotor *>(dev))->is_absolute_counter_allowed(ty);}
 };
 
+//	Attribute axis_status class definition
+class axis_statusAttrib: public Tango::Attr
+{
+public:
+	axis_statusAttrib():Attr("axis_status",
+			Tango::DEV_LONG, Tango::READ) {};
+	~axis_statusAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PhyMotionMotor *>(dev))->read_axis_status(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PhyMotionMotor *>(dev))->is_axis_status_allowed(ty);}
+};
+
 
 //=========================================
 //	Define classes for commands

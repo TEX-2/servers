@@ -292,6 +292,61 @@ void PhyMotionMotorClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P01";
+	prop_desc = "Type of movement (free run, relative/absolute, reference run)\n0 = Rotation movement (ignoring limit switches)\n1 = Hardware limit switches are monitored\n2 = Software limit switches are monitored\n3 = Hardware and sofrware limit swtiches are monitored";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P02";
+	prop_desc = "Measuring units of movement: only used for displaying\n1 = step\n2 = mm\n3 = inch\n4 = degree";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P03";
+	prop_desc = "Conversion factor for the thread\n\nCf = therad/Number_of_steps_perrevolution";
+	prop_def  = "";
+	vect_data.clear();
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P04";
+	prop_desc = "Start/Stop frequency";
+	prop_def  = "400.0";
+	vect_data.clear();
+	vect_data.push_back("400.0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 }
 
 //--------------------------------------------------------
@@ -445,6 +500,30 @@ void PhyMotionMotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	absolute_counter->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(absolute_counter);
+
+	//	Attribute : axis_status
+	axis_statusAttrib	*axis_status = new axis_statusAttrib();
+	Tango::UserDefaultAttrProp	axis_status_prop;
+	//	description	not set for axis_status
+	//	label	not set for axis_status
+	//	unit	not set for axis_status
+	//	standard_unit	not set for axis_status
+	//	display_unit	not set for axis_status
+	//	format	not set for axis_status
+	//	max_value	not set for axis_status
+	//	min_value	not set for axis_status
+	//	max_alarm	not set for axis_status
+	//	min_alarm	not set for axis_status
+	//	max_warning	not set for axis_status
+	//	min_warning	not set for axis_status
+	//	delta_t	not set for axis_status
+	//	delta_val	not set for axis_status
+	
+	axis_status->set_default_properties(axis_status_prop);
+	//	Not Polled
+	axis_status->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(axis_status);
 
 
 	//	Create a list of static attributes
