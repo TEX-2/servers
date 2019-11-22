@@ -155,6 +155,8 @@ void PhyMotionControl::init_device()
 
     phymotion_command = new PhyMotionCommand(tcp_connection);
 
+    reset_device();
+
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device
 }
 

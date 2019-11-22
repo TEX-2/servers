@@ -92,9 +92,58 @@ public:
 	//	P03:	Conversion factor for the thread
 	//  
 	//  Cf = therad/Number_of_steps_perrevolution
-	string	p03;
+	Tango::DevDouble	p03;
 	//	P04:	Start/Stop frequency
 	Tango::DevDouble	p04;
+	//	P07:	Emergency stop ramp
+	//  Input for 
+	//  I1AM0x: in 4000 Hz/s steps
+	//  I4XM01: in 1Hz/steps
+	Tango::DevLong	p07;
+	//	P08:	f_max MØP
+	//  Run frequency during initilizing (referecing)
+	//  Enter in Hz (integer value)
+	//  I1AM0x: 40 000 maximum
+	//  I4XM01: 4 000 000 maximum
+	Tango::DevLong	p08;
+	//	P09:	Ramp MØP
+	//  Ramp during initializing, associated to parameter P08
+	//  Input for
+	//  I1AM0x: in 4000 Hz/s steps
+	//  I4XM01: in 1 Hz/s steps
+	Tango::DevLong	p09;
+	//	P10:	f_min MØP Run frequency for leaving the limit switch range
+	//  
+	//  Enter in Hz
+	Tango::DevLong	p10;
+	//	P11:	MØP offset for limit switch direction 
+	//  + (away from ``LIMIT+`` switch, towards ``LIMIT?`` switch)
+	//  Distance between reference point MØP and limit switch 
+	//  activation
+	//  Unit: is defined in parameter P02
+	//  P11>=0
+	Tango::DevDouble	p11;
+	//	P12:	MØP offset for limit switch direction ?(away from 
+	//  ``LIMIT?`` switch, towards ``LIMIT+`` switch)
+	//  Distance between reference point MØP and limit switch
+	//  activation
+	//  Unit: is defined in parameter P02
+	//  P12>=0
+	Tango::DevDouble	p12;
+	//	P13:	Recovery time MØP
+	//  Time lapse during initialization
+	//  Enter in msec
+	Tango::DevLong	p13;
+	//	P14:	Run frequency (max) during program operation
+	//  Enter in Hz (integer value)  
+	//  I1AM0x: 40 000 maximum
+	//  I4XM01: 4 000 000 maximum
+	Tango::DevLong	p14;
+	//	P15:	Ramp for run frequency (P14)
+	//  Input for
+	//  I1AM0x: in 4000 Hz/s steps
+	//  I4XM01: in 1 Hz/s steps
+	Tango::DevLong	p15;
 
 //	Attribute data members
 public:

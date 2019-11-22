@@ -155,6 +155,23 @@ void PhyMotionMotor::init_device()
 
 	str_addr_axis_module = address+"M"+str_module+"."+str_axis;
 
+	// init parameters
+	mux.lock();
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("01"),std::to_string(p01));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("02"),std::to_string(p02));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("03"),std::to_string(p03));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("04"),std::to_string(p04));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("07"),std::to_string(p07));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("08"),std::to_string(p08));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("09"),std::to_string(p09));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("10"),std::to_string(p10));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("11"),std::to_string(p11));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("12"),std::to_string(p12));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("13"),std::to_string(p13));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(p14));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("15"),std::to_string(p15));
+	mux.unlock();
+
 	device_state = Tango::STANDBY;
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::init_device
@@ -185,6 +202,15 @@ void PhyMotionMotor::get_device_property()
 	dev_prop.push_back(Tango::DbDatum("P02"));
 	dev_prop.push_back(Tango::DbDatum("P03"));
 	dev_prop.push_back(Tango::DbDatum("P04"));
+	dev_prop.push_back(Tango::DbDatum("P07"));
+	dev_prop.push_back(Tango::DbDatum("P08"));
+	dev_prop.push_back(Tango::DbDatum("P09"));
+	dev_prop.push_back(Tango::DbDatum("P10"));
+	dev_prop.push_back(Tango::DbDatum("P11"));
+	dev_prop.push_back(Tango::DbDatum("P12"));
+	dev_prop.push_back(Tango::DbDatum("P13"));
+	dev_prop.push_back(Tango::DbDatum("P14"));
+	dev_prop.push_back(Tango::DbDatum("P15"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -286,6 +312,105 @@ void PhyMotionMotor::get_device_property()
 		}
 		//	And try to extract P04 value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p04;
+
+		//	Try to initialize P07 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p07;
+		else {
+			//	Try to initialize P07 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p07;
+		}
+		//	And try to extract P07 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p07;
+
+		//	Try to initialize P08 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p08;
+		else {
+			//	Try to initialize P08 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p08;
+		}
+		//	And try to extract P08 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p08;
+
+		//	Try to initialize P09 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p09;
+		else {
+			//	Try to initialize P09 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p09;
+		}
+		//	And try to extract P09 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p09;
+
+		//	Try to initialize P10 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p10;
+		else {
+			//	Try to initialize P10 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p10;
+		}
+		//	And try to extract P10 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p10;
+
+		//	Try to initialize P11 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p11;
+		else {
+			//	Try to initialize P11 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p11;
+		}
+		//	And try to extract P11 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p11;
+
+		//	Try to initialize P12 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p12;
+		else {
+			//	Try to initialize P12 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p12;
+		}
+		//	And try to extract P12 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p12;
+
+		//	Try to initialize P13 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p13;
+		else {
+			//	Try to initialize P13 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p13;
+		}
+		//	And try to extract P13 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p13;
+
+		//	Try to initialize P14 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p14;
+		else {
+			//	Try to initialize P14 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p14;
+		}
+		//	And try to extract P14 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p14;
+
+		//	Try to initialize P15 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p15;
+		else {
+			//	Try to initialize P15 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p15;
+		}
+		//	And try to extract P15 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p15;
 
 	}
 
@@ -447,7 +572,9 @@ void PhyMotionMotor::read_axis_status(Tango::Attribute &attr)
 	axis_status = value & 0x1ffffff;
 	*attr_axis_status_read = axis_status;
 	attr.set_value(attr_axis_status_read);
-	
+
+   //if(axis_status & 1)
+
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_axis_status
 }
 
@@ -504,6 +631,57 @@ void PhyMotionMotor::add_dynamic_commands()
 /*----- PROTECTED REGION ID(PhyMotionMotor::namespace_ending) ENABLED START -----*/
 
 //	Additional Methods
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute limit_switch_m related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void PhyMotionMotor::read_limit_switch_m(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "PhyMotionMotor::read_limit_switch_m(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_limit_switch_m_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute limit_switch_c related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void PhyMotionMotor::read_limit_switch_c(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "PhyMotionMotor::read_limit_switch_c(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_limit_switch_c_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute limit_switch_p related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void PhyMotionMotor::read_limit_switch_p(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "PhyMotionMotor::read_limit_switch_p(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_limit_switch_p_read);
+// 	
+// }
+
 
 /*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::namespace_ending
 } //	namespace

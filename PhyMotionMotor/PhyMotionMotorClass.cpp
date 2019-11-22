@@ -322,8 +322,9 @@ void PhyMotionMotorClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "P03";
 	prop_desc = "Conversion factor for the thread\n\nCf = therad/Number_of_steps_perrevolution";
-	prop_def  = "";
+	prop_def  = "1.0";
 	vect_data.clear();
+	vect_data.push_back("1.0");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -338,6 +339,132 @@ void PhyMotionMotorClass::set_default_property()
 	prop_def  = "400.0";
 	vect_data.clear();
 	vect_data.push_back("400.0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P07";
+	prop_desc = "Emergency stop ramp\nInput for \nI1AM0x: in 4000 Hz/s steps\nI4XM01: in 1Hz/steps";
+	prop_def  = "100000";
+	vect_data.clear();
+	vect_data.push_back("100000");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P08";
+	prop_desc = "f_max MØP\nRun frequency during initilizing (referecing)\nEnter in Hz (integer value)\nI1AM0x: 40 000 maximum\nI4XM01: 4 000 000 maximum";
+	prop_def  = "4000";
+	vect_data.clear();
+	vect_data.push_back("4000");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P09";
+	prop_desc = "Ramp MØP\nRamp during initializing, associated to parameter P08\nInput for\nI1AM0x: in 4000 Hz/s steps\nI4XM01: in 1 Hz/s steps";
+	prop_def  = "4000";
+	vect_data.clear();
+	vect_data.push_back("4000");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P10";
+	prop_desc = "f_min MØP Run frequency for leaving the limit switch range\n\nEnter in Hz";
+	prop_def  = "400";
+	vect_data.clear();
+	vect_data.push_back("400");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P11";
+	prop_desc = "MØP offset for limit switch direction \n+ (away from ``LIMIT+`` switch, towards ``LIMIT?`` switch)\nDistance between reference point MØP and limit switch \nactivation\nUnit: is defined in parameter P02\nP11>=0";
+	prop_def  = "0.0";
+	vect_data.clear();
+	vect_data.push_back("0.0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P12";
+	prop_desc = "MØP offset for limit switch direction ?(away from \n``LIMIT?`` switch, towards ``LIMIT+`` switch)\nDistance between reference point MØP and limit switch\nactivation\nUnit: is defined in parameter P02\nP12>=0";
+	prop_def  = "0.0";
+	vect_data.clear();
+	vect_data.push_back("0.0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P13";
+	prop_desc = "Recovery time MØP\nTime lapse during initialization\nEnter in msec";
+	prop_def  = "20";
+	vect_data.clear();
+	vect_data.push_back("20");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P14";
+	prop_desc = "Run frequency (max) during program operation\nEnter in Hz (integer value)  \nI1AM0x: 40 000 maximum\nI4XM01: 4 000 000 maximum";
+	prop_def  = "4000";
+	vect_data.clear();
+	vect_data.push_back("4000");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P15";
+	prop_desc = "Ramp for run frequency (P14)\nInput for\nI1AM0x: in 4000 Hz/s steps\nI4XM01: in 1 Hz/s steps";
+	prop_def  = "100";
+	vect_data.clear();
+	vect_data.push_back("100");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);

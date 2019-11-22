@@ -14,9 +14,13 @@ public:
     PhyMotionControlCMD(std::string path_cotrol_device);
     ~PhyMotionControlCMD();
     std::string sendCMD(std::string arg);
-private:
 
+    void setParameter(std::string str_addr_axis, std::string param, std::string value, bool force_if);
+    void setParameter(std::string str_addr_axis, std::string param, std::string value){setParameter(str_addr_axis, param, value, false);}
+
+private:
     Tango::DeviceProxy *proxy_control_device;
+
 };
 
 

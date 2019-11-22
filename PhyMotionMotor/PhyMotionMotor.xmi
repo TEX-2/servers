@@ -36,13 +36,59 @@
       <DefaultPropValue>1</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="P03" description="Conversion factor for the thread&#xA;&#xA;Cf = therad/Number_of_steps_perrevolution">
-      <type xsi:type="pogoDsl:StringType"/>
+      <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>1.0</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="P04" description="Start/Stop frequency">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>400.0</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="P07" description="Emergency stop ramp&#xA;Input for &#xA;I1AM0x: in 4000 Hz/s steps&#xA;I4XM01: in 1Hz/steps">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>100000</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="P08" description="f_max M&#xd8;P&#xA;Run frequency during initilizing (referecing)&#xA;Enter in Hz (integer value)&#xA;I1AM0x: 40 000 maximum&#xA;I4XM01: 4 000 000 maximum">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>4000</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="P09" description="Ramp M&#xd8;P&#xA;Ramp during initializing, associated to parameter P08&#xA;Input for&#xA;I1AM0x: in 4000 Hz/s steps&#xA;I4XM01: in 1 Hz/s steps">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>4000</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="P10" description="f_min M&#xd8;P Run frequency for leaving the limit switch range&#xA;&#xA;Enter in Hz">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>400</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="P11" description="M&#xd8;P offset for limit switch direction &#xA;+ (away from ``LIMIT+`` switch, towards ``LIMIT&#x2013;`` switch)&#xA;Distance between reference point M&#xd8;P and limit switch &#xA;activation&#xA;Unit: is defined in parameter P02&#xA;P11>=0">
+      <type xsi:type="pogoDsl:DoubleType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>0.0</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="P12" description="M&#xd8;P offset for limit switch direction &#x2013;(away from &#xA;``LIMIT&#x2013;`` switch, towards ``LIMIT+`` switch)&#xA;Distance between reference point M&#xd8;P and limit switch&#xA;activation&#xA;Unit: is defined in parameter P02&#xA;P12>=0">
+      <type xsi:type="pogoDsl:DoubleType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>0.0</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="P13" description="Recovery time M&#xd8;P&#xA;Time lapse during initialization&#xA;Enter in msec">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>20</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="P14" description="Run frequency (max) during program operation&#xA;Enter in Hz (integer value)  &#xA;I1AM0x: 40 000 maximum&#xA;I4XM01: 4 000 000 maximum">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>4000</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="P15" description="Ramp for run frequency (P14)&#xA;Input for&#xA;I1AM0x: in 4000 Hz/s steps&#xA;I4XM01: in 1 Hz/s steps">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>100</DefaultPropValue>
     </deviceProperties>
     <commands name="State" description="This command gets the device state (stored in its device_state data member) and returns it to the caller." execMethod="dev_state" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="none">

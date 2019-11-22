@@ -23,6 +23,8 @@ std::string PhyMotionControlCMD::sendCMD(std::string str_arg){
     strcpy(arg,str_arg.c_str());
     argins << arg;
 
+    //std::cout << "DEBUG: sendCMD("+str_arg+");\n";
+
     Tango::DeviceData reply = proxy_control_device->command_inout("sendCMD",argins);
 
     reply >> raw_data;
@@ -36,4 +38,14 @@ std::string PhyMotionControlCMD::sendCMD(std::string str_arg){
 
     delete [] arg;
     return retval;
+}
+
+void PhyMotionControlCMD::setParameter(std::string str_addr_axis,std::string param,std::string value, bool force_if){
+    std::string response;
+    if(!force_if){
+        response = sendCMD(str_addr_axis+"P"+param+"R");            // @1.1P01R     for example
+        if(response.compare(value)==0) return;
+    }
+    sendCMD(str_addr_axis+"P"+param+"S"+value);                     // @1.1P01S1
+    return;
 }
