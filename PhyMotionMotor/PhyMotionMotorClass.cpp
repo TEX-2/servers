@@ -167,6 +167,64 @@ CORBA::Any *StopClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const COR
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		ResetStatusClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *ResetStatusClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "ResetStatusClass::execute(): arrived" << endl;
+	((static_cast<PhyMotionMotor *>(device))->reset_status());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		SetMechanicalZeroCounterClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *SetMechanicalZeroCounterClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "SetMechanicalZeroCounterClass::execute(): arrived" << endl;
+	Tango::DevDouble argin;
+	extract(in_any, argin);
+	((static_cast<PhyMotionMotor *>(device))->set_mechanical_zero_counter(argin));
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		goToClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *goToClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "goToClass::execute(): arrived" << endl;
+	Tango::DevDouble argin;
+	extract(in_any, argin);
+	((static_cast<PhyMotionMotor *>(device))->go_to(argin));
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -474,6 +532,160 @@ void PhyMotionMotorClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P16";
+	prop_desc = "Recovery time position\nTime lapse after positioning\nInput in msec";
+	prop_def  = "20";
+	vect_data.clear();
+	vect_data.push_back("20");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P17";
+	prop_desc = "Boost (current is defined in P42)\n0 = off\n1 = on during motor run\n2 = on during acceleration and deceleration ramp";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P23";
+	prop_desc = "Software Limit Switch (Axial limitation  pos. direction +)\nIf the distance is reached, the run in + direction is aborted.\n0 = no limitation";
+	prop_def  = "0.0";
+	vect_data.clear();
+	vect_data.push_back("0.0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P24";
+	prop_desc = "Software Limit Switch (Axial limitation  neg. direction -)\nIf the distance is reached, the run in - direction is aborted.  \n0 = no limitation";
+	prop_def  = "0.0";
+	vect_data.clear();
+	vect_data.push_back("0.0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P25";
+	prop_desc = "Compensation for play\nIndicates the distance,the target position in the selected\ndirection is passed over and afterwards is started in\nreverse direction.\n0 = no compensation for play";
+	prop_def  = "0.0";
+	vect_data.clear();
+	vect_data.push_back("0.0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P26";
+	prop_desc = "The data transfer rate is set by P26 (ONLY for SSIencoder),   \nby which the encoder is read. The transferrate is dependent\n on the length of the cable by whichthe encoder is connected\n to the device. The shorter the cable, the encoder \ncan more quickly be read.\nData transfer rate 1 to 10 (= 100 to 1000 kHz)";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P27";
+	prop_desc = "Limit switch type";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P28";
+	prop_desc = "Axis power option\n0 = Power stage is deactivated after power on\n1 = Power stage is activated after power on";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P30";
+	prop_desc = "For I4XM01 only!\nFrequency band setting \n0 = manual\n1 = automatic";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P31";
+	prop_desc = "For I4XM01 only!\nFrequency and ramp predivider (only if P30 = 0, manual)";
+	prop_def  = "3";
+	vect_data.clear();
+	vect_data.push_back("3");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P32";
+	prop_desc = "Positioning ramp shape\n0 = s-shape\n1 = linear ramp\nRemark: The s-shape ramp can be modified with P33 parameter.";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 }
 
 //--------------------------------------------------------
@@ -632,11 +844,11 @@ void PhyMotionMotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	axis_statusAttrib	*axis_status = new axis_statusAttrib();
 	Tango::UserDefaultAttrProp	axis_status_prop;
 	//	description	not set for axis_status
-	//	label	not set for axis_status
+	axis_status_prop.set_label("Axis status");
 	//	unit	not set for axis_status
 	//	standard_unit	not set for axis_status
 	//	display_unit	not set for axis_status
-	//	format	not set for axis_status
+	axis_status_prop.set_format("0x%x");
 	//	max_value	not set for axis_status
 	//	min_value	not set for axis_status
 	//	max_alarm	not set for axis_status
@@ -651,6 +863,30 @@ void PhyMotionMotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	axis_status->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(axis_status);
+
+	//	Attribute : activate
+	activateAttrib	*activate = new activateAttrib();
+	Tango::UserDefaultAttrProp	activate_prop;
+	activate_prop.set_description("Enable current in motor");
+	activate_prop.set_label("Activate");
+	//	unit	not set for activate
+	//	standard_unit	not set for activate
+	//	display_unit	not set for activate
+	//	format	not set for activate
+	//	max_value	not set for activate
+	//	min_value	not set for activate
+	//	max_alarm	not set for activate
+	//	min_alarm	not set for activate
+	//	max_warning	not set for activate
+	//	min_warning	not set for activate
+	//	delta_t	not set for activate
+	//	delta_val	not set for activate
+	
+	activate->set_default_properties(activate_prop);
+	//	Not Polled
+	activate->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(activate);
 
 
 	//	Create a list of static attributes
@@ -705,6 +941,33 @@ void PhyMotionMotorClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pStopCmd);
+
+	//	Command ResetStatus
+	ResetStatusClass	*pResetStatusCmd =
+		new ResetStatusClass("ResetStatus",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pResetStatusCmd);
+
+	//	Command SetMechanicalZeroCounter
+	SetMechanicalZeroCounterClass	*pSetMechanicalZeroCounterCmd =
+		new SetMechanicalZeroCounterClass("SetMechanicalZeroCounter",
+			Tango::DEV_DOUBLE, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pSetMechanicalZeroCounterCmd);
+
+	//	Command goTo
+	goToClass	*pgoToCmd =
+		new goToClass("goTo",
+			Tango::DEV_DOUBLE, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pgoToCmd);
 
 	/*----- PROTECTED REGION ID(PhyMotionMotorClass::command_factory_after) ENABLED START -----*/
 	

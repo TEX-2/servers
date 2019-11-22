@@ -179,6 +179,13 @@ public:
 	 */
 	virtual void reset_device();
 	virtual bool is_ResetDevice_allowed(const CORBA::Any &any);
+	/**
+	 *	Command ResetStatus related method
+	 *	Description: 
+	 *
+	 */
+	virtual void reset_status();
+	virtual bool is_ResetStatus_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

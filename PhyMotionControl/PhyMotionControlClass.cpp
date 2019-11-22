@@ -222,6 +222,24 @@ CORBA::Any *ResetDeviceClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(co
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		ResetStatusClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *ResetStatusClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "ResetStatusClass::execute(): arrived" << endl;
+	((static_cast<PhyMotionControl *>(device))->reset_status());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -505,6 +523,15 @@ void PhyMotionControlClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pResetDeviceCmd);
+
+	//	Command ResetStatus
+	ResetStatusClass	*pResetStatusCmd =
+		new ResetStatusClass("ResetStatus",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pResetStatusCmd);
 
 	/*----- PROTECTED REGION ID(PhyMotionControlClass::command_factory_after) ENABLED START -----*/
 	

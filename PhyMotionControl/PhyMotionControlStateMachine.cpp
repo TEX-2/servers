@@ -113,6 +113,21 @@ bool PhyMotionControl::is_ResetDevice_allowed(TANGO_UNUSED(const CORBA::Any &any
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionControl::is_ResetStatus_allowed()
+ *	Description : Execution allowed for ResetStatus attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionControl::is_ResetStatus_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for ResetStatus command.
+	/*----- PROTECTED REGION ID(PhyMotionControl::ResetStatusStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::ResetStatusStateAllowed
+	return true;
+}
+
 
 /*----- PROTECTED REGION ID(PhyMotionControl::PhyMotionControlStateAllowed.AdditionalMethods) ENABLED START -----*/
 

@@ -57,6 +57,7 @@
 //  OpenConnection   |  open_connection
 //  CloseConnection  |  close_connection
 //  ResetDevice      |  reset_device
+//  ResetStatus      |  reset_status
 //================================================================
 
 //================================================================
@@ -382,6 +383,22 @@ void PhyMotionControl::reset_device()
 	send_cmd("@CR");
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::reset_device
+}
+//--------------------------------------------------------
+/**
+ *	Command ResetStatus related method
+ *	Description: 
+ *
+ */
+//--------------------------------------------------------
+void PhyMotionControl::reset_status()
+{
+	DEBUG_STREAM << "PhyMotionControl::ResetStatus()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PhyMotionControl::reset_status) ENABLED START -----*/
+
+    send_cmd("@SEC");
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::reset_status
 }
 //--------------------------------------------------------
 /**

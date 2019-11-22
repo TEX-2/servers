@@ -144,12 +144,62 @@ public:
 	//  I1AM0x: in 4000 Hz/s steps
 	//  I4XM01: in 1 Hz/s steps
 	Tango::DevLong	p15;
+	//	P16:	Recovery time position
+	//  Time lapse after positioning
+	//  Input in msec
+	Tango::DevLong	p16;
+	//	P17:	Boost (current is defined in P42)
+	//  0 = off
+	//  1 = on during motor run
+	//  2 = on during acceleration and deceleration ramp
+	Tango::DevUShort	p17;
+	//	P23:	Software Limit Switch (Axial limitation  pos. direction +)
+	//  If the distance is reached, the run in + direction is aborted.
+	//  0 = no limitation
+	Tango::DevDouble	p23;
+	//	P24:	Software Limit Switch (Axial limitation  neg. direction -)
+	//  If the distance is reached, the run in - direction is aborted.  
+	//  0 = no limitation
+	Tango::DevDouble	p24;
+	//	P25:	Compensation for play
+	//  Indicates the distance,the target position in the selected
+	//  direction is passed over and afterwards is started in
+	//  reverse direction.
+	//  0 = no compensation for play
+	Tango::DevDouble	p25;
+	//	P26:	The data transfer rate is set by P26 (ONLY for SSIencoder),   
+	//  by which the encoder is read. The transferrate is dependent
+	//   on the length of the cable by whichthe encoder is connected
+	//   to the device. The shorter the cable, the encoder 
+	//  can more quickly be read.
+	//  Data transfer rate 1 to 10 (= 100 to 1000 kHz)
+	Tango::DevUShort	p26;
+	//	P27:	Limit switch type
+	Tango::DevUShort	p27;
+	//	P28:	Axis power option
+	//  0 = Power stage is deactivated after power on
+	//  1 = Power stage is activated after power on
+	Tango::DevUShort	p28;
+	//	P30:	For I4XM01 only!
+	//  Frequency band setting 
+	//  0 = manual
+	//  1 = automatic
+	Tango::DevUShort	p30;
+	//	P31:	For I4XM01 only!
+	//  Frequency and ramp predivider (only if P30 = 0, manual)
+	Tango::DevUShort	p31;
+	//	P32:	Positioning ramp shape
+	//  0 = s-shape
+	//  1 = linear ramp
+	//  Remark: The s-shape ramp can be modified with P33 parameter.
+	Tango::DevUShort	p32;
 
 //	Attribute data members
 public:
 	Tango::DevDouble	*attr_position_read;
 	Tango::DevDouble	*attr_absolute_counter_read;
 	Tango::DevLong	*attr_axis_status_read;
+	Tango::DevBoolean	*attr_activate_read;
 
 //	Constructors and destructors
 public:
@@ -246,6 +296,16 @@ public:
  */
 	virtual void read_axis_status(Tango::Attribute &attr);
 	virtual bool is_axis_status_allowed(Tango::AttReqType type);
+/**
+ *	Attribute activate related methods
+ *	Description: Enable current in motor
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_activate(Tango::Attribute &attr);
+	virtual void write_activate(Tango::WAttribute &attr);
+	virtual bool is_activate_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
@@ -268,6 +328,29 @@ public:
 	 */
 	virtual void stop();
 	virtual bool is_Stop_allowed(const CORBA::Any &any);
+	/**
+	 *	Command ResetStatus related method
+	 *	Description: 
+	 *
+	 */
+	virtual void reset_status();
+	virtual bool is_ResetStatus_allowed(const CORBA::Any &any);
+	/**
+	 *	Command SetMechanicalZeroCounter related method
+	 *	Description: Just set P20
+	 *
+	 *	@param argin 
+	 */
+	virtual void set_mechanical_zero_counter(Tango::DevDouble argin);
+	virtual bool is_SetMechanicalZeroCounter_allowed(const CORBA::Any &any);
+	/**
+	 *	Command goTo related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 */
+	virtual void go_to(Tango::DevDouble argin);
+	virtual bool is_goTo_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

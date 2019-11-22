@@ -96,6 +96,21 @@ public:
 		{return (static_cast<PhyMotionMotor *>(dev))->is_axis_status_allowed(ty);}
 };
 
+//	Attribute activate class definition
+class activateAttrib: public Tango::Attr
+{
+public:
+	activateAttrib():Attr("activate",
+			Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~activateAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PhyMotionMotor *>(dev))->read_activate(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<PhyMotionMotor *>(dev))->write_activate(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PhyMotionMotor *>(dev))->is_activate_allowed(ty);}
+};
+
 
 //=========================================
 //	Define classes for commands
@@ -121,6 +136,75 @@ public:
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
 	{return (static_cast<PhyMotionMotor *>(dev))->is_Stop_allowed(any);}
+};
+
+//	Command ResetStatus class definition
+class ResetStatusClass : public Tango::Command
+{
+public:
+	ResetStatusClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	ResetStatusClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~ResetStatusClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PhyMotionMotor *>(dev))->is_ResetStatus_allowed(any);}
+};
+
+//	Command SetMechanicalZeroCounter class definition
+class SetMechanicalZeroCounterClass : public Tango::Command
+{
+public:
+	SetMechanicalZeroCounterClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	SetMechanicalZeroCounterClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~SetMechanicalZeroCounterClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PhyMotionMotor *>(dev))->is_SetMechanicalZeroCounter_allowed(any);}
+};
+
+//	Command goTo class definition
+class goToClass : public Tango::Command
+{
+public:
+	goToClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	goToClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~goToClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PhyMotionMotor *>(dev))->is_goTo_allowed(any);}
 };
 
 

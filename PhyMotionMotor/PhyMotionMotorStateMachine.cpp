@@ -101,6 +101,26 @@ bool PhyMotionMotor::is_axis_status_allowed(TANGO_UNUSED(Tango::AttReqType type)
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_activate_allowed()
+ *	Description : Execution allowed for activate attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_activate_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for activate attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::activateStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::activateStateAllowed_WRITE
+
+	//	Not any excluded states for activate attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::activateStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::activateStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods
@@ -118,6 +138,51 @@ bool PhyMotionMotor::is_Stop_allowed(TANGO_UNUSED(const CORBA::Any &any))
 	/*----- PROTECTED REGION ID(PhyMotionMotor::StopStateAllowed) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::StopStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_ResetStatus_allowed()
+ *	Description : Execution allowed for ResetStatus attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_ResetStatus_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for ResetStatus command.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::ResetStatusStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::ResetStatusStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_SetMechanicalZeroCounter_allowed()
+ *	Description : Execution allowed for SetMechanicalZeroCounter attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_SetMechanicalZeroCounter_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for SetMechanicalZeroCounter command.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::SetMechanicalZeroCounterStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::SetMechanicalZeroCounterStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_goTo_allowed()
+ *	Description : Execution allowed for goTo attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_goTo_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for goTo command.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::goToStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::goToStateAllowed
 	return true;
 }
 
