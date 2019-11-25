@@ -374,7 +374,7 @@ void PhyMotionDIOMClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	unit	not set for inputs
 	//	standard_unit	not set for inputs
 	//	display_unit	not set for inputs
-	inputs_prop.set_format("0x%x");
+	inputs_prop.set_format("0x%2x");
 	//	max_value	not set for inputs
 	//	min_value	not set for inputs
 	//	max_alarm	not set for inputs
@@ -398,7 +398,7 @@ void PhyMotionDIOMClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	unit	not set for outputs
 	//	standard_unit	not set for outputs
 	//	display_unit	not set for outputs
-	outputs_prop.set_format("0x%x");
+	outputs_prop.set_format("0x%2x");
 	//	max_value	not set for outputs
 	//	min_value	not set for outputs
 	//	max_alarm	not set for outputs
