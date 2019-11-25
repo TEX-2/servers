@@ -62,10 +62,12 @@
 //================================================================
 //  Attributes managed are:
 //================================================================
-//  position          |  Tango::DevDouble	Scalar
-//  absolute_counter  |  Tango::DevDouble	Scalar
-//  axis_status       |  Tango::DevLong	Scalar
-//  activate          |  Tango::DevBoolean	Scalar
+//  position                 |  Tango::DevDouble	Scalar
+//  absolute_counter         |  Tango::DevDouble	Scalar
+//  axis_status              |  Tango::DevLong	Scalar
+//  activate                 |  Tango::DevBoolean	Scalar
+//  power_stage_temperature  |  Tango::DevDouble	Scalar
+//  motor_temperature        |  Tango::DevDouble	Scalar
 //================================================================
 
 namespace PhyMotionMotor_ns
@@ -128,6 +130,8 @@ void PhyMotionMotor::delete_device()
 	delete[] attr_absolute_counter_read;
 	delete[] attr_axis_status_read;
 	delete[] attr_activate_read;
+	delete[] attr_power_stage_temperature_read;
+	delete[] attr_motor_temperature_read;
 }
 
 //--------------------------------------------------------
@@ -153,6 +157,8 @@ void PhyMotionMotor::init_device()
 	attr_absolute_counter_read = new Tango::DevDouble[1];
 	attr_axis_status_read = new Tango::DevLong[1];
 	attr_activate_read = new Tango::DevBoolean[1];
+	attr_power_stage_temperature_read = new Tango::DevDouble[1];
+	attr_motor_temperature_read = new Tango::DevDouble[1];
 	/*----- PROTECTED REGION ID(PhyMotionMotor::init_device) ENABLED START -----*/
 
 	phy_motion_control_cmd = new PhyMotionControlCMD(control_device);
@@ -187,6 +193,26 @@ void PhyMotionMotor::init_device()
     phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("30"),std::to_string(p30));
     phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("31"),std::to_string(p31));
     phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("32"),std::to_string(p32));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("33"),std::to_string(p33));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("34"),std::to_string(p34));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("35"),std::to_string(p35));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("36"),std::to_string(p36));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("37"),std::to_string(p37));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("38"),std::to_string(p38));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("39"),std::to_string(p39));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("40"),std::to_string(p40));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("41"),std::to_string(p41));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("42"),std::to_string(p42));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("43"),std::to_string(p43));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("44"),std::to_string(p44));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("45"),std::to_string(p45));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("50"),std::to_string(p50));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("51"),std::to_string(p51));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("53"),std::to_string(p53));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("55"),std::to_string(p55));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("56"),std::to_string(p56));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("57"),std::to_string(p57));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("58"),std::to_string(p58));
 	mux.unlock();
 
 	device_state = Tango::STANDBY;
@@ -239,6 +265,26 @@ void PhyMotionMotor::get_device_property()
 	dev_prop.push_back(Tango::DbDatum("P30"));
 	dev_prop.push_back(Tango::DbDatum("P31"));
 	dev_prop.push_back(Tango::DbDatum("P32"));
+	dev_prop.push_back(Tango::DbDatum("P33"));
+	dev_prop.push_back(Tango::DbDatum("P34"));
+	dev_prop.push_back(Tango::DbDatum("P35"));
+	dev_prop.push_back(Tango::DbDatum("P36"));
+	dev_prop.push_back(Tango::DbDatum("P37"));
+	dev_prop.push_back(Tango::DbDatum("P38"));
+	dev_prop.push_back(Tango::DbDatum("P39"));
+	dev_prop.push_back(Tango::DbDatum("P40"));
+	dev_prop.push_back(Tango::DbDatum("P41"));
+	dev_prop.push_back(Tango::DbDatum("P42"));
+	dev_prop.push_back(Tango::DbDatum("P43"));
+	dev_prop.push_back(Tango::DbDatum("P44"));
+	dev_prop.push_back(Tango::DbDatum("P45"));
+	dev_prop.push_back(Tango::DbDatum("P50"));
+	dev_prop.push_back(Tango::DbDatum("P51"));
+	dev_prop.push_back(Tango::DbDatum("P53"));
+	dev_prop.push_back(Tango::DbDatum("P55"));
+	dev_prop.push_back(Tango::DbDatum("P56"));
+	dev_prop.push_back(Tango::DbDatum("P57"));
+	dev_prop.push_back(Tango::DbDatum("P58"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -561,6 +607,226 @@ void PhyMotionMotor::get_device_property()
 		//	And try to extract P32 value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p32;
 
+		//	Try to initialize P33 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p33;
+		else {
+			//	Try to initialize P33 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p33;
+		}
+		//	And try to extract P33 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p33;
+
+		//	Try to initialize P34 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p34;
+		else {
+			//	Try to initialize P34 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p34;
+		}
+		//	And try to extract P34 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p34;
+
+		//	Try to initialize P35 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p35;
+		else {
+			//	Try to initialize P35 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p35;
+		}
+		//	And try to extract P35 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p35;
+
+		//	Try to initialize P36 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p36;
+		else {
+			//	Try to initialize P36 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p36;
+		}
+		//	And try to extract P36 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p36;
+
+		//	Try to initialize P37 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p37;
+		else {
+			//	Try to initialize P37 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p37;
+		}
+		//	And try to extract P37 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p37;
+
+		//	Try to initialize P38 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p38;
+		else {
+			//	Try to initialize P38 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p38;
+		}
+		//	And try to extract P38 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p38;
+
+		//	Try to initialize P39 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p39;
+		else {
+			//	Try to initialize P39 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p39;
+		}
+		//	And try to extract P39 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p39;
+
+		//	Try to initialize P40 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p40;
+		else {
+			//	Try to initialize P40 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p40;
+		}
+		//	And try to extract P40 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p40;
+
+		//	Try to initialize P41 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p41;
+		else {
+			//	Try to initialize P41 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p41;
+		}
+		//	And try to extract P41 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p41;
+
+		//	Try to initialize P42 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p42;
+		else {
+			//	Try to initialize P42 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p42;
+		}
+		//	And try to extract P42 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p42;
+
+		//	Try to initialize P43 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p43;
+		else {
+			//	Try to initialize P43 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p43;
+		}
+		//	And try to extract P43 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p43;
+
+		//	Try to initialize P44 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p44;
+		else {
+			//	Try to initialize P44 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p44;
+		}
+		//	And try to extract P44 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p44;
+
+		//	Try to initialize P45 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p45;
+		else {
+			//	Try to initialize P45 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p45;
+		}
+		//	And try to extract P45 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p45;
+
+		//	Try to initialize P50 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p50;
+		else {
+			//	Try to initialize P50 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p50;
+		}
+		//	And try to extract P50 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p50;
+
+		//	Try to initialize P51 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p51;
+		else {
+			//	Try to initialize P51 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p51;
+		}
+		//	And try to extract P51 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p51;
+
+		//	Try to initialize P53 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p53;
+		else {
+			//	Try to initialize P53 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p53;
+		}
+		//	And try to extract P53 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p53;
+
+		//	Try to initialize P55 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p55;
+		else {
+			//	Try to initialize P55 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p55;
+		}
+		//	And try to extract P55 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p55;
+
+		//	Try to initialize P56 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p56;
+		else {
+			//	Try to initialize P56 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p56;
+		}
+		//	And try to extract P56 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p56;
+
+		//	Try to initialize P57 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p57;
+		else {
+			//	Try to initialize P57 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p57;
+		}
+		//	And try to extract P57 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p57;
+
+		//	Try to initialize P58 from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  p58;
+		else {
+			//	Try to initialize P58 from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  p58;
+		}
+		//	And try to extract P58 value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p58;
+
 	}
 
 	/*----- PROTECTED REGION ID(PhyMotionMotor::get_device_property_after) ENABLED START -----*/
@@ -801,6 +1067,47 @@ void PhyMotionMotor::write_activate(Tango::WAttribute &attr)
 	}
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::write_activate
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute power_stage_temperature related method
+ *	Description: Read parameter P49
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::read_power_stage_temperature(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PhyMotionMotor::read_power_stage_temperature(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PhyMotionMotor::read_power_stage_temperature) ENABLED START -----*/
+
+	std::string response = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P49R");
+	double temperature = std::stod(response)/10;
+    *attr_power_stage_temperature_read = temperature;
+	attr.set_value(attr_power_stage_temperature_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_power_stage_temperature
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute motor_temperature related method
+ *	Description: read parameter P54
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::read_motor_temperature(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PhyMotionMotor::read_motor_temperature(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PhyMotionMotor::read_motor_temperature) ENABLED START -----*/
+    std::string response = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P54R");
+    double temperature = std::stod(response)/10;
+    *attr_motor_temperature_read = temperature;
+	attr.set_value(attr_motor_temperature_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_motor_temperature
 }
 
 //--------------------------------------------------------

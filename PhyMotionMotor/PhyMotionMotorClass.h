@@ -111,6 +111,32 @@ public:
 		{return (static_cast<PhyMotionMotor *>(dev))->is_activate_allowed(ty);}
 };
 
+//	Attribute power_stage_temperature class definition
+class power_stage_temperatureAttrib: public Tango::Attr
+{
+public:
+	power_stage_temperatureAttrib():Attr("power_stage_temperature",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~power_stage_temperatureAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PhyMotionMotor *>(dev))->read_power_stage_temperature(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PhyMotionMotor *>(dev))->is_power_stage_temperature_allowed(ty);}
+};
+
+//	Attribute motor_temperature class definition
+class motor_temperatureAttrib: public Tango::Attr
+{
+public:
+	motor_temperatureAttrib():Attr("motor_temperature",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~motor_temperatureAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PhyMotionMotor *>(dev))->read_motor_temperature(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PhyMotionMotor *>(dev))->is_motor_temperature_allowed(ty);}
+};
+
 
 //=========================================
 //	Define classes for commands

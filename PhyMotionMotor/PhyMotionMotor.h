@@ -169,8 +169,7 @@ public:
 	Tango::DevDouble	p25;
 	//	P26:	The data transfer rate is set by P26 (ONLY for SSIencoder),   
 	//  by which the encoder is read. The transferrate is dependent
-	//   on the length of the cable by whichthe encoder is connected
-	//   to the device. The shorter the cable, the encoder 
+	//   on the length of the cable by whichthe encoder is connected to the device. The shorter the cable, the encoder 
 	//  can more quickly be read.
 	//  Data transfer rate 1 to 10 (= 100 to 1000 kHz)
 	Tango::DevUShort	p26;
@@ -193,6 +192,72 @@ public:
 	//  1 = linear ramp
 	//  Remark: The s-shape ramp can be modified with P33 parameter.
 	Tango::DevUShort	p32;
+	//	P33:	Arc value setting for s-sharpe ramp
+	//  Values:
+	//  OMC: 1 to 8191
+	//  TMC: 1:23767
+	Tango::DevLong	p33;
+	//	P34:	Encoder type
+	Tango::DevUShort	p34;
+	//	P35:	Encoder resolution for SSI and EnDat encoder
+	//  Enter max. encoder resolution in Bit (max 48 Bit)
+	Tango::DevUShort	p35;
+	//	P36:	Encoder function	
+	//  0 - counter
+	//  1 - counter + SFI
+	Tango::DevUShort	p36;
+	//	P37:	Encoder tolerance for SFI
+	Tango::DevDouble	p37;
+	//	P38:	Encoder preferential direction of rotation
+	//  0 = + (positive)
+	//  1 = - (negative)
+	Tango::DevUShort	p38;
+	//	P39:	Encoder conversion factor
+	//  
+	//  thread/encoder_step_prrevolution
+	Tango::DevDouble	p39;
+	//	P40:	Stop current in 0.01 A
+	Tango::DevULong	p40;
+	//	P41:	Run current in 0.01 A
+	Tango::DevULong	p41;
+	//	P42:	Boost current in 0.01 A
+	Tango::DevULong	p42;
+	//	P43:	Current hold time in msec
+	Tango::DevULong	p43;
+	//	P44:	for I4XM01 only!
+	//  Origin of the control pulses for the axis
+	Tango::DevShort	p44;
+	//	P45:	Step resolution 0 .. 13 = [1, .. 1/512]
+	//      [ 0,   1,    2,       3,    4,    5,     6,     7,       8,]
+	//  = [1/1, 1/2, 1/2.5, 1/4, 1/5, 1/8, 1/10, 1/16, 1/20]
+	//      [9,      10     11,      12,      13     ]
+	//  = [1/32, 1/64, 1/128, 1/256, 1/512]
+	//  For I1AM step resolution from 1/1 to 1/128 step
+	Tango::DevUShort	p45;
+	//	P50:	Devider for control pulses, only I4XM01
+	//  pulses= 1/(n+1):
+	//  example for pulses = 1/4 = 1/(3+1), n=3
+	//  n = 0 .. 5
+	Tango::DevUShort	p50;
+	//	P51:	Pulses width: (n+1)*100 ns only I4XM01
+	//  Example for 2000 ns = (19+1)*100 ns
+	//  n=0 .. 255
+	Tango::DevUShort	p51;
+	//	P53:	Power stage monitoring
+	//  0 = off
+	//  1 = on
+	Tango::DevUShort	p53;
+	//	P55:	Motor temperature warning in 1/10 C
+	Tango::DevLong	p55;
+	//	P56:	Motor temperature shut-off in 1/10 C
+	Tango::DevLong	p56;
+	//	P57:	Resolver voltage
+	//  n = 3 .. 10 (Volt)
+	Tango::DevUShort	p57;
+	//	P58:	Resolver ratio (ratio of primary to secondary winding)
+	//  [0,    1,    2,    3, 4]
+	//  [1/8, 1/4, 1/2, 1, 2]
+	Tango::DevUShort	p58;
 
 //	Attribute data members
 public:
@@ -200,6 +265,8 @@ public:
 	Tango::DevDouble	*attr_absolute_counter_read;
 	Tango::DevLong	*attr_axis_status_read;
 	Tango::DevBoolean	*attr_activate_read;
+	Tango::DevDouble	*attr_power_stage_temperature_read;
+	Tango::DevDouble	*attr_motor_temperature_read;
 
 //	Constructors and destructors
 public:
@@ -306,6 +373,24 @@ public:
 	virtual void read_activate(Tango::Attribute &attr);
 	virtual void write_activate(Tango::WAttribute &attr);
 	virtual bool is_activate_allowed(Tango::AttReqType type);
+/**
+ *	Attribute power_stage_temperature related methods
+ *	Description: Read parameter P49
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_power_stage_temperature(Tango::Attribute &attr);
+	virtual bool is_power_stage_temperature_allowed(Tango::AttReqType type);
+/**
+ *	Attribute motor_temperature related methods
+ *	Description: read parameter P54
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_motor_temperature(Tango::Attribute &attr);
+	virtual bool is_motor_temperature_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------

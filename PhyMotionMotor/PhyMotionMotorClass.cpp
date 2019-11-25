@@ -603,7 +603,7 @@ void PhyMotionMotorClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "P26";
-	prop_desc = "The data transfer rate is set by P26 (ONLY for SSIencoder),   \nby which the encoder is read. The transferrate is dependent\n on the length of the cable by whichthe encoder is connected\n to the device. The shorter the cable, the encoder \ncan more quickly be read.\nData transfer rate 1 to 10 (= 100 to 1000 kHz)";
+	prop_desc = "The data transfer rate is set by P26 (ONLY for SSIencoder),   \nby which the encoder is read. The transferrate is dependent\n on the length of the cable by whichthe encoder is connected to the device. The shorter the cable, the encoder \ncan more quickly be read.\nData transfer rate 1 to 10 (= 100 to 1000 kHz)";
 	prop_def  = "1";
 	vect_data.clear();
 	vect_data.push_back("1");
@@ -677,6 +677,286 @@ void PhyMotionMotorClass::set_default_property()
 	prop_def  = "1";
 	vect_data.clear();
 	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P33";
+	prop_desc = "Arc value setting for s-sharpe ramp\nValues:\nOMC: 1 to 8191\nTMC: 1:23767";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P34";
+	prop_desc = "Encoder type";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P35";
+	prop_desc = "Encoder resolution for SSI and EnDat encoder\nEnter max. encoder resolution in Bit (max 48 Bit)";
+	prop_def  = "10";
+	vect_data.clear();
+	vect_data.push_back("10");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P36";
+	prop_desc = "Encoder function	\n0 - counter\n1 - counter + SFI";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P37";
+	prop_desc = "Encoder tolerance for SFI";
+	prop_def  = "0.0";
+	vect_data.clear();
+	vect_data.push_back("0.0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P38";
+	prop_desc = "Encoder preferential direction of rotation\n0 = + (positive)\n1 = - (negative)";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P39";
+	prop_desc = "Encoder conversion factor\n\nthread/encoder_step_prrevolution";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P40";
+	prop_desc = "Stop current in 0.01 A";
+	prop_def  = "2";
+	vect_data.clear();
+	vect_data.push_back("2");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P41";
+	prop_desc = "Run current in 0.01 A";
+	prop_def  = "6";
+	vect_data.clear();
+	vect_data.push_back("6");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P42";
+	prop_desc = "Boost current in 0.01 A";
+	prop_def  = "10";
+	vect_data.clear();
+	vect_data.push_back("10");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P43";
+	prop_desc = "Current hold time in msec";
+	prop_def  = "20";
+	vect_data.clear();
+	vect_data.push_back("20");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P44";
+	prop_desc = "for I4XM01 only!\nOrigin of the control pulses for the axis";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P45";
+	prop_desc = "Step resolution 0 .. 13 = [1, .. 1/512]\n    [ 0,   1,    2,       3,    4,    5,     6,     7,       8,]\n= [1/1, 1/2, 1/2.5, 1/4, 1/5, 1/8, 1/10, 1/16, 1/20]\n    [9,      10     11,      12,      13     ]\n= [1/32, 1/64, 1/128, 1/256, 1/512]\nFor I1AM step resolution from 1/1 to 1/128 step";
+	prop_def  = "3";
+	vect_data.clear();
+	vect_data.push_back("3");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P50";
+	prop_desc = "Devider for control pulses, only I4XM01\npulses= 1/(n+1):\nexample for pulses = 1/4 = 1/(3+1), n=3\nn = 0 .. 5";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P51";
+	prop_desc = "Pulses width: (n+1)*100 ns only I4XM01\nExample for 2000 ns = (19+1)*100 ns\nn=0 .. 255";
+	prop_def  = "19";
+	vect_data.clear();
+	vect_data.push_back("19");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P53";
+	prop_desc = "Power stage monitoring\n0 = off\n1 = on";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P55";
+	prop_desc = "Motor temperature warning in 1/10 C";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P56";
+	prop_desc = "Motor temperature shut-off in 1/10 C";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P57";
+	prop_desc = "Resolver voltage\nn = 3 .. 10 (Volt)";
+	prop_def  = "3";
+	vect_data.clear();
+	vect_data.push_back("3");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "P58";
+	prop_desc = "Resolver ratio (ratio of primary to secondary winding)\n[0,    1,    2,    3, 4]\n[1/8, 1/4, 1/2, 1, 2]";
+	prop_def  = "2";
+	vect_data.clear();
+	vect_data.push_back("2");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -887,6 +1167,54 @@ void PhyMotionMotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	activate->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(activate);
+
+	//	Attribute : power_stage_temperature
+	power_stage_temperatureAttrib	*power_stage_temperature = new power_stage_temperatureAttrib();
+	Tango::UserDefaultAttrProp	power_stage_temperature_prop;
+	power_stage_temperature_prop.set_description("Read parameter P49");
+	power_stage_temperature_prop.set_label("Power stage temperature");
+	power_stage_temperature_prop.set_unit("C");
+	//	standard_unit	not set for power_stage_temperature
+	power_stage_temperature_prop.set_display_unit("C");
+	//	format	not set for power_stage_temperature
+	//	max_value	not set for power_stage_temperature
+	//	min_value	not set for power_stage_temperature
+	//	max_alarm	not set for power_stage_temperature
+	//	min_alarm	not set for power_stage_temperature
+	//	max_warning	not set for power_stage_temperature
+	//	min_warning	not set for power_stage_temperature
+	//	delta_t	not set for power_stage_temperature
+	//	delta_val	not set for power_stage_temperature
+	
+	power_stage_temperature->set_default_properties(power_stage_temperature_prop);
+	//	Not Polled
+	power_stage_temperature->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(power_stage_temperature);
+
+	//	Attribute : motor_temperature
+	motor_temperatureAttrib	*motor_temperature = new motor_temperatureAttrib();
+	Tango::UserDefaultAttrProp	motor_temperature_prop;
+	motor_temperature_prop.set_description("read parameter P54");
+	motor_temperature_prop.set_label("Motor temperature");
+	motor_temperature_prop.set_unit("C");
+	//	standard_unit	not set for motor_temperature
+	motor_temperature_prop.set_display_unit("C");
+	//	format	not set for motor_temperature
+	//	max_value	not set for motor_temperature
+	//	min_value	not set for motor_temperature
+	//	max_alarm	not set for motor_temperature
+	//	min_alarm	not set for motor_temperature
+	//	max_warning	not set for motor_temperature
+	//	min_warning	not set for motor_temperature
+	//	delta_t	not set for motor_temperature
+	//	delta_val	not set for motor_temperature
+	
+	motor_temperature->set_default_properties(motor_temperature_prop);
+	//	Not Polled
+	motor_temperature->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(motor_temperature);
 
 
 	//	Create a list of static attributes

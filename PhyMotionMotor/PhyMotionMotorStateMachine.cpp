@@ -121,6 +121,38 @@ bool PhyMotionMotor::is_activate_allowed(TANGO_UNUSED(Tango::AttReqType type))
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_power_stage_temperature_allowed()
+ *	Description : Execution allowed for power_stage_temperature attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_power_stage_temperature_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for power_stage_temperature attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::power_stage_temperatureStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::power_stage_temperatureStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_motor_temperature_allowed()
+ *	Description : Execution allowed for motor_temperature attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_motor_temperature_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for motor_temperature attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::motor_temperatureStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::motor_temperatureStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods
