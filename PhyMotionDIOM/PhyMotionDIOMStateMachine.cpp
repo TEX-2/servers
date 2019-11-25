@@ -45,6 +45,330 @@ namespace PhyMotionDIOM_ns
 //		Attributes Allowed Methods
 //=================================================
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_inputs_allowed()
+ *	Description : Execution allowed for inputs attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_inputs_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for inputs attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::inputsStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::inputsStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_outputs_allowed()
+ *	Description : Execution allowed for outputs attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_outputs_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for outputs attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::outputsStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::outputsStateAllowed_WRITE
+
+	//	Not any excluded states for outputs attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::outputsStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::outputsStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_i0_allowed()
+ *	Description : Execution allowed for i0 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_i0_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for i0 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::i0StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::i0StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_i1_allowed()
+ *	Description : Execution allowed for i1 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_i1_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for i1 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::i1StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::i1StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_i2_allowed()
+ *	Description : Execution allowed for i2 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_i2_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for i2 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::i2StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::i2StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_i3_allowed()
+ *	Description : Execution allowed for i3 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_i3_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for i3 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::i3StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::i3StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_i4_allowed()
+ *	Description : Execution allowed for i4 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_i4_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for i4 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::i4StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::i4StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_i5_allowed()
+ *	Description : Execution allowed for i5 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_i5_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for i5 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::i5StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::i5StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_i6_allowed()
+ *	Description : Execution allowed for i6 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_i6_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for i6 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::i6StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::i6StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_i7_allowed()
+ *	Description : Execution allowed for i7 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_i7_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for i7 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::i7StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::i7StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_o0_allowed()
+ *	Description : Execution allowed for o0 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_o0_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for o0 attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o0StateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o0StateAllowed_WRITE
+
+	//	Not any excluded states for o0 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o0StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o0StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_o1_allowed()
+ *	Description : Execution allowed for o1 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_o1_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for o1 attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o1StateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o1StateAllowed_WRITE
+
+	//	Not any excluded states for o1 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o1StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o1StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_o2_allowed()
+ *	Description : Execution allowed for o2 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_o2_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for o2 attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o2StateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o2StateAllowed_WRITE
+
+	//	Not any excluded states for o2 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o2StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o2StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_o3_allowed()
+ *	Description : Execution allowed for o3 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_o3_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for o3 attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o3StateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o3StateAllowed_WRITE
+
+	//	Not any excluded states for o3 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o3StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o3StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_o4_allowed()
+ *	Description : Execution allowed for o4 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_o4_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for o4 attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o4StateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o4StateAllowed_WRITE
+
+	//	Not any excluded states for o4 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o4StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o4StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_o5_allowed()
+ *	Description : Execution allowed for o5 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_o5_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for o5 attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o5StateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o5StateAllowed_WRITE
+
+	//	Not any excluded states for o5 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o5StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o5StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_o6_allowed()
+ *	Description : Execution allowed for o6 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_o6_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for o6 attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o6StateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o6StateAllowed_WRITE
+
+	//	Not any excluded states for o6 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o6StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o6StateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionDIOM::is_o7_allowed()
+ *	Description : Execution allowed for o7 attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionDIOM::is_o7_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for o7 attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o7StateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o7StateAllowed_WRITE
+
+	//	Not any excluded states for o7 attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionDIOM::o7StateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::o7StateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods

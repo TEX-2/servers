@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(PhyMotionControl)
+project(PhyMotionDIOM)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -24,7 +24,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 include_directories("../lib")
 
 
-add_executable(PhyMotionMotor
+add_executable(PhyMotionDIOM
         main.cpp
         PhyMotionDIOM.cpp PhyMotionDIOM.h
         PhyMotionDIOMClass.cpp PhyMotionDIOMClass.h
@@ -32,7 +32,7 @@ add_executable(PhyMotionMotor
         ClassFactory.cpp
         ../lib/PhyMotionControlCMD.cpp ../lib/PhyMotionControlCMD.h)
 
-target_link_libraries(PhyMotionMotor
+target_link_libraries(PhyMotionDIOM
         ${TANGO_LIB}
         ${OMNIDYNAMIC4_LIB}
         ${COS4_LIB}

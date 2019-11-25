@@ -218,6 +218,48 @@ void PhyMotionDIOMClass::set_default_property()
 	//	Set Default Class Properties
 
 	//	Set Default device Properties
+	prop_name = "control_device";
+	prop_desc = "Just path to the device of PhyMotionControl";
+	prop_def  = "device/PhyMOTION/control";
+	vect_data.clear();
+	vect_data.push_back("device/PhyMOTION/control");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "module";
+	prop_desc = "The moduel number";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "address";
+	prop_desc = "just address 0-9, and A-F";
+	prop_def  = "@";
+	vect_data.clear();
+	vect_data.push_back("@");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 }
 
 //--------------------------------------------------------
@@ -324,6 +366,438 @@ void PhyMotionDIOMClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Add your own code
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionDIOMClass::attribute_factory_before
+	//	Attribute : inputs
+	inputsAttrib	*inputs = new inputsAttrib();
+	Tango::UserDefaultAttrProp	inputs_prop;
+	//	description	not set for inputs
+	inputs_prop.set_label("Inputs code");
+	//	unit	not set for inputs
+	//	standard_unit	not set for inputs
+	//	display_unit	not set for inputs
+	inputs_prop.set_format("0x%x");
+	//	max_value	not set for inputs
+	//	min_value	not set for inputs
+	//	max_alarm	not set for inputs
+	//	min_alarm	not set for inputs
+	//	max_warning	not set for inputs
+	//	min_warning	not set for inputs
+	//	delta_t	not set for inputs
+	//	delta_val	not set for inputs
+	
+	inputs->set_default_properties(inputs_prop);
+	//	Not Polled
+	inputs->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(inputs);
+
+	//	Attribute : outputs
+	outputsAttrib	*outputs = new outputsAttrib();
+	Tango::UserDefaultAttrProp	outputs_prop;
+	//	description	not set for outputs
+	outputs_prop.set_label("Outputs code");
+	//	unit	not set for outputs
+	//	standard_unit	not set for outputs
+	//	display_unit	not set for outputs
+	outputs_prop.set_format("0x%x");
+	//	max_value	not set for outputs
+	//	min_value	not set for outputs
+	//	max_alarm	not set for outputs
+	//	min_alarm	not set for outputs
+	//	max_warning	not set for outputs
+	//	min_warning	not set for outputs
+	//	delta_t	not set for outputs
+	//	delta_val	not set for outputs
+	
+	outputs->set_default_properties(outputs_prop);
+	//	Not Polled
+	outputs->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(outputs);
+
+	//	Attribute : i0
+	i0Attrib	*i0 = new i0Attrib();
+	Tango::UserDefaultAttrProp	i0_prop;
+	//	description	not set for i0
+	i0_prop.set_label("I0");
+	//	unit	not set for i0
+	//	standard_unit	not set for i0
+	//	display_unit	not set for i0
+	//	format	not set for i0
+	//	max_value	not set for i0
+	//	min_value	not set for i0
+	//	max_alarm	not set for i0
+	//	min_alarm	not set for i0
+	//	max_warning	not set for i0
+	//	min_warning	not set for i0
+	//	delta_t	not set for i0
+	//	delta_val	not set for i0
+	
+	i0->set_default_properties(i0_prop);
+	//	Not Polled
+	i0->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(i0);
+
+	//	Attribute : i1
+	i1Attrib	*i1 = new i1Attrib();
+	Tango::UserDefaultAttrProp	i1_prop;
+	//	description	not set for i1
+	i1_prop.set_label("I1");
+	//	unit	not set for i1
+	//	standard_unit	not set for i1
+	//	display_unit	not set for i1
+	//	format	not set for i1
+	//	max_value	not set for i1
+	//	min_value	not set for i1
+	//	max_alarm	not set for i1
+	//	min_alarm	not set for i1
+	//	max_warning	not set for i1
+	//	min_warning	not set for i1
+	//	delta_t	not set for i1
+	//	delta_val	not set for i1
+	
+	i1->set_default_properties(i1_prop);
+	//	Not Polled
+	i1->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(i1);
+
+	//	Attribute : i2
+	i2Attrib	*i2 = new i2Attrib();
+	Tango::UserDefaultAttrProp	i2_prop;
+	//	description	not set for i2
+	i2_prop.set_label("I2");
+	//	unit	not set for i2
+	//	standard_unit	not set for i2
+	//	display_unit	not set for i2
+	//	format	not set for i2
+	//	max_value	not set for i2
+	//	min_value	not set for i2
+	//	max_alarm	not set for i2
+	//	min_alarm	not set for i2
+	//	max_warning	not set for i2
+	//	min_warning	not set for i2
+	//	delta_t	not set for i2
+	//	delta_val	not set for i2
+	
+	i2->set_default_properties(i2_prop);
+	//	Not Polled
+	i2->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(i2);
+
+	//	Attribute : i3
+	i3Attrib	*i3 = new i3Attrib();
+	Tango::UserDefaultAttrProp	i3_prop;
+	//	description	not set for i3
+	i3_prop.set_label("I3");
+	//	unit	not set for i3
+	//	standard_unit	not set for i3
+	//	display_unit	not set for i3
+	//	format	not set for i3
+	//	max_value	not set for i3
+	//	min_value	not set for i3
+	//	max_alarm	not set for i3
+	//	min_alarm	not set for i3
+	//	max_warning	not set for i3
+	//	min_warning	not set for i3
+	//	delta_t	not set for i3
+	//	delta_val	not set for i3
+	
+	i3->set_default_properties(i3_prop);
+	//	Not Polled
+	i3->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(i3);
+
+	//	Attribute : i4
+	i4Attrib	*i4 = new i4Attrib();
+	Tango::UserDefaultAttrProp	i4_prop;
+	//	description	not set for i4
+	i4_prop.set_label("I4");
+	//	unit	not set for i4
+	//	standard_unit	not set for i4
+	//	display_unit	not set for i4
+	//	format	not set for i4
+	//	max_value	not set for i4
+	//	min_value	not set for i4
+	//	max_alarm	not set for i4
+	//	min_alarm	not set for i4
+	//	max_warning	not set for i4
+	//	min_warning	not set for i4
+	//	delta_t	not set for i4
+	//	delta_val	not set for i4
+	
+	i4->set_default_properties(i4_prop);
+	//	Not Polled
+	i4->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(i4);
+
+	//	Attribute : i5
+	i5Attrib	*i5 = new i5Attrib();
+	Tango::UserDefaultAttrProp	i5_prop;
+	//	description	not set for i5
+	i5_prop.set_label("I5");
+	//	unit	not set for i5
+	//	standard_unit	not set for i5
+	//	display_unit	not set for i5
+	//	format	not set for i5
+	//	max_value	not set for i5
+	//	min_value	not set for i5
+	//	max_alarm	not set for i5
+	//	min_alarm	not set for i5
+	//	max_warning	not set for i5
+	//	min_warning	not set for i5
+	//	delta_t	not set for i5
+	//	delta_val	not set for i5
+	
+	i5->set_default_properties(i5_prop);
+	//	Not Polled
+	i5->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(i5);
+
+	//	Attribute : i6
+	i6Attrib	*i6 = new i6Attrib();
+	Tango::UserDefaultAttrProp	i6_prop;
+	//	description	not set for i6
+	i6_prop.set_label("I6");
+	//	unit	not set for i6
+	//	standard_unit	not set for i6
+	//	display_unit	not set for i6
+	//	format	not set for i6
+	//	max_value	not set for i6
+	//	min_value	not set for i6
+	//	max_alarm	not set for i6
+	//	min_alarm	not set for i6
+	//	max_warning	not set for i6
+	//	min_warning	not set for i6
+	//	delta_t	not set for i6
+	//	delta_val	not set for i6
+	
+	i6->set_default_properties(i6_prop);
+	//	Not Polled
+	i6->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(i6);
+
+	//	Attribute : i7
+	i7Attrib	*i7 = new i7Attrib();
+	Tango::UserDefaultAttrProp	i7_prop;
+	//	description	not set for i7
+	i7_prop.set_label("I7");
+	//	unit	not set for i7
+	//	standard_unit	not set for i7
+	//	display_unit	not set for i7
+	//	format	not set for i7
+	//	max_value	not set for i7
+	//	min_value	not set for i7
+	//	max_alarm	not set for i7
+	//	min_alarm	not set for i7
+	//	max_warning	not set for i7
+	//	min_warning	not set for i7
+	//	delta_t	not set for i7
+	//	delta_val	not set for i7
+	
+	i7->set_default_properties(i7_prop);
+	//	Not Polled
+	i7->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(i7);
+
+	//	Attribute : o0
+	o0Attrib	*o0 = new o0Attrib();
+	Tango::UserDefaultAttrProp	o0_prop;
+	//	description	not set for o0
+	o0_prop.set_label("O0");
+	//	unit	not set for o0
+	//	standard_unit	not set for o0
+	//	display_unit	not set for o0
+	//	format	not set for o0
+	//	max_value	not set for o0
+	//	min_value	not set for o0
+	//	max_alarm	not set for o0
+	//	min_alarm	not set for o0
+	//	max_warning	not set for o0
+	//	min_warning	not set for o0
+	//	delta_t	not set for o0
+	//	delta_val	not set for o0
+	
+	o0->set_default_properties(o0_prop);
+	//	Not Polled
+	o0->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(o0);
+
+	//	Attribute : o1
+	o1Attrib	*o1 = new o1Attrib();
+	Tango::UserDefaultAttrProp	o1_prop;
+	//	description	not set for o1
+	o1_prop.set_label("O1");
+	//	unit	not set for o1
+	//	standard_unit	not set for o1
+	//	display_unit	not set for o1
+	//	format	not set for o1
+	//	max_value	not set for o1
+	//	min_value	not set for o1
+	//	max_alarm	not set for o1
+	//	min_alarm	not set for o1
+	//	max_warning	not set for o1
+	//	min_warning	not set for o1
+	//	delta_t	not set for o1
+	//	delta_val	not set for o1
+	
+	o1->set_default_properties(o1_prop);
+	//	Not Polled
+	o1->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(o1);
+
+	//	Attribute : o2
+	o2Attrib	*o2 = new o2Attrib();
+	Tango::UserDefaultAttrProp	o2_prop;
+	//	description	not set for o2
+	o2_prop.set_label("O2");
+	//	unit	not set for o2
+	//	standard_unit	not set for o2
+	//	display_unit	not set for o2
+	//	format	not set for o2
+	//	max_value	not set for o2
+	//	min_value	not set for o2
+	//	max_alarm	not set for o2
+	//	min_alarm	not set for o2
+	//	max_warning	not set for o2
+	//	min_warning	not set for o2
+	//	delta_t	not set for o2
+	//	delta_val	not set for o2
+	
+	o2->set_default_properties(o2_prop);
+	//	Not Polled
+	o2->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(o2);
+
+	//	Attribute : o3
+	o3Attrib	*o3 = new o3Attrib();
+	Tango::UserDefaultAttrProp	o3_prop;
+	//	description	not set for o3
+	o3_prop.set_label("O3");
+	//	unit	not set for o3
+	//	standard_unit	not set for o3
+	//	display_unit	not set for o3
+	//	format	not set for o3
+	//	max_value	not set for o3
+	//	min_value	not set for o3
+	//	max_alarm	not set for o3
+	//	min_alarm	not set for o3
+	//	max_warning	not set for o3
+	//	min_warning	not set for o3
+	//	delta_t	not set for o3
+	//	delta_val	not set for o3
+	
+	o3->set_default_properties(o3_prop);
+	//	Not Polled
+	o3->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(o3);
+
+	//	Attribute : o4
+	o4Attrib	*o4 = new o4Attrib();
+	Tango::UserDefaultAttrProp	o4_prop;
+	//	description	not set for o4
+	o4_prop.set_label("O4");
+	//	unit	not set for o4
+	//	standard_unit	not set for o4
+	//	display_unit	not set for o4
+	//	format	not set for o4
+	//	max_value	not set for o4
+	//	min_value	not set for o4
+	//	max_alarm	not set for o4
+	//	min_alarm	not set for o4
+	//	max_warning	not set for o4
+	//	min_warning	not set for o4
+	//	delta_t	not set for o4
+	//	delta_val	not set for o4
+	
+	o4->set_default_properties(o4_prop);
+	//	Not Polled
+	o4->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(o4);
+
+	//	Attribute : o5
+	o5Attrib	*o5 = new o5Attrib();
+	Tango::UserDefaultAttrProp	o5_prop;
+	//	description	not set for o5
+	o5_prop.set_label("O5");
+	//	unit	not set for o5
+	//	standard_unit	not set for o5
+	//	display_unit	not set for o5
+	//	format	not set for o5
+	//	max_value	not set for o5
+	//	min_value	not set for o5
+	//	max_alarm	not set for o5
+	//	min_alarm	not set for o5
+	//	max_warning	not set for o5
+	//	min_warning	not set for o5
+	//	delta_t	not set for o5
+	//	delta_val	not set for o5
+	
+	o5->set_default_properties(o5_prop);
+	//	Not Polled
+	o5->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(o5);
+
+	//	Attribute : o6
+	o6Attrib	*o6 = new o6Attrib();
+	Tango::UserDefaultAttrProp	o6_prop;
+	//	description	not set for o6
+	o6_prop.set_label("O6");
+	//	unit	not set for o6
+	//	standard_unit	not set for o6
+	//	display_unit	not set for o6
+	//	format	not set for o6
+	//	max_value	not set for o6
+	//	min_value	not set for o6
+	//	max_alarm	not set for o6
+	//	min_alarm	not set for o6
+	//	max_warning	not set for o6
+	//	min_warning	not set for o6
+	//	delta_t	not set for o6
+	//	delta_val	not set for o6
+	
+	o6->set_default_properties(o6_prop);
+	//	Not Polled
+	o6->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(o6);
+
+	//	Attribute : o7
+	o7Attrib	*o7 = new o7Attrib();
+	Tango::UserDefaultAttrProp	o7_prop;
+	//	description	not set for o7
+	o7_prop.set_label("O7");
+	//	unit	not set for o7
+	//	standard_unit	not set for o7
+	//	display_unit	not set for o7
+	//	format	not set for o7
+	//	max_value	not set for o7
+	//	min_value	not set for o7
+	//	max_alarm	not set for o7
+	//	min_alarm	not set for o7
+	//	max_warning	not set for o7
+	//	min_warning	not set for o7
+	//	delta_t	not set for o7
+	//	delta_val	not set for o7
+	
+	o7->set_default_properties(o7_prop);
+	//	Not Polled
+	o7->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(o7);
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());

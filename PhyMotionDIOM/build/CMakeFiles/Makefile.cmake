@@ -117,5 +117,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/PhyMotionMotor.dir/DependInfo.cmake"
+  "CMakeFiles/PhyMotionDIOM.dir/DependInfo.cmake"
   )

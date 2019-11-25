@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named PhyMotionMotor
+# Target rules for targets named PhyMotionDIOM
 
 # Build rule for target.
-PhyMotionMotor: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 PhyMotionMotor
-.PHONY : PhyMotionMotor
+PhyMotionDIOM: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 PhyMotionDIOM
+.PHONY : PhyMotionDIOM
 
 # fast build rule for target.
-PhyMotionMotor/fast:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/build
-.PHONY : PhyMotionMotor/fast
+PhyMotionDIOM/fast:
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/build
+.PHONY : PhyMotionDIOM/fast
 
 ClassFactory.o: ClassFactory.cpp.o
 
@@ -129,7 +129,7 @@ ClassFactory.o: ClassFactory.cpp.o
 
 # target to build an object file
 ClassFactory.cpp.o:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/ClassFactory.cpp.o
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/ClassFactory.cpp.o
 .PHONY : ClassFactory.cpp.o
 
 ClassFactory.i: ClassFactory.cpp.i
@@ -138,7 +138,7 @@ ClassFactory.i: ClassFactory.cpp.i
 
 # target to preprocess a source file
 ClassFactory.cpp.i:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/ClassFactory.cpp.i
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/ClassFactory.cpp.i
 .PHONY : ClassFactory.cpp.i
 
 ClassFactory.s: ClassFactory.cpp.s
@@ -147,7 +147,7 @@ ClassFactory.s: ClassFactory.cpp.s
 
 # target to generate assembly for a file
 ClassFactory.cpp.s:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/ClassFactory.cpp.s
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/ClassFactory.cpp.s
 .PHONY : ClassFactory.cpp.s
 
 PhyMotionDIOM.o: PhyMotionDIOM.cpp.o
@@ -156,7 +156,7 @@ PhyMotionDIOM.o: PhyMotionDIOM.cpp.o
 
 # target to build an object file
 PhyMotionDIOM.cpp.o:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/PhyMotionDIOM.cpp.o
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/PhyMotionDIOM.cpp.o
 .PHONY : PhyMotionDIOM.cpp.o
 
 PhyMotionDIOM.i: PhyMotionDIOM.cpp.i
@@ -165,7 +165,7 @@ PhyMotionDIOM.i: PhyMotionDIOM.cpp.i
 
 # target to preprocess a source file
 PhyMotionDIOM.cpp.i:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/PhyMotionDIOM.cpp.i
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/PhyMotionDIOM.cpp.i
 .PHONY : PhyMotionDIOM.cpp.i
 
 PhyMotionDIOM.s: PhyMotionDIOM.cpp.s
@@ -174,7 +174,7 @@ PhyMotionDIOM.s: PhyMotionDIOM.cpp.s
 
 # target to generate assembly for a file
 PhyMotionDIOM.cpp.s:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/PhyMotionDIOM.cpp.s
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/PhyMotionDIOM.cpp.s
 .PHONY : PhyMotionDIOM.cpp.s
 
 PhyMotionDIOMClass.o: PhyMotionDIOMClass.cpp.o
@@ -183,7 +183,7 @@ PhyMotionDIOMClass.o: PhyMotionDIOMClass.cpp.o
 
 # target to build an object file
 PhyMotionDIOMClass.cpp.o:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/PhyMotionDIOMClass.cpp.o
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/PhyMotionDIOMClass.cpp.o
 .PHONY : PhyMotionDIOMClass.cpp.o
 
 PhyMotionDIOMClass.i: PhyMotionDIOMClass.cpp.i
@@ -192,7 +192,7 @@ PhyMotionDIOMClass.i: PhyMotionDIOMClass.cpp.i
 
 # target to preprocess a source file
 PhyMotionDIOMClass.cpp.i:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/PhyMotionDIOMClass.cpp.i
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/PhyMotionDIOMClass.cpp.i
 .PHONY : PhyMotionDIOMClass.cpp.i
 
 PhyMotionDIOMClass.s: PhyMotionDIOMClass.cpp.s
@@ -201,7 +201,7 @@ PhyMotionDIOMClass.s: PhyMotionDIOMClass.cpp.s
 
 # target to generate assembly for a file
 PhyMotionDIOMClass.cpp.s:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/PhyMotionDIOMClass.cpp.s
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/PhyMotionDIOMClass.cpp.s
 .PHONY : PhyMotionDIOMClass.cpp.s
 
 PhyMotionDIOMStateMachine.o: PhyMotionDIOMStateMachine.cpp.o
@@ -210,7 +210,7 @@ PhyMotionDIOMStateMachine.o: PhyMotionDIOMStateMachine.cpp.o
 
 # target to build an object file
 PhyMotionDIOMStateMachine.cpp.o:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/PhyMotionDIOMStateMachine.cpp.o
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/PhyMotionDIOMStateMachine.cpp.o
 .PHONY : PhyMotionDIOMStateMachine.cpp.o
 
 PhyMotionDIOMStateMachine.i: PhyMotionDIOMStateMachine.cpp.i
@@ -219,7 +219,7 @@ PhyMotionDIOMStateMachine.i: PhyMotionDIOMStateMachine.cpp.i
 
 # target to preprocess a source file
 PhyMotionDIOMStateMachine.cpp.i:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/PhyMotionDIOMStateMachine.cpp.i
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/PhyMotionDIOMStateMachine.cpp.i
 .PHONY : PhyMotionDIOMStateMachine.cpp.i
 
 PhyMotionDIOMStateMachine.s: PhyMotionDIOMStateMachine.cpp.s
@@ -228,7 +228,7 @@ PhyMotionDIOMStateMachine.s: PhyMotionDIOMStateMachine.cpp.s
 
 # target to generate assembly for a file
 PhyMotionDIOMStateMachine.cpp.s:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/PhyMotionDIOMStateMachine.cpp.s
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/PhyMotionDIOMStateMachine.cpp.s
 .PHONY : PhyMotionDIOMStateMachine.cpp.s
 
 home/a/TEX-2/servers/lib/PhyMotionControlCMD.o: home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.o
@@ -237,7 +237,7 @@ home/a/TEX-2/servers/lib/PhyMotionControlCMD.o: home/a/TEX-2/servers/lib/PhyMoti
 
 # target to build an object file
 home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.o:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.o
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.o
 .PHONY : home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.o
 
 home/a/TEX-2/servers/lib/PhyMotionControlCMD.i: home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.i
@@ -246,7 +246,7 @@ home/a/TEX-2/servers/lib/PhyMotionControlCMD.i: home/a/TEX-2/servers/lib/PhyMoti
 
 # target to preprocess a source file
 home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.i:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.i
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.i
 .PHONY : home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.i
 
 home/a/TEX-2/servers/lib/PhyMotionControlCMD.s: home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.s
@@ -255,7 +255,7 @@ home/a/TEX-2/servers/lib/PhyMotionControlCMD.s: home/a/TEX-2/servers/lib/PhyMoti
 
 # target to generate assembly for a file
 home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.s:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.s
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.s
 .PHONY : home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp.s
 
 main.o: main.cpp.o
@@ -264,7 +264,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -273,7 +273,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -282,7 +282,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -292,7 +292,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... PhyMotionMotor"
+	@echo "... PhyMotionDIOM"
 	@echo "... edit_cache"
 	@echo "... ClassFactory.o"
 	@echo "... ClassFactory.i"

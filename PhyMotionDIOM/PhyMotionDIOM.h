@@ -35,6 +35,7 @@
 #define PhyMotionDIOM_H
 
 #include <tango.h>
+#include <PhyMotionControlCMD.h>
 
 
 /*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM.h
@@ -57,11 +58,39 @@ class PhyMotionDIOM : public TANGO_BASE_CLASS
 
 /*----- PROTECTED REGION ID(PhyMotionDIOM::Data Members) ENABLED START -----*/
 
-//	Add your own data members
+    PhyMotionControlCMD *phy_control;
 
 /*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::Data Members
 
+//	Device property data members
+public:
+	//	control_device:	Just path to the device of PhyMotionControl
+	string	control_device;
+	//	module:	The moduel number
+	Tango::DevUShort	module;
+	//	address:	just address 0-9, and A-F
+	string	address;
 
+//	Attribute data members
+public:
+	Tango::DevUShort	*attr_inputs_read;
+	Tango::DevUShort	*attr_outputs_read;
+	Tango::DevBoolean	*attr_i0_read;
+	Tango::DevBoolean	*attr_i1_read;
+	Tango::DevBoolean	*attr_i2_read;
+	Tango::DevBoolean	*attr_i3_read;
+	Tango::DevBoolean	*attr_i4_read;
+	Tango::DevBoolean	*attr_i5_read;
+	Tango::DevBoolean	*attr_i6_read;
+	Tango::DevBoolean	*attr_i7_read;
+	Tango::DevBoolean	*attr_o0_read;
+	Tango::DevBoolean	*attr_o1_read;
+	Tango::DevBoolean	*attr_o2_read;
+	Tango::DevBoolean	*attr_o3_read;
+	Tango::DevBoolean	*attr_o4_read;
+	Tango::DevBoolean	*attr_o5_read;
+	Tango::DevBoolean	*attr_o6_read;
+	Tango::DevBoolean	*attr_o7_read;
 
 //	Constructors and destructors
 public:
@@ -104,6 +133,10 @@ public:
 	 */
 	virtual void init_device();
 	/*
+	 *	Read the device properties from database
+	 */
+	void get_device_property();
+	/*
 	 *	Always executed method before execution command method.
 	 */
 	virtual void always_executed_hook();
@@ -118,6 +151,185 @@ public:
 	 */
 	//--------------------------------------------------------
 	virtual void read_attr_hardware(vector<long> &attr_list);
+	//--------------------------------------------------------
+	/*
+	 *	Method      : PhyMotionDIOM::write_attr_hardware()
+	 *	Description : Hardware writing for attributes.
+	 */
+	//--------------------------------------------------------
+	virtual void write_attr_hardware(vector<long> &attr_list);
+
+/**
+ *	Attribute inputs related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevUShort
+ *	Attr type:	Scalar
+ */
+	virtual void read_inputs(Tango::Attribute &attr);
+	virtual bool is_inputs_allowed(Tango::AttReqType type);
+/**
+ *	Attribute outputs related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevUShort
+ *	Attr type:	Scalar
+ */
+	virtual void read_outputs(Tango::Attribute &attr);
+	virtual void write_outputs(Tango::WAttribute &attr);
+	virtual bool is_outputs_allowed(Tango::AttReqType type);
+/**
+ *	Attribute i0 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_i0(Tango::Attribute &attr);
+	virtual bool is_i0_allowed(Tango::AttReqType type);
+/**
+ *	Attribute i1 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_i1(Tango::Attribute &attr);
+	virtual bool is_i1_allowed(Tango::AttReqType type);
+/**
+ *	Attribute i2 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_i2(Tango::Attribute &attr);
+	virtual bool is_i2_allowed(Tango::AttReqType type);
+/**
+ *	Attribute i3 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_i3(Tango::Attribute &attr);
+	virtual bool is_i3_allowed(Tango::AttReqType type);
+/**
+ *	Attribute i4 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_i4(Tango::Attribute &attr);
+	virtual bool is_i4_allowed(Tango::AttReqType type);
+/**
+ *	Attribute i5 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_i5(Tango::Attribute &attr);
+	virtual bool is_i5_allowed(Tango::AttReqType type);
+/**
+ *	Attribute i6 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_i6(Tango::Attribute &attr);
+	virtual bool is_i6_allowed(Tango::AttReqType type);
+/**
+ *	Attribute i7 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_i7(Tango::Attribute &attr);
+	virtual bool is_i7_allowed(Tango::AttReqType type);
+/**
+ *	Attribute o0 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_o0(Tango::Attribute &attr);
+	virtual void write_o0(Tango::WAttribute &attr);
+	virtual bool is_o0_allowed(Tango::AttReqType type);
+/**
+ *	Attribute o1 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_o1(Tango::Attribute &attr);
+	virtual void write_o1(Tango::WAttribute &attr);
+	virtual bool is_o1_allowed(Tango::AttReqType type);
+/**
+ *	Attribute o2 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_o2(Tango::Attribute &attr);
+	virtual void write_o2(Tango::WAttribute &attr);
+	virtual bool is_o2_allowed(Tango::AttReqType type);
+/**
+ *	Attribute o3 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_o3(Tango::Attribute &attr);
+	virtual void write_o3(Tango::WAttribute &attr);
+	virtual bool is_o3_allowed(Tango::AttReqType type);
+/**
+ *	Attribute o4 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_o4(Tango::Attribute &attr);
+	virtual void write_o4(Tango::WAttribute &attr);
+	virtual bool is_o4_allowed(Tango::AttReqType type);
+/**
+ *	Attribute o5 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_o5(Tango::Attribute &attr);
+	virtual void write_o5(Tango::WAttribute &attr);
+	virtual bool is_o5_allowed(Tango::AttReqType type);
+/**
+ *	Attribute o6 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_o6(Tango::Attribute &attr);
+	virtual void write_o6(Tango::WAttribute &attr);
+	virtual bool is_o6_allowed(Tango::AttReqType type);
+/**
+ *	Attribute o7 related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_o7(Tango::Attribute &attr);
+	virtual void write_o7(Tango::WAttribute &attr);
+	virtual bool is_o7_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
@@ -145,7 +357,7 @@ public:
 
 /*----- PROTECTED REGION ID(PhyMotionDIOM::Additional Method prototypes) ENABLED START -----*/
 
-//	Additional Method prototypes
+    void setBitDIOM(int num_bit,bool value);
 
 /*----- PROTECTED REGION END -----*/	//	PhyMotionDIOM::Additional Method prototypes
 };

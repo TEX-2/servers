@@ -136,7 +136,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=PhyMotionControl
+CMAKE_PROJECT_NAME:STATIC=PhyMotionDIOM
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -203,10 +203,10 @@ OMNIORB4_LIB:FILEPATH=/usr/lib/x86_64-linux-gnu/libomniORB4.so
 OMNITHREAD_LIB:FILEPATH=/usr/lib/x86_64-linux-gnu/libomnithread.so
 
 //Value Computed by CMake
-PhyMotionControl_BINARY_DIR:STATIC=/home/a/TEX-2/servers/PhyMotionDIOM/build
+PhyMotionDIOM_BINARY_DIR:STATIC=/home/a/TEX-2/servers/PhyMotionDIOM/build
 
 //Value Computed by CMake
-PhyMotionControl_SOURCE_DIR:STATIC=/home/a/TEX-2/servers/PhyMotionDIOM
+PhyMotionDIOM_SOURCE_DIR:STATIC=/home/a/TEX-2/servers/PhyMotionDIOM
 
 //Path to a library.
 TANGO_LIB:FILEPATH=/usr/lib/x86_64-linux-gnu/libtango.so

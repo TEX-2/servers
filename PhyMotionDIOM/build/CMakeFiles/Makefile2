@@ -65,39 +65,39 @@ CMAKE_SOURCE_DIR = /home/a/TEX-2/servers/PhyMotionDIOM
 CMAKE_BINARY_DIR = /home/a/TEX-2/servers/PhyMotionDIOM/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/PhyMotionMotor.dir
+# Target rules for target CMakeFiles/PhyMotionDIOM.dir
 
 # All Build rule for target.
-CMakeFiles/PhyMotionMotor.dir/all:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/depend
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/a/TEX-2/servers/PhyMotionDIOM/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target PhyMotionMotor"
-.PHONY : CMakeFiles/PhyMotionMotor.dir/all
+CMakeFiles/PhyMotionDIOM.dir/all:
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/depend
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/a/TEX-2/servers/PhyMotionDIOM/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target PhyMotionDIOM"
+.PHONY : CMakeFiles/PhyMotionDIOM.dir/all
 
 # Include target in all.
-all: CMakeFiles/PhyMotionMotor.dir/all
+all: CMakeFiles/PhyMotionDIOM.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/PhyMotionMotor.dir/rule: cmake_check_build_system
+CMakeFiles/PhyMotionDIOM.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/a/TEX-2/servers/PhyMotionDIOM/build/CMakeFiles 7
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/PhyMotionMotor.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/PhyMotionDIOM.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/a/TEX-2/servers/PhyMotionDIOM/build/CMakeFiles 0
-.PHONY : CMakeFiles/PhyMotionMotor.dir/rule
+.PHONY : CMakeFiles/PhyMotionDIOM.dir/rule
 
 # Convenience name for target.
-PhyMotionMotor: CMakeFiles/PhyMotionMotor.dir/rule
+PhyMotionDIOM: CMakeFiles/PhyMotionDIOM.dir/rule
 
-.PHONY : PhyMotionMotor
-
-# clean rule for target.
-CMakeFiles/PhyMotionMotor.dir/clean:
-	$(MAKE) -f CMakeFiles/PhyMotionMotor.dir/build.make CMakeFiles/PhyMotionMotor.dir/clean
-.PHONY : CMakeFiles/PhyMotionMotor.dir/clean
+.PHONY : PhyMotionDIOM
 
 # clean rule for target.
-clean: CMakeFiles/PhyMotionMotor.dir/clean
+CMakeFiles/PhyMotionDIOM.dir/clean:
+	$(MAKE) -f CMakeFiles/PhyMotionDIOM.dir/build.make CMakeFiles/PhyMotionDIOM.dir/clean
+.PHONY : CMakeFiles/PhyMotionDIOM.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/PhyMotionDIOM.dir/clean
 
 .PHONY : clean
 
