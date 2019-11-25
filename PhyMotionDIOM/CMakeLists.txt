@@ -26,9 +26,9 @@ include_directories("../lib")
 
 add_executable(PhyMotionMotor
         main.cpp
-        PhyMotionMotor.cpp PhyMotionMotor.h
-        PhyMotionMotorClass.cpp PhyMotionMotorClass.h
-        PhyMotionMotorStateMachine.cpp
+        PhyMotionDIOM.cpp PhyMotionDIOM.h
+        PhyMotionDIOMClass.cpp PhyMotionDIOMClass.h
+        PhyMotionDIOMStateMachine.cpp
         ClassFactory.cpp
         ../lib/PhyMotionControlCMD.cpp ../lib/PhyMotionControlCMD.h)
 

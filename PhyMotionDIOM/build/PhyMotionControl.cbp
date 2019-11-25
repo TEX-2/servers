@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="PhyMotionControl"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/a/TEX-2/servers/PhyMotionDIOM/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/a/TEX-2/servers/PhyMotionDIOM/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="PhyMotionMotor">
+				<Option output="/home/a/TEX-2/servers/PhyMotionDIOM/build/PhyMotionMotor" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/a/TEX-2/servers/PhyMotionDIOM/build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/a/TEX-2/servers/PhyMotionDIOM"/>
+					<Add directory="/usr/include/tango"/>
+					<Add directory="/home/a/TEX-2/servers/PhyMotionDIOM/../lib"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 PhyMotionMotor"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="PhyMotionMotor/fast">
+				<Option output="/home/a/TEX-2/servers/PhyMotionDIOM/build/PhyMotionMotor" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/a/TEX-2/servers/PhyMotionDIOM/build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/a/TEX-2/servers/PhyMotionDIOM"/>
+					<Add directory="/usr/include/tango"/>
+					<Add directory="/home/a/TEX-2/servers/PhyMotionDIOM/../lib"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 PhyMotionMotor/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/a/TEX-2/servers/PhyMotionDIOM/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/a/TEX-2/servers/PhyMotionDIOM/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/a/TEX-2/servers/PhyMotionDIOM/ClassFactory.cpp">
+			<Option target="PhyMotionMotor"/>
+		</Unit>
+		<Unit filename="/home/a/TEX-2/servers/PhyMotionDIOM/PhyMotionDIOM.cpp">
+			<Option target="PhyMotionMotor"/>
+		</Unit>
+		<Unit filename="/home/a/TEX-2/servers/PhyMotionDIOM/PhyMotionDIOM.h">
+			<Option target="PhyMotionMotor"/>
+		</Unit>
+		<Unit filename="/home/a/TEX-2/servers/PhyMotionDIOM/PhyMotionDIOMClass.cpp">
+			<Option target="PhyMotionMotor"/>
+		</Unit>
+		<Unit filename="/home/a/TEX-2/servers/PhyMotionDIOM/PhyMotionDIOMClass.h">
+			<Option target="PhyMotionMotor"/>
+		</Unit>
+		<Unit filename="/home/a/TEX-2/servers/PhyMotionDIOM/PhyMotionDIOMStateMachine.cpp">
+			<Option target="PhyMotionMotor"/>
+		</Unit>
+		<Unit filename="/home/a/TEX-2/servers/PhyMotionDIOM/main.cpp">
+			<Option target="PhyMotionMotor"/>
+		</Unit>
+		<Unit filename="/home/a/TEX-2/servers/lib/PhyMotionControlCMD.cpp">
+			<Option target="PhyMotionMotor"/>
+		</Unit>
+		<Unit filename="/home/a/TEX-2/servers/lib/PhyMotionControlCMD.h">
+			<Option target="PhyMotionMotor"/>
+		</Unit>
+		<Unit filename="/home/a/TEX-2/servers/PhyMotionDIOM/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
