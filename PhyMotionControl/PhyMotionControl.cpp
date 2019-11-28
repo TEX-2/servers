@@ -145,6 +145,7 @@ void PhyMotionControl::init_device()
 	/*----- PROTECTED REGION ID(PhyMotionControl::init_device) ENABLED START -----*/
 
 	/* close old connection */
+	device_state = Tango::INIT;
 	if(tcp_connection!= nullptr){
 	    tcp_connection->Close();
 	    delete tcp_connection;
@@ -156,7 +157,7 @@ void PhyMotionControl::init_device()
 
     phymotion_command = new PhyMotionCommand(tcp_connection);
 
-    reset_device();
+    //reset_device(); reservate
 
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device
 }
