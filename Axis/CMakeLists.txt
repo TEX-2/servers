@@ -22,7 +22,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 
-add_executable(PhyMotionControl
+add_executable(Axis
         main.cpp
         Axis.cpp Axis.h
         AxisClass.cpp AxisClass.h
@@ -30,7 +30,7 @@ add_executable(PhyMotionControl
         ClassFactory.cpp
         PhyMotionMotorDevice.cpp PhyMotionMotorDevice.h)
 
-target_link_libraries(PhyMotionControl
+target_link_libraries(Axis
         ${TANGO_LIB}
         ${OMNIDYNAMIC4_LIB}
         ${COS4_LIB}
