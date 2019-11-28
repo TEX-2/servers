@@ -53,12 +53,16 @@
 //================================================================
 //  State         |  Inherited (no method)
 //  Status        |  Inherited (no method)
+//  Stop          |  stop
 //================================================================
 
 //================================================================
-//  Attributes managed is:
+//  Attributes managed are:
 //================================================================
-//  position  |  Tango::DevDouble	Scalar
+//  position        |  Tango::DevDouble	Scalar
+//  limit_switch_p  |  Tango::DevBoolean	Scalar
+//  limit_switch_c  |  Tango::DevBoolean	Scalar
+//  limit_switch_m  |  Tango::DevBoolean	Scalar
 //================================================================
 
 namespace Axis_ns
@@ -118,6 +122,9 @@ void Axis::delete_device()
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::delete_device
 	delete[] attr_position_read;
+	delete[] attr_limit_switch_p_read;
+	delete[] attr_limit_switch_c_read;
+	delete[] attr_limit_switch_m_read;
 }
 
 //--------------------------------------------------------
@@ -140,6 +147,9 @@ void Axis::init_device()
 	get_device_property();
 	
 	attr_position_read = new Tango::DevDouble[1];
+	attr_limit_switch_p_read = new Tango::DevBoolean[1];
+	attr_limit_switch_c_read = new Tango::DevBoolean[1];
+	attr_limit_switch_m_read = new Tango::DevBoolean[1];
 	/*----- PROTECTED REGION ID(Axis::init_device) ENABLED START -----*/
 
 	if(phy_motion_motor_device!=nullptr) delete phy_motion_motor_device;
@@ -167,6 +177,7 @@ void Axis::get_device_property()
 	Tango::DbData	dev_prop;
 	dev_prop.push_back(Tango::DbDatum("path_to_device"));
 	dev_prop.push_back(Tango::DbDatum("encoder"));
+	dev_prop.push_back(Tango::DbDatum("stop_activation"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -202,6 +213,17 @@ void Axis::get_device_property()
 		}
 		//	And try to extract encoder value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  encoder;
+
+		//	Try to initialize stop_activation from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  stop_activation;
+		else {
+			//	Try to initialize stop_activation from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  stop_activation;
+		}
+		//	And try to extract stop_activation value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  stop_activation;
 
 	}
 
@@ -272,8 +294,16 @@ void Axis::read_position(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "Axis::read_position(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(Axis::read_position) ENABLED START -----*/
-	//	Set the attribute value
+
+	if(encoder){
+        *attr_position_read = phy_motion_motor_device->readAbsolutePosition();
+	}else{
+	    *attr_position_read = phy_motion_motor_device->readPosition();
+	}
+
 	attr.set_value(attr_position_read);
+
+    getStateMotor();
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_position
 }
@@ -293,9 +323,81 @@ void Axis::write_position(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_position) ENABLED START -----*/
-	
+
+	phy_motion_motor_device->activation(true);
+	phy_motion_motor_device->writePosition(w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::write_position
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute limit_switch_p related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::read_limit_switch_p(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Axis::read_limit_switch_p(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(Axis::read_limit_switch_p) ENABLED START -----*/
+
+	if(phy_motion_motor_device->readAxisState() & 0x10){
+	    *attr_limit_switch_p_read = false;
+	}else{
+        *attr_limit_switch_p_read = true;
+	}
+
+	attr.set_value(attr_limit_switch_p_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::read_limit_switch_p
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute limit_switch_c related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::read_limit_switch_c(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Axis::read_limit_switch_c(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(Axis::read_limit_switch_c) ENABLED START -----*/
+
+    if(phy_motion_motor_device->readAxisState() & 0x40){
+        *attr_limit_switch_c_read = false;
+    }else{
+        *attr_limit_switch_c_read = true;
+    }
+
+	attr.set_value(attr_limit_switch_c_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::read_limit_switch_c
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute limit_switch_m related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::read_limit_switch_m(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Axis::read_limit_switch_m(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(Axis::read_limit_switch_m) ENABLED START -----*/
+    if(phy_motion_motor_device->readAxisState() & 0x20){
+        *attr_limit_switch_m_read = false;
+    }else{
+        *attr_limit_switch_m_read = true;
+    }
+	attr.set_value(attr_limit_switch_m_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::read_limit_switch_m
 }
 
 //--------------------------------------------------------
@@ -309,11 +411,27 @@ void Axis::add_dynamic_attributes()
 {
 	/*----- PROTECTED REGION ID(Axis::add_dynamic_attributes) ENABLED START -----*/
 	
-	//	Add your own code to create and add dynamic attributes if any
+
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::add_dynamic_attributes
 }
 
+//--------------------------------------------------------
+/**
+ *	Command Stop related method
+ *	Description: 
+ *
+ */
+//--------------------------------------------------------
+void Axis::stop()
+{
+	DEBUG_STREAM << "Axis::Stop()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(Axis::stop) ENABLED START -----*/
+
+	phy_motion_motor_device->getDeviceProxy()->command_inout("Stop");
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::stop
+}
 //--------------------------------------------------------
 /**
  *	Method      : Axis::add_dynamic_commands()
@@ -332,7 +450,14 @@ void Axis::add_dynamic_commands()
 
 /*----- PROTECTED REGION ID(Axis::namespace_ending) ENABLED START -----*/
 
-//	Additional Methods
+void Axis::getStateMotor() {
+    device_state = phy_motion_motor_device->getDeviceProxy()->state();
+    device_status = phy_motion_motor_device->getDeviceProxy()->status();
+
+    if(stop_activation){
+        if(device_state!=Tango::MOVING) phy_motion_motor_device->activation(false);
+    }
+}
 
 /*----- PROTECTED REGION END -----*/	//	Axis::namespace_ending
 } //	namespace

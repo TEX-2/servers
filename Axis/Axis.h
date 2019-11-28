@@ -61,6 +61,8 @@ class Axis : public TANGO_BASE_CLASS
 
 private:
     PhyMotionMotorDevice *phy_motion_motor_device = nullptr;
+    int axis_status;
+    void getStateMotor();
 
 /*----- PROTECTED REGION END -----*/	//	Axis::Data Members
 
@@ -71,10 +73,15 @@ public:
 	//	encoder:	Without encoder = false
 	//  With encoder = true
 	Tango::DevBoolean	encoder;
+	//	stop_activation:	if true - activation disable after stop motion
+	Tango::DevBoolean	stop_activation;
 
 //	Attribute data members
 public:
 	Tango::DevDouble	*attr_position_read;
+	Tango::DevBoolean	*attr_limit_switch_p_read;
+	Tango::DevBoolean	*attr_limit_switch_c_read;
+	Tango::DevBoolean	*attr_limit_switch_m_read;
 
 //	Constructors and destructors
 public:
@@ -153,6 +160,33 @@ public:
 	virtual void read_position(Tango::Attribute &attr);
 	virtual void write_position(Tango::WAttribute &attr);
 	virtual bool is_position_allowed(Tango::AttReqType type);
+/**
+ *	Attribute limit_switch_p related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_limit_switch_p(Tango::Attribute &attr);
+	virtual bool is_limit_switch_p_allowed(Tango::AttReqType type);
+/**
+ *	Attribute limit_switch_c related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_limit_switch_c(Tango::Attribute &attr);
+	virtual bool is_limit_switch_c_allowed(Tango::AttReqType type);
+/**
+ *	Attribute limit_switch_m related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_limit_switch_m(Tango::Attribute &attr);
+	virtual bool is_limit_switch_m_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
@@ -168,6 +202,13 @@ public:
 
 //	Command related methods
 public:
+	/**
+	 *	Command Stop related method
+	 *	Description: 
+	 *
+	 */
+	virtual void stop();
+	virtual bool is_Stop_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

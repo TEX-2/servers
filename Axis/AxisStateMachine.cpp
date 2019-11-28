@@ -69,10 +69,73 @@ bool Axis::is_position_allowed(TANGO_UNUSED(Tango::AttReqType type))
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_limit_switch_p_allowed()
+ *	Description : Execution allowed for limit_switch_p attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_limit_switch_p_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for limit_switch_p attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::limit_switch_pStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::limit_switch_pStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_limit_switch_c_allowed()
+ *	Description : Execution allowed for limit_switch_c attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_limit_switch_c_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for limit_switch_c attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::limit_switch_cStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::limit_switch_cStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_limit_switch_m_allowed()
+ *	Description : Execution allowed for limit_switch_m attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_limit_switch_m_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for limit_switch_m attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::limit_switch_mStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::limit_switch_mStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods
 //=================================================
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_Stop_allowed()
+ *	Description : Execution allowed for Stop attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_Stop_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for Stop command.
+	/*----- PROTECTED REGION ID(Axis::StopStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::StopStateAllowed
+	return true;
+}
 
 
 /*----- PROTECTED REGION ID(Axis::AxisStateAllowed.AdditionalMethods) ENABLED START -----*/

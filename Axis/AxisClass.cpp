@@ -149,6 +149,24 @@ AxisClass *AxisClass::instance()
 //===================================================================
 //	Command execution method calls
 //===================================================================
+//--------------------------------------------------------
+/**
+ * method : 		StopClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *StopClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "StopClass::execute(): arrived" << endl;
+	((static_cast<Axis *>(device))->stop());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -237,6 +255,20 @@ void AxisClass::set_default_property()
 	prop_def  = "false";
 	vect_data.clear();
 	vect_data.push_back("false");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "stop_activation";
+	prop_desc = "if true - activation disable after stop motion";
+	prop_def  = "true";
+	vect_data.clear();
+	vect_data.push_back("true");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -376,6 +408,78 @@ void AxisClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(position);
 
+	//	Attribute : limit_switch_p
+	limit_switch_pAttrib	*limit_switch_p = new limit_switch_pAttrib();
+	Tango::UserDefaultAttrProp	limit_switch_p_prop;
+	//	description	not set for limit_switch_p
+	limit_switch_p_prop.set_label("Limit switch +");
+	//	unit	not set for limit_switch_p
+	//	standard_unit	not set for limit_switch_p
+	//	display_unit	not set for limit_switch_p
+	//	format	not set for limit_switch_p
+	//	max_value	not set for limit_switch_p
+	//	min_value	not set for limit_switch_p
+	//	max_alarm	not set for limit_switch_p
+	//	min_alarm	not set for limit_switch_p
+	//	max_warning	not set for limit_switch_p
+	//	min_warning	not set for limit_switch_p
+	//	delta_t	not set for limit_switch_p
+	//	delta_val	not set for limit_switch_p
+	
+	limit_switch_p->set_default_properties(limit_switch_p_prop);
+	//	Not Polled
+	limit_switch_p->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(limit_switch_p);
+
+	//	Attribute : limit_switch_c
+	limit_switch_cAttrib	*limit_switch_c = new limit_switch_cAttrib();
+	Tango::UserDefaultAttrProp	limit_switch_c_prop;
+	//	description	not set for limit_switch_c
+	limit_switch_c_prop.set_label("Limit switch center");
+	//	unit	not set for limit_switch_c
+	//	standard_unit	not set for limit_switch_c
+	//	display_unit	not set for limit_switch_c
+	//	format	not set for limit_switch_c
+	//	max_value	not set for limit_switch_c
+	//	min_value	not set for limit_switch_c
+	//	max_alarm	not set for limit_switch_c
+	//	min_alarm	not set for limit_switch_c
+	//	max_warning	not set for limit_switch_c
+	//	min_warning	not set for limit_switch_c
+	//	delta_t	not set for limit_switch_c
+	//	delta_val	not set for limit_switch_c
+	
+	limit_switch_c->set_default_properties(limit_switch_c_prop);
+	//	Not Polled
+	limit_switch_c->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(limit_switch_c);
+
+	//	Attribute : limit_switch_m
+	limit_switch_mAttrib	*limit_switch_m = new limit_switch_mAttrib();
+	Tango::UserDefaultAttrProp	limit_switch_m_prop;
+	//	description	not set for limit_switch_m
+	limit_switch_m_prop.set_label("Limit switch -");
+	//	unit	not set for limit_switch_m
+	//	standard_unit	not set for limit_switch_m
+	//	display_unit	not set for limit_switch_m
+	//	format	not set for limit_switch_m
+	//	max_value	not set for limit_switch_m
+	//	min_value	not set for limit_switch_m
+	//	max_alarm	not set for limit_switch_m
+	//	min_alarm	not set for limit_switch_m
+	//	max_warning	not set for limit_switch_m
+	//	min_warning	not set for limit_switch_m
+	//	delta_t	not set for limit_switch_m
+	//	delta_val	not set for limit_switch_m
+	
+	limit_switch_m->set_default_properties(limit_switch_m_prop);
+	//	Not Polled
+	limit_switch_m->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(limit_switch_m);
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
@@ -420,6 +524,15 @@ void AxisClass::command_factory()
 	
 	/*----- PROTECTED REGION END -----*/	//	AxisClass::command_factory_before
 
+
+	//	Command Stop
+	StopClass	*pStopCmd =
+		new StopClass("Stop",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pStopCmd);
 
 	/*----- PROTECTED REGION ID(AxisClass::command_factory_after) ENABLED START -----*/
 	

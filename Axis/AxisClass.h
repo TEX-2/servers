@@ -70,6 +70,72 @@ public:
 		{return (static_cast<Axis *>(dev))->is_position_allowed(ty);}
 };
 
+//	Attribute limit_switch_p class definition
+class limit_switch_pAttrib: public Tango::Attr
+{
+public:
+	limit_switch_pAttrib():Attr("limit_switch_p",
+			Tango::DEV_BOOLEAN, Tango::READ) {};
+	~limit_switch_pAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_limit_switch_p(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_limit_switch_p_allowed(ty);}
+};
+
+//	Attribute limit_switch_c class definition
+class limit_switch_cAttrib: public Tango::Attr
+{
+public:
+	limit_switch_cAttrib():Attr("limit_switch_c",
+			Tango::DEV_BOOLEAN, Tango::READ) {};
+	~limit_switch_cAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_limit_switch_c(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_limit_switch_c_allowed(ty);}
+};
+
+//	Attribute limit_switch_m class definition
+class limit_switch_mAttrib: public Tango::Attr
+{
+public:
+	limit_switch_mAttrib():Attr("limit_switch_m",
+			Tango::DEV_BOOLEAN, Tango::READ) {};
+	~limit_switch_mAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_limit_switch_m(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_limit_switch_m_allowed(ty);}
+};
+
+
+//=========================================
+//	Define classes for commands
+//=========================================
+//	Command Stop class definition
+class StopClass : public Tango::Command
+{
+public:
+	StopClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	StopClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~StopClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<Axis *>(dev))->is_Stop_allowed(any);}
+};
+
 
 /**
  *	The AxisClass singleton definition
