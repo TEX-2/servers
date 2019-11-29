@@ -154,6 +154,8 @@ void Axis::init_device()
 
 	if(phy_motion_motor_device!=nullptr) delete phy_motion_motor_device;
 	phy_motion_motor_device = new PhyMotionMotorDevice(path_to_device);
+
+	old_state = device_state;
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::init_device
 }
@@ -454,9 +456,11 @@ void Axis::getStateMotor() {
     device_state = phy_motion_motor_device->getDeviceProxy()->state();
     device_status = phy_motion_motor_device->getDeviceProxy()->status();
 
+
     if(stop_activation){
-        if(device_state!=Tango::MOVING) phy_motion_motor_device->activation(false);
+        if(old_state!=device_state && device_state!=Tango::MOVING) phy_motion_motor_device->activation(false);
     }
+    old_state = device_state;
 }
 
 /*----- PROTECTED REGION END -----*/	//	Axis::namespace_ending

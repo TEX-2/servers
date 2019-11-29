@@ -64,6 +64,8 @@ private:
     int axis_status;
     void getStateMotor();
 
+    Tango::DevState old_state;
+
 /*----- PROTECTED REGION END -----*/	//	Axis::Data Members
 
 //	Device property data members
