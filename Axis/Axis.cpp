@@ -346,9 +346,9 @@ void Axis::read_limit_switch_p(Tango::Attribute &attr)
 	/*----- PROTECTED REGION ID(Axis::read_limit_switch_p) ENABLED START -----*/
 
 	if(phy_motion_motor_device->readAxisState() & 0x10){
-	    *attr_limit_switch_p_read = false;
+	    *attr_limit_switch_p_read = true;
 	}else{
-        *attr_limit_switch_p_read = true;
+        *attr_limit_switch_p_read = false;
 	}
 
 	attr.set_value(attr_limit_switch_p_read);
@@ -370,9 +370,9 @@ void Axis::read_limit_switch_c(Tango::Attribute &attr)
 	/*----- PROTECTED REGION ID(Axis::read_limit_switch_c) ENABLED START -----*/
 
     if(phy_motion_motor_device->readAxisState() & 0x40){
-        *attr_limit_switch_c_read = false;
-    }else{
         *attr_limit_switch_c_read = true;
+    }else{
+        *attr_limit_switch_c_read = false;
     }
 
 	attr.set_value(attr_limit_switch_c_read);
@@ -393,9 +393,9 @@ void Axis::read_limit_switch_m(Tango::Attribute &attr)
 	DEBUG_STREAM << "Axis::read_limit_switch_m(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(Axis::read_limit_switch_m) ENABLED START -----*/
     if(phy_motion_motor_device->readAxisState() & 0x20){
-        *attr_limit_switch_m_read = false;
-    }else{
         *attr_limit_switch_m_read = true;
+    }else{
+        *attr_limit_switch_m_read = false;
     }
 	attr.set_value(attr_limit_switch_m_read);
 	
