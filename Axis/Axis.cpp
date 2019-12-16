@@ -326,6 +326,7 @@ void Axis::write_position(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_position) ENABLED START -----*/
 
+	phy_motion_motor_device->getDeviceProxy()->command_inout("ResetStatus");
 	phy_motion_motor_device->activation(true);
 	phy_motion_motor_device->writePosition(w_val);
 	
