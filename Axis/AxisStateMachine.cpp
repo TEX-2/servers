@@ -117,6 +117,106 @@ bool Axis::is_limit_switch_m_allowed(TANGO_UNUSED(Tango::AttReqType type))
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_decel_allowed()
+ *	Description : Execution allowed for decel attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_decel_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for decel attribute in Write access.
+	/*----- PROTECTED REGION ID(Axis::decelStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::decelStateAllowed_WRITE
+
+	//	Not any excluded states for decel attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::decelStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::decelStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_accel_allowed()
+ *	Description : Execution allowed for accel attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_accel_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for accel attribute in Write access.
+	/*----- PROTECTED REGION ID(Axis::accelStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::accelStateAllowed_WRITE
+
+	//	Not any excluded states for accel attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::accelStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::accelStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_refpos_allowed()
+ *	Description : Execution allowed for refpos attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_refpos_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for refpos attribute in Write access.
+	/*----- PROTECTED REGION ID(Axis::refposStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::refposStateAllowed_WRITE
+
+	//	Not any excluded states for refpos attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::refposStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::refposStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_speed_allowed()
+ *	Description : Execution allowed for speed attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_speed_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for speed attribute in Write access.
+	/*----- PROTECTED REGION ID(Axis::speedStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::speedStateAllowed_WRITE
+
+	//	Not any excluded states for speed attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::speedStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::speedStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_target_allowed()
+ *	Description : Execution allowed for target attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_target_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for target attribute in Write access.
+	/*----- PROTECTED REGION ID(Axis::targetStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::targetStateAllowed_WRITE
+
+	//	Not any excluded states for target attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::targetStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::targetStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods
@@ -134,6 +234,21 @@ bool Axis::is_Stop_allowed(TANGO_UNUSED(const CORBA::Any &any))
 	/*----- PROTECTED REGION ID(Axis::StopStateAllowed) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::StopStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_GetProperties_allowed()
+ *	Description : Execution allowed for GetProperties attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_GetProperties_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for GetProperties command.
+	/*----- PROTECTED REGION ID(Axis::GetPropertiesStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::GetPropertiesStateAllowed
 	return true;
 }
 

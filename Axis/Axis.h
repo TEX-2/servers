@@ -84,6 +84,11 @@ public:
 	Tango::DevBoolean	*attr_limit_switch_p_read;
 	Tango::DevBoolean	*attr_limit_switch_c_read;
 	Tango::DevBoolean	*attr_limit_switch_m_read;
+	Tango::DevDouble	*attr_decel_read;
+	Tango::DevDouble	*attr_accel_read;
+	Tango::DevDouble	*attr_refpos_read;
+	Tango::DevDouble	*attr_speed_read;
+	Tango::DevDouble	*attr_target_read;
 
 //	Constructors and destructors
 public:
@@ -189,6 +194,56 @@ public:
  */
 	virtual void read_limit_switch_m(Tango::Attribute &attr);
 	virtual bool is_limit_switch_m_allowed(Tango::AttReqType type);
+/**
+ *	Attribute decel related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_decel(Tango::Attribute &attr);
+	virtual void write_decel(Tango::WAttribute &attr);
+	virtual bool is_decel_allowed(Tango::AttReqType type);
+/**
+ *	Attribute accel related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_accel(Tango::Attribute &attr);
+	virtual void write_accel(Tango::WAttribute &attr);
+	virtual bool is_accel_allowed(Tango::AttReqType type);
+/**
+ *	Attribute refpos related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_refpos(Tango::Attribute &attr);
+	virtual void write_refpos(Tango::WAttribute &attr);
+	virtual bool is_refpos_allowed(Tango::AttReqType type);
+/**
+ *	Attribute speed related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_speed(Tango::Attribute &attr);
+	virtual void write_speed(Tango::WAttribute &attr);
+	virtual bool is_speed_allowed(Tango::AttReqType type);
+/**
+ *	Attribute target related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_target(Tango::Attribute &attr);
+	virtual void write_target(Tango::WAttribute &attr);
+	virtual bool is_target_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
@@ -211,6 +266,14 @@ public:
 	 */
 	virtual void stop();
 	virtual bool is_Stop_allowed(const CORBA::Any &any);
+	/**
+	 *	Command GetProperties related method
+	 *	Description: 
+	 *
+	 *	@returns 
+	 */
+	virtual Tango::ConstDevString get_properties();
+	virtual bool is_GetProperties_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

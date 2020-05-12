@@ -109,6 +109,81 @@ public:
 		{return (static_cast<Axis *>(dev))->is_limit_switch_m_allowed(ty);}
 };
 
+//	Attribute decel class definition
+class decelAttrib: public Tango::Attr
+{
+public:
+	decelAttrib():Attr("decel",
+			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~decelAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_decel(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<Axis *>(dev))->write_decel(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_decel_allowed(ty);}
+};
+
+//	Attribute accel class definition
+class accelAttrib: public Tango::Attr
+{
+public:
+	accelAttrib():Attr("accel",
+			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~accelAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_accel(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<Axis *>(dev))->write_accel(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_accel_allowed(ty);}
+};
+
+//	Attribute refpos class definition
+class refposAttrib: public Tango::Attr
+{
+public:
+	refposAttrib():Attr("refpos",
+			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~refposAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_refpos(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<Axis *>(dev))->write_refpos(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_refpos_allowed(ty);}
+};
+
+//	Attribute speed class definition
+class speedAttrib: public Tango::Attr
+{
+public:
+	speedAttrib():Attr("speed",
+			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~speedAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_speed(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<Axis *>(dev))->write_speed(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_speed_allowed(ty);}
+};
+
+//	Attribute target class definition
+class targetAttrib: public Tango::Attr
+{
+public:
+	targetAttrib():Attr("target",
+			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~targetAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_target(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<Axis *>(dev))->write_target(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_target_allowed(ty);}
+};
+
 
 //=========================================
 //	Define classes for commands
@@ -134,6 +209,29 @@ public:
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
 	{return (static_cast<Axis *>(dev))->is_Stop_allowed(any);}
+};
+
+//	Command GetProperties class definition
+class GetPropertiesClass : public Tango::Command
+{
+public:
+	GetPropertiesClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	GetPropertiesClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~GetPropertiesClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<Axis *>(dev))->is_GetProperties_allowed(any);}
 };
 
 

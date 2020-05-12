@@ -49,11 +49,12 @@
 //  The following table gives the correspondence
 //  between command and method names.
 //
-//  Command name  |  Method name
+//  Command name   |  Method name
 //================================================================
-//  State         |  Inherited (no method)
-//  Status        |  Inherited (no method)
-//  Stop          |  stop
+//  State          |  Inherited (no method)
+//  Status         |  Inherited (no method)
+//  Stop           |  stop
+//  GetProperties  |  get_properties
 //================================================================
 
 //================================================================
@@ -63,6 +64,11 @@
 //  limit_switch_p  |  Tango::DevBoolean	Scalar
 //  limit_switch_c  |  Tango::DevBoolean	Scalar
 //  limit_switch_m  |  Tango::DevBoolean	Scalar
+//  decel           |  Tango::DevDouble	Scalar
+//  accel           |  Tango::DevDouble	Scalar
+//  refpos          |  Tango::DevDouble	Scalar
+//  speed           |  Tango::DevDouble	Scalar
+//  target          |  Tango::DevDouble	Scalar
 //================================================================
 
 namespace Axis_ns
@@ -125,6 +131,11 @@ void Axis::delete_device()
 	delete[] attr_limit_switch_p_read;
 	delete[] attr_limit_switch_c_read;
 	delete[] attr_limit_switch_m_read;
+	delete[] attr_decel_read;
+	delete[] attr_accel_read;
+	delete[] attr_refpos_read;
+	delete[] attr_speed_read;
+	delete[] attr_target_read;
 }
 
 //--------------------------------------------------------
@@ -150,6 +161,11 @@ void Axis::init_device()
 	attr_limit_switch_p_read = new Tango::DevBoolean[1];
 	attr_limit_switch_c_read = new Tango::DevBoolean[1];
 	attr_limit_switch_m_read = new Tango::DevBoolean[1];
+	attr_decel_read = new Tango::DevDouble[1];
+	attr_accel_read = new Tango::DevDouble[1];
+	attr_refpos_read = new Tango::DevDouble[1];
+	attr_speed_read = new Tango::DevDouble[1];
+	attr_target_read = new Tango::DevDouble[1];
 	/*----- PROTECTED REGION ID(Axis::init_device) ENABLED START -----*/
 
 	if(phy_motion_motor_device!=nullptr) delete phy_motion_motor_device;
@@ -402,6 +418,196 @@ void Axis::read_limit_switch_m(Tango::Attribute &attr)
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_limit_switch_m
 }
+//--------------------------------------------------------
+/**
+ *	Read attribute decel related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::read_decel(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Axis::read_decel(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(Axis::read_decel) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_decel_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::read_decel
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute decel related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::write_decel(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Axis::write_decel(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevDouble	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(Axis::write_decel) ENABLED START -----*/
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::write_decel
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute accel related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::read_accel(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Axis::read_accel(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(Axis::read_accel) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_accel_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::read_accel
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute accel related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::write_accel(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Axis::write_accel(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevDouble	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(Axis::write_accel) ENABLED START -----*/
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::write_accel
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute refpos related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::read_refpos(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Axis::read_refpos(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(Axis::read_refpos) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_refpos_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::read_refpos
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute refpos related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::write_refpos(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Axis::write_refpos(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevDouble	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(Axis::write_refpos) ENABLED START -----*/
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::write_refpos
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute speed related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::read_speed(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Axis::read_speed(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(Axis::read_speed) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_speed_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::read_speed
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute speed related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::write_speed(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Axis::write_speed(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevDouble	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(Axis::write_speed) ENABLED START -----*/
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::write_speed
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute target related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::read_target(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "Axis::read_target(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(Axis::read_target) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_target_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::read_target
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute target related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void Axis::write_target(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "Axis::write_target(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevDouble	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(Axis::write_target) ENABLED START -----*/
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::write_target
+}
 
 //--------------------------------------------------------
 /**
@@ -434,6 +640,25 @@ void Axis::stop()
 	phy_motion_motor_device->getDeviceProxy()->command_inout("Stop");
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::stop
+}
+//--------------------------------------------------------
+/**
+ *	Command GetProperties related method
+ *	Description: 
+ *
+ *	@returns 
+ */
+//--------------------------------------------------------
+Tango::ConstDevString Axis::get_properties()
+{
+	Tango::ConstDevString argout;
+	DEBUG_STREAM << "Axis::GetProperties()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(Axis::get_properties) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::get_properties
+	return argout;
 }
 //--------------------------------------------------------
 /**

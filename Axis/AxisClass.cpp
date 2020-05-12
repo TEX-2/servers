@@ -167,6 +167,23 @@ CORBA::Any *StopClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const COR
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		GetPropertiesClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *GetPropertiesClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "GetPropertiesClass::execute(): arrived" << endl;
+	return insert((static_cast<Axis *>(device))->get_properties());
+}
+
 
 //===================================================================
 //	Properties management
@@ -480,6 +497,126 @@ void AxisClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(limit_switch_m);
 
+	//	Attribute : decel
+	decelAttrib	*decel = new decelAttrib();
+	Tango::UserDefaultAttrProp	decel_prop;
+	//	description	not set for decel
+	//	label	not set for decel
+	//	unit	not set for decel
+	//	standard_unit	not set for decel
+	//	display_unit	not set for decel
+	//	format	not set for decel
+	//	max_value	not set for decel
+	//	min_value	not set for decel
+	//	max_alarm	not set for decel
+	//	min_alarm	not set for decel
+	//	max_warning	not set for decel
+	//	min_warning	not set for decel
+	//	delta_t	not set for decel
+	//	delta_val	not set for decel
+	
+	decel->set_default_properties(decel_prop);
+	//	Not Polled
+	decel->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(decel);
+
+	//	Attribute : accel
+	accelAttrib	*accel = new accelAttrib();
+	Tango::UserDefaultAttrProp	accel_prop;
+	//	description	not set for accel
+	//	label	not set for accel
+	//	unit	not set for accel
+	//	standard_unit	not set for accel
+	//	display_unit	not set for accel
+	//	format	not set for accel
+	//	max_value	not set for accel
+	//	min_value	not set for accel
+	//	max_alarm	not set for accel
+	//	min_alarm	not set for accel
+	//	max_warning	not set for accel
+	//	min_warning	not set for accel
+	//	delta_t	not set for accel
+	//	delta_val	not set for accel
+	
+	accel->set_default_properties(accel_prop);
+	//	Not Polled
+	accel->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(accel);
+
+	//	Attribute : refpos
+	refposAttrib	*refpos = new refposAttrib();
+	Tango::UserDefaultAttrProp	refpos_prop;
+	//	description	not set for refpos
+	//	label	not set for refpos
+	//	unit	not set for refpos
+	//	standard_unit	not set for refpos
+	//	display_unit	not set for refpos
+	//	format	not set for refpos
+	//	max_value	not set for refpos
+	//	min_value	not set for refpos
+	//	max_alarm	not set for refpos
+	//	min_alarm	not set for refpos
+	//	max_warning	not set for refpos
+	//	min_warning	not set for refpos
+	//	delta_t	not set for refpos
+	//	delta_val	not set for refpos
+	
+	refpos->set_default_properties(refpos_prop);
+	//	Not Polled
+	refpos->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(refpos);
+
+	//	Attribute : speed
+	speedAttrib	*speed = new speedAttrib();
+	Tango::UserDefaultAttrProp	speed_prop;
+	//	description	not set for speed
+	//	label	not set for speed
+	//	unit	not set for speed
+	//	standard_unit	not set for speed
+	//	display_unit	not set for speed
+	//	format	not set for speed
+	//	max_value	not set for speed
+	//	min_value	not set for speed
+	//	max_alarm	not set for speed
+	//	min_alarm	not set for speed
+	//	max_warning	not set for speed
+	//	min_warning	not set for speed
+	//	delta_t	not set for speed
+	//	delta_val	not set for speed
+	
+	speed->set_default_properties(speed_prop);
+	//	Not Polled
+	speed->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(speed);
+
+	//	Attribute : target
+	targetAttrib	*target = new targetAttrib();
+	Tango::UserDefaultAttrProp	target_prop;
+	//	description	not set for target
+	//	label	not set for target
+	//	unit	not set for target
+	//	standard_unit	not set for target
+	//	display_unit	not set for target
+	//	format	not set for target
+	//	max_value	not set for target
+	//	min_value	not set for target
+	//	max_alarm	not set for target
+	//	min_alarm	not set for target
+	//	max_warning	not set for target
+	//	min_warning	not set for target
+	//	delta_t	not set for target
+	//	delta_val	not set for target
+	
+	target->set_default_properties(target_prop);
+	//	Not Polled
+	target->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(target);
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
@@ -533,6 +670,15 @@ void AxisClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pStopCmd);
+
+	//	Command GetProperties
+	GetPropertiesClass	*pGetPropertiesCmd =
+		new GetPropertiesClass("GetProperties",
+			Tango::DEV_VOID, Tango::CONST_DEV_STRING,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pGetPropertiesCmd);
 
 	/*----- PROTECTED REGION ID(AxisClass::command_factory_after) ENABLED START -----*/
 	
