@@ -584,6 +584,9 @@ void Axis::read_target(Tango::Attribute &attr)
 	DEBUG_STREAM << "Axis::read_target(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(Axis::read_target) ENABLED START -----*/
 	//	Set the attribute value
+
+	*attr_target_read = *attr_position_read;
+
 	attr.set_value(attr_target_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_target
@@ -604,7 +607,12 @@ void Axis::write_target(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_target) ENABLED START -----*/
-	
+
+
+    phy_motion_motor_device->getDeviceProxy()->command_inout("ResetStatus");
+    phy_motion_motor_device->activation(true);
+    phy_motion_motor_device->writePosition(w_val);
+
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::write_target
 }
