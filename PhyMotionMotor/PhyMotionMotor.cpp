@@ -57,6 +57,10 @@
 //  ResetStatus               |  reset_status
 //  SetMechanicalZeroCounter  |  set_mechanical_zero_counter
 //  goTo                      |  go_to
+//  setAccel                  |  set_accel
+//  setDecel                  |  set_decel
+//  setSpeed                  |  set_speed
+//  getMZC                    |  get_mzc
 //================================================================
 
 //================================================================
@@ -1176,7 +1180,7 @@ void PhyMotionMotor::set_mechanical_zero_counter(Tango::DevDouble argin)
 	/*----- PROTECTED REGION ID(PhyMotionMotor::set_mechanical_zero_counter) ENABLED START -----*/
 	
 	phy_motion_control_cmd->setParameter(str_addr_axis_module,"20",std::to_string(argin));
-	
+
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::set_mechanical_zero_counter
 }
 //--------------------------------------------------------
@@ -1197,6 +1201,76 @@ void PhyMotionMotor::go_to(Tango::DevDouble argin)
 	mux.unlock();
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::go_to
+}
+//--------------------------------------------------------
+/**
+ *	Command setAccel related method
+ *	Description: 
+ *
+ *	@param argin 
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::set_accel(Tango::DevDouble argin)
+{
+	DEBUG_STREAM << "PhyMotionMotor::setAccel()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PhyMotionMotor::set_accel) ENABLED START -----*/
+
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(argin));
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::set_accel
+}
+//--------------------------------------------------------
+/**
+ *	Command setDecel related method
+ *	Description: 
+ *
+ *	@param argin 
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::set_decel(Tango::DevDouble argin)
+{
+	DEBUG_STREAM << "PhyMotionMotor::setDecel()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PhyMotionMotor::set_decel) ENABLED START -----*/
+
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(argin));
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::set_decel
+}
+//--------------------------------------------------------
+/**
+ *	Command setSpeed related method
+ *	Description: 
+ *
+ *	@param argin 
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::set_speed(Tango::DevDouble argin)
+{
+	DEBUG_STREAM << "PhyMotionMotor::setSpeed()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PhyMotionMotor::set_speed) ENABLED START -----*/
+
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(argin));
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::set_speed
+}
+//--------------------------------------------------------
+/**
+ *	Command getMZC related method
+ *	Description: 
+ *
+ *	@returns 
+ */
+//--------------------------------------------------------
+Tango::DevDouble PhyMotionMotor::get_mzc()
+{
+	Tango::DevDouble argout;
+	DEBUG_STREAM << "PhyMotionMotor::getMZC()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PhyMotionMotor::get_mzc) ENABLED START -----*/
+
+    argout = std::stof(phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P20R"));
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::get_mzc
+	return argout;
 }
 //--------------------------------------------------------
 /**

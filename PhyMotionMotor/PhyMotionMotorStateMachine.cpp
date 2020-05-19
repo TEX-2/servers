@@ -218,6 +218,66 @@ bool PhyMotionMotor::is_goTo_allowed(TANGO_UNUSED(const CORBA::Any &any))
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_setAccel_allowed()
+ *	Description : Execution allowed for setAccel attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_setAccel_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for setAccel command.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::setAccelStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::setAccelStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_setDecel_allowed()
+ *	Description : Execution allowed for setDecel attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_setDecel_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for setDecel command.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::setDecelStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::setDecelStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_setSpeed_allowed()
+ *	Description : Execution allowed for setSpeed attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_setSpeed_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for setSpeed command.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::setSpeedStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::setSpeedStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_getMZC_allowed()
+ *	Description : Execution allowed for getMZC attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_getMZC_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for getMZC command.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::getMZCStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::getMZCStateAllowed
+	return true;
+}
+
 
 /*----- PROTECTED REGION ID(PhyMotionMotor::PhyMotionMotorStateAllowed.AdditionalMethods) ENABLED START -----*/
 

@@ -225,6 +225,83 @@ CORBA::Any *goToClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_a
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		setAccelClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *setAccelClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "setAccelClass::execute(): arrived" << endl;
+	Tango::DevDouble argin;
+	extract(in_any, argin);
+	((static_cast<PhyMotionMotor *>(device))->set_accel(argin));
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		setDecelClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *setDecelClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "setDecelClass::execute(): arrived" << endl;
+	Tango::DevDouble argin;
+	extract(in_any, argin);
+	((static_cast<PhyMotionMotor *>(device))->set_decel(argin));
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		setSpeedClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *setSpeedClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "setSpeedClass::execute(): arrived" << endl;
+	Tango::DevDouble argin;
+	extract(in_any, argin);
+	((static_cast<PhyMotionMotor *>(device))->set_speed(argin));
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		getMZCClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *getMZCClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "getMZCClass::execute(): arrived" << endl;
+	return insert((static_cast<PhyMotionMotor *>(device))->get_mzc());
+}
+
 
 //===================================================================
 //	Properties management
@@ -1296,6 +1373,42 @@ void PhyMotionMotorClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pgoToCmd);
+
+	//	Command setAccel
+	setAccelClass	*psetAccelCmd =
+		new setAccelClass("setAccel",
+			Tango::DEV_DOUBLE, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(psetAccelCmd);
+
+	//	Command setDecel
+	setDecelClass	*psetDecelCmd =
+		new setDecelClass("setDecel",
+			Tango::DEV_DOUBLE, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(psetDecelCmd);
+
+	//	Command setSpeed
+	setSpeedClass	*psetSpeedCmd =
+		new setSpeedClass("setSpeed",
+			Tango::DEV_DOUBLE, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(psetSpeedCmd);
+
+	//	Command getMZC
+	getMZCClass	*pgetMZCCmd =
+		new getMZCClass("getMZC",
+			Tango::DEV_VOID, Tango::DEV_DOUBLE,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pgetMZCCmd);
 
 	/*----- PROTECTED REGION ID(PhyMotionMotorClass::command_factory_after) ENABLED START -----*/
 	

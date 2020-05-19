@@ -436,6 +436,38 @@ public:
 	 */
 	virtual void go_to(Tango::DevDouble argin);
 	virtual bool is_goTo_allowed(const CORBA::Any &any);
+	/**
+	 *	Command setAccel related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 */
+	virtual void set_accel(Tango::DevDouble argin);
+	virtual bool is_setAccel_allowed(const CORBA::Any &any);
+	/**
+	 *	Command setDecel related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 */
+	virtual void set_decel(Tango::DevDouble argin);
+	virtual bool is_setDecel_allowed(const CORBA::Any &any);
+	/**
+	 *	Command setSpeed related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 */
+	virtual void set_speed(Tango::DevDouble argin);
+	virtual bool is_setSpeed_allowed(const CORBA::Any &any);
+	/**
+	 *	Command getMZC related method
+	 *	Description: 
+	 *
+	 *	@returns 
+	 */
+	virtual Tango::DevDouble get_mzc();
+	virtual bool is_getMZC_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------
