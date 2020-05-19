@@ -15,9 +15,37 @@ void PhyMotionMotorDevice::writePosition(double pos) {
     device_proxy_phy_motion->command_inout("goTo",argins);
 }
 
+void PhyMotionMotorDevice::setSpeed(double speed) {
+    Tango::DeviceData argins;
+    Tango::DevDouble arg = speed;
+    argins << arg;
+    device_proxy_phy_motion->command_inout("setSpeed",argins);
+}
+
+void PhyMotionMotorDevice::setAccel(double accel) {
+    Tango::DeviceData argins;
+    Tango::DevDouble arg = accel;
+    argins << arg;
+    device_proxy_phy_motion->command_inout("setAccel",argins);
+}
+
+void PhyMotionMotorDevice::setDecel(double decel) {
+    Tango::DeviceData argins;
+    Tango::DevDouble arg = decel;
+    argins << arg;
+    device_proxy_phy_motion->command_inout("setDecel",argins);
+}
+
+
 double PhyMotionMotorDevice::readPosition() {
     double retval;
     device_proxy_phy_motion->read_attribute("position") >> retval;
+    return retval;
+}
+
+double PhyMotionMotorDevice::readRamp() {
+    double retval;
+    device_proxy_phy_motion->read_attribute("ramp") >> retval;
     return retval;
 }
 

@@ -1293,6 +1293,31 @@ void PhyMotionMotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(motor_temperature);
 
+	//	Attribute : ramp
+	rampAttrib	*ramp = new rampAttrib();
+	Tango::UserDefaultAttrProp	ramp_prop;
+	//	description	not set for ramp
+	//	label	not set for ramp
+	//	unit	not set for ramp
+	//	standard_unit	not set for ramp
+	//	display_unit	not set for ramp
+	//	format	not set for ramp
+	//	max_value	not set for ramp
+	//	min_value	not set for ramp
+	//	max_alarm	not set for ramp
+	//	min_alarm	not set for ramp
+	//	max_warning	not set for ramp
+	//	min_warning	not set for ramp
+	//	delta_t	not set for ramp
+	//	delta_val	not set for ramp
+	
+	ramp->set_default_properties(ramp_prop);
+	//	Not Polled
+	ramp->set_disp_level(Tango::OPERATOR);
+	ramp->set_memorized();
+	ramp->set_memorized_init(false);
+	att_list.push_back(ramp);
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());

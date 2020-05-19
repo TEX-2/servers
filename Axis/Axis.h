@@ -77,6 +77,8 @@ public:
 	Tango::DevBoolean	encoder;
 	//	stop_activation:	if true - activation disable after stop motion
 	Tango::DevBoolean	stop_activation;
+	//	refpos:	
+	Tango::DevDouble	refpos;
 
 //	Attribute data members
 public:
@@ -89,6 +91,10 @@ public:
 	Tango::DevDouble	*attr_refpos_read;
 	Tango::DevDouble	*attr_speed_read;
 	Tango::DevDouble	*attr_target_read;
+	Tango::DevDouble	*attr_ramp_read;
+	Tango::DevDouble	*attr_rawValue_read;
+	Tango::DevDouble	*attr_value_read;
+	Tango::DevString	*attr_version_read;
 
 //	Constructors and destructors
 public:
@@ -244,6 +250,45 @@ public:
 	virtual void read_target(Tango::Attribute &attr);
 	virtual void write_target(Tango::WAttribute &attr);
 	virtual bool is_target_allowed(Tango::AttReqType type);
+/**
+ *	Attribute ramp related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_ramp(Tango::Attribute &attr);
+	virtual void write_ramp(Tango::WAttribute &attr);
+	virtual bool is_ramp_allowed(Tango::AttReqType type);
+/**
+ *	Attribute rawValue related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_rawValue(Tango::Attribute &attr);
+	virtual void write_rawValue(Tango::WAttribute &attr);
+	virtual bool is_rawValue_allowed(Tango::AttReqType type);
+/**
+ *	Attribute value related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_value(Tango::Attribute &attr);
+	virtual void write_value(Tango::WAttribute &attr);
+	virtual bool is_value_allowed(Tango::AttReqType type);
+/**
+ *	Attribute version related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevString
+ *	Attr type:	Scalar
+ */
+	virtual void read_version(Tango::Attribute &attr);
+	virtual bool is_version_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
@@ -272,8 +317,60 @@ public:
 	 *
 	 *	@returns 
 	 */
-	virtual Tango::ConstDevString get_properties();
+	virtual Tango::DevVarStringArray *get_properties();
 	virtual bool is_GetProperties_allowed(const CORBA::Any &any);
+	/**
+	 *	Command On related method
+	 *	Description: 
+	 *
+	 */
+	virtual void on();
+	virtual bool is_On_allowed(const CORBA::Any &any);
+	/**
+	 *	Command Off related method
+	 *	Description: 
+	 *
+	 */
+	virtual void off();
+	virtual bool is_Off_allowed(const CORBA::Any &any);
+	/**
+	 *	Command SetProperties related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 */
+	virtual void set_properties(const Tango::DevVarStringArray *argin);
+	virtual bool is_SetProperties_allowed(const CORBA::Any &any);
+	/**
+	 *	Command Reset related method
+	 *	Description: 
+	 *
+	 */
+	virtual void reset();
+	virtual bool is_Reset_allowed(const CORBA::Any &any);
+	/**
+	 *	Command MoveCont related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 */
+	virtual void move_cont(Tango::DevDouble argin);
+	virtual bool is_MoveCont_allowed(const CORBA::Any &any);
+	/**
+	 *	Command Reference related method
+	 *	Description: 
+	 *
+	 */
+	virtual void reference();
+	virtual bool is_Reference_allowed(const CORBA::Any &any);
+	/**
+	 *	Command Ajust related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 */
+	virtual void ajust(Tango::DevDouble argin);
+	virtual bool is_Ajust_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

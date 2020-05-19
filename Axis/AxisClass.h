@@ -184,6 +184,64 @@ public:
 		{return (static_cast<Axis *>(dev))->is_target_allowed(ty);}
 };
 
+//	Attribute ramp class definition
+class rampAttrib: public Tango::Attr
+{
+public:
+	rampAttrib():Attr("ramp",
+			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~rampAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_ramp(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<Axis *>(dev))->write_ramp(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_ramp_allowed(ty);}
+};
+
+//	Attribute rawValue class definition
+class rawValueAttrib: public Tango::Attr
+{
+public:
+	rawValueAttrib():Attr("rawValue",
+			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~rawValueAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_rawValue(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<Axis *>(dev))->write_rawValue(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_rawValue_allowed(ty);}
+};
+
+//	Attribute value class definition
+class valueAttrib: public Tango::Attr
+{
+public:
+	valueAttrib():Attr("value",
+			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~valueAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_value(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<Axis *>(dev))->write_value(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_value_allowed(ty);}
+};
+
+//	Attribute version class definition
+class versionAttrib: public Tango::Attr
+{
+public:
+	versionAttrib():Attr("version",
+			Tango::DEV_STRING, Tango::READ) {};
+	~versionAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<Axis *>(dev))->read_version(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<Axis *>(dev))->is_version_allowed(ty);}
+};
+
 
 //=========================================
 //	Define classes for commands
@@ -232,6 +290,167 @@ public:
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
 	{return (static_cast<Axis *>(dev))->is_GetProperties_allowed(any);}
+};
+
+//	Command On class definition
+class OnClass : public Tango::Command
+{
+public:
+	OnClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	OnClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~OnClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<Axis *>(dev))->is_On_allowed(any);}
+};
+
+//	Command Off class definition
+class OffClass : public Tango::Command
+{
+public:
+	OffClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	OffClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~OffClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<Axis *>(dev))->is_Off_allowed(any);}
+};
+
+//	Command SetProperties class definition
+class SetPropertiesClass : public Tango::Command
+{
+public:
+	SetPropertiesClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	SetPropertiesClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~SetPropertiesClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<Axis *>(dev))->is_SetProperties_allowed(any);}
+};
+
+//	Command Reset class definition
+class ResetClass : public Tango::Command
+{
+public:
+	ResetClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	ResetClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~ResetClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<Axis *>(dev))->is_Reset_allowed(any);}
+};
+
+//	Command MoveCont class definition
+class MoveContClass : public Tango::Command
+{
+public:
+	MoveContClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	MoveContClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~MoveContClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<Axis *>(dev))->is_MoveCont_allowed(any);}
+};
+
+//	Command Reference class definition
+class ReferenceClass : public Tango::Command
+{
+public:
+	ReferenceClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	ReferenceClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~ReferenceClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<Axis *>(dev))->is_Reference_allowed(any);}
+};
+
+//	Command Ajust class definition
+class AjustClass : public Tango::Command
+{
+public:
+	AjustClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	AjustClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~AjustClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<Axis *>(dev))->is_Ajust_allowed(any);}
 };
 
 

@@ -217,6 +217,82 @@ bool Axis::is_target_allowed(TANGO_UNUSED(Tango::AttReqType type))
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_ramp_allowed()
+ *	Description : Execution allowed for ramp attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_ramp_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for ramp attribute in Write access.
+	/*----- PROTECTED REGION ID(Axis::rampStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::rampStateAllowed_WRITE
+
+	//	Not any excluded states for ramp attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::rampStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::rampStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_rawValue_allowed()
+ *	Description : Execution allowed for rawValue attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_rawValue_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for rawValue attribute in Write access.
+	/*----- PROTECTED REGION ID(Axis::rawValueStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::rawValueStateAllowed_WRITE
+
+	//	Not any excluded states for rawValue attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::rawValueStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::rawValueStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_value_allowed()
+ *	Description : Execution allowed for value attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_value_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for value attribute in Write access.
+	/*----- PROTECTED REGION ID(Axis::valueStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::valueStateAllowed_WRITE
+
+	//	Not any excluded states for value attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::valueStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::valueStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_version_allowed()
+ *	Description : Execution allowed for version attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_version_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for version attribute in read access.
+	/*----- PROTECTED REGION ID(Axis::versionStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::versionStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods
@@ -249,6 +325,111 @@ bool Axis::is_GetProperties_allowed(TANGO_UNUSED(const CORBA::Any &any))
 	/*----- PROTECTED REGION ID(Axis::GetPropertiesStateAllowed) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::GetPropertiesStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_On_allowed()
+ *	Description : Execution allowed for On attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_On_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for On command.
+	/*----- PROTECTED REGION ID(Axis::OnStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::OnStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_Off_allowed()
+ *	Description : Execution allowed for Off attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_Off_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for Off command.
+	/*----- PROTECTED REGION ID(Axis::OffStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::OffStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_SetProperties_allowed()
+ *	Description : Execution allowed for SetProperties attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_SetProperties_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for SetProperties command.
+	/*----- PROTECTED REGION ID(Axis::SetPropertiesStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::SetPropertiesStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_Reset_allowed()
+ *	Description : Execution allowed for Reset attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_Reset_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for Reset command.
+	/*----- PROTECTED REGION ID(Axis::ResetStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::ResetStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_MoveCont_allowed()
+ *	Description : Execution allowed for MoveCont attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_MoveCont_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for MoveCont command.
+	/*----- PROTECTED REGION ID(Axis::MoveContStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::MoveContStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_Reference_allowed()
+ *	Description : Execution allowed for Reference attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_Reference_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for Reference command.
+	/*----- PROTECTED REGION ID(Axis::ReferenceStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::ReferenceStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : Axis::is_Ajust_allowed()
+ *	Description : Execution allowed for Ajust attribute
+ */
+//--------------------------------------------------------
+bool Axis::is_Ajust_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for Ajust command.
+	/*----- PROTECTED REGION ID(Axis::AjustStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	Axis::AjustStateAllowed
 	return true;
 }
 

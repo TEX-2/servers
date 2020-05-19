@@ -72,6 +72,7 @@
 //  activate                 |  Tango::DevBoolean	Scalar
 //  power_stage_temperature  |  Tango::DevDouble	Scalar
 //  motor_temperature        |  Tango::DevDouble	Scalar
+//  ramp                     |  Tango::DevDouble	Scalar
 //================================================================
 
 namespace PhyMotionMotor_ns
@@ -136,6 +137,7 @@ void PhyMotionMotor::delete_device()
 	delete[] attr_activate_read;
 	delete[] attr_power_stage_temperature_read;
 	delete[] attr_motor_temperature_read;
+	delete[] attr_ramp_read;
 }
 
 //--------------------------------------------------------
@@ -163,6 +165,7 @@ void PhyMotionMotor::init_device()
 	attr_activate_read = new Tango::DevBoolean[1];
 	attr_power_stage_temperature_read = new Tango::DevDouble[1];
 	attr_motor_temperature_read = new Tango::DevDouble[1];
+	attr_ramp_read = new Tango::DevDouble[1];
 	/*----- PROTECTED REGION ID(PhyMotionMotor::init_device) ENABLED START -----*/
 
 	phy_motion_control_cmd = new PhyMotionControlCMD(control_device);
@@ -1112,6 +1115,45 @@ void PhyMotionMotor::read_motor_temperature(Tango::Attribute &attr)
 	attr.set_value(attr_motor_temperature_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_motor_temperature
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute ramp related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::read_ramp(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PhyMotionMotor::read_ramp(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PhyMotionMotor::read_ramp) ENABLED START -----*/
+	*attr_ramp_read = std::stof(phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P15R"));
+	attr.set_value(attr_ramp_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_ramp
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute ramp related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::write_ramp(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "PhyMotionMotor::write_ramp(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevDouble	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(PhyMotionMotor::write_ramp) ENABLED START -----*/
+
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("15"),std::to_string(w_val));
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::write_ramp
 }
 
 //--------------------------------------------------------

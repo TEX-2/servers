@@ -153,6 +153,26 @@ bool PhyMotionMotor::is_motor_temperature_allowed(TANGO_UNUSED(Tango::AttReqType
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_ramp_allowed()
+ *	Description : Execution allowed for ramp attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_ramp_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for ramp attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::rampStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::rampStateAllowed_WRITE
+
+	//	Not any excluded states for ramp attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::rampStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::rampStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods

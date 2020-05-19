@@ -19,8 +19,12 @@ public:
 public:
     double readPosition(void);
     double readAbsolutePosition(void);          // for encoder
+    double readRamp(void);
     int readAxisState(void);
     void writePosition(double pos);
+    void setSpeed(double speed);
+    void setAccel(double accel);
+    void setDecel(double decel);
     void activation(bool val);
     Tango::DevState getDevState(){device_proxy_phy_motion->state();}
     Tango::DeviceProxy *getDeviceProxy(void){return device_proxy_phy_motion;}

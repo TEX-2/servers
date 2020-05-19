@@ -184,6 +184,138 @@ CORBA::Any *GetPropertiesClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(
 	return insert((static_cast<Axis *>(device))->get_properties());
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		OnClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *OnClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "OnClass::execute(): arrived" << endl;
+	((static_cast<Axis *>(device))->on());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		OffClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *OffClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "OffClass::execute(): arrived" << endl;
+	((static_cast<Axis *>(device))->off());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		SetPropertiesClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *SetPropertiesClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "SetPropertiesClass::execute(): arrived" << endl;
+	const Tango::DevVarStringArray *argin;
+	extract(in_any, argin);
+	((static_cast<Axis *>(device))->set_properties(argin));
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		ResetClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *ResetClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "ResetClass::execute(): arrived" << endl;
+	((static_cast<Axis *>(device))->reset());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		MoveContClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *MoveContClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "MoveContClass::execute(): arrived" << endl;
+	Tango::DevDouble argin;
+	extract(in_any, argin);
+	((static_cast<Axis *>(device))->move_cont(argin));
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		ReferenceClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *ReferenceClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "ReferenceClass::execute(): arrived" << endl;
+	((static_cast<Axis *>(device))->reference());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		AjustClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *AjustClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "AjustClass::execute(): arrived" << endl;
+	Tango::DevDouble argin;
+	extract(in_any, argin);
+	((static_cast<Axis *>(device))->ajust(argin));
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -286,6 +418,20 @@ void AxisClass::set_default_property()
 	prop_def  = "true";
 	vect_data.clear();
 	vect_data.push_back("true");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "refpos";
+	prop_desc = "";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -566,7 +712,8 @@ void AxisClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	refpos->set_default_properties(refpos_prop);
 	//	Not Polled
 	refpos->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
+	refpos->set_memorized();
+	refpos->set_memorized_init(false);
 	att_list.push_back(refpos);
 
 	//	Attribute : speed
@@ -616,6 +763,102 @@ void AxisClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	target->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(target);
+
+	//	Attribute : ramp
+	rampAttrib	*ramp = new rampAttrib();
+	Tango::UserDefaultAttrProp	ramp_prop;
+	//	description	not set for ramp
+	//	label	not set for ramp
+	//	unit	not set for ramp
+	//	standard_unit	not set for ramp
+	//	display_unit	not set for ramp
+	//	format	not set for ramp
+	//	max_value	not set for ramp
+	//	min_value	not set for ramp
+	//	max_alarm	not set for ramp
+	//	min_alarm	not set for ramp
+	//	max_warning	not set for ramp
+	//	min_warning	not set for ramp
+	//	delta_t	not set for ramp
+	//	delta_val	not set for ramp
+	
+	ramp->set_default_properties(ramp_prop);
+	//	Not Polled
+	ramp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ramp);
+
+	//	Attribute : rawValue
+	rawValueAttrib	*rawvalue = new rawValueAttrib();
+	Tango::UserDefaultAttrProp	rawvalue_prop;
+	//	description	not set for rawValue
+	//	label	not set for rawValue
+	//	unit	not set for rawValue
+	//	standard_unit	not set for rawValue
+	//	display_unit	not set for rawValue
+	//	format	not set for rawValue
+	//	max_value	not set for rawValue
+	//	min_value	not set for rawValue
+	//	max_alarm	not set for rawValue
+	//	min_alarm	not set for rawValue
+	//	max_warning	not set for rawValue
+	//	min_warning	not set for rawValue
+	//	delta_t	not set for rawValue
+	//	delta_val	not set for rawValue
+	
+	rawvalue->set_default_properties(rawvalue_prop);
+	//	Not Polled
+	rawvalue->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(rawvalue);
+
+	//	Attribute : value
+	valueAttrib	*value = new valueAttrib();
+	Tango::UserDefaultAttrProp	value_prop;
+	//	description	not set for value
+	//	label	not set for value
+	//	unit	not set for value
+	//	standard_unit	not set for value
+	//	display_unit	not set for value
+	//	format	not set for value
+	//	max_value	not set for value
+	//	min_value	not set for value
+	//	max_alarm	not set for value
+	//	min_alarm	not set for value
+	//	max_warning	not set for value
+	//	min_warning	not set for value
+	//	delta_t	not set for value
+	//	delta_val	not set for value
+	
+	value->set_default_properties(value_prop);
+	//	Not Polled
+	value->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(value);
+
+	//	Attribute : version
+	versionAttrib	*version = new versionAttrib();
+	Tango::UserDefaultAttrProp	version_prop;
+	//	description	not set for version
+	//	label	not set for version
+	//	unit	not set for version
+	//	standard_unit	not set for version
+	//	display_unit	not set for version
+	//	format	not set for version
+	//	max_value	not set for version
+	//	min_value	not set for version
+	//	max_alarm	not set for version
+	//	min_alarm	not set for version
+	//	max_warning	not set for version
+	//	min_warning	not set for version
+	//	delta_t	not set for version
+	//	delta_val	not set for version
+	
+	version->set_default_properties(version_prop);
+	//	Not Polled
+	version->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(version);
 
 
 	//	Create a list of static attributes
@@ -674,11 +917,74 @@ void AxisClass::command_factory()
 	//	Command GetProperties
 	GetPropertiesClass	*pGetPropertiesCmd =
 		new GetPropertiesClass("GetProperties",
-			Tango::DEV_VOID, Tango::CONST_DEV_STRING,
+			Tango::DEV_VOID, Tango::DEVVAR_STRINGARRAY,
 			"",
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pGetPropertiesCmd);
+
+	//	Command On
+	OnClass	*pOnCmd =
+		new OnClass("On",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pOnCmd);
+
+	//	Command Off
+	OffClass	*pOffCmd =
+		new OffClass("Off",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pOffCmd);
+
+	//	Command SetProperties
+	SetPropertiesClass	*pSetPropertiesCmd =
+		new SetPropertiesClass("SetProperties",
+			Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pSetPropertiesCmd);
+
+	//	Command Reset
+	ResetClass	*pResetCmd =
+		new ResetClass("Reset",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pResetCmd);
+
+	//	Command MoveCont
+	MoveContClass	*pMoveContCmd =
+		new MoveContClass("MoveCont",
+			Tango::DEV_DOUBLE, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pMoveContCmd);
+
+	//	Command Reference
+	ReferenceClass	*pReferenceCmd =
+		new ReferenceClass("Reference",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pReferenceCmd);
+
+	//	Command Ajust
+	AjustClass	*pAjustCmd =
+		new AjustClass("Ajust",
+			Tango::DEV_DOUBLE, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pAjustCmd);
 
 	/*----- PROTECTED REGION ID(AxisClass::command_factory_after) ENABLED START -----*/
 	

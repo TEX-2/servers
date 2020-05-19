@@ -267,6 +267,7 @@ public:
 	Tango::DevBoolean	*attr_activate_read;
 	Tango::DevDouble	*attr_power_stage_temperature_read;
 	Tango::DevDouble	*attr_motor_temperature_read;
+	Tango::DevDouble	*attr_ramp_read;
 
 //	Constructors and destructors
 public:
@@ -391,6 +392,16 @@ public:
  */
 	virtual void read_motor_temperature(Tango::Attribute &attr);
 	virtual bool is_motor_temperature_allowed(Tango::AttReqType type);
+/**
+ *	Attribute ramp related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_ramp(Tango::Attribute &attr);
+	virtual void write_ramp(Tango::WAttribute &attr);
+	virtual bool is_ramp_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
