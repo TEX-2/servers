@@ -61,6 +61,7 @@
 //  setDecel                  |  set_decel
 //  setSpeed                  |  set_speed
 //  getMZC                    |  get_mzc
+//  SetAbsoluteZeroCounter    |  set_absolute_zero_counter
 //================================================================
 
 //================================================================
@@ -73,6 +74,7 @@
 //  power_stage_temperature  |  Tango::DevDouble	Scalar
 //  motor_temperature        |  Tango::DevDouble	Scalar
 //  ramp                     |  Tango::DevDouble	Scalar
+//  speed                    |  Tango::DevDouble	Scalar
 //================================================================
 
 namespace PhyMotionMotor_ns
@@ -138,6 +140,7 @@ void PhyMotionMotor::delete_device()
 	delete[] attr_power_stage_temperature_read;
 	delete[] attr_motor_temperature_read;
 	delete[] attr_ramp_read;
+	delete[] attr_speed_read;
 }
 
 //--------------------------------------------------------
@@ -166,6 +169,7 @@ void PhyMotionMotor::init_device()
 	attr_power_stage_temperature_read = new Tango::DevDouble[1];
 	attr_motor_temperature_read = new Tango::DevDouble[1];
 	attr_ramp_read = new Tango::DevDouble[1];
+	attr_speed_read = new Tango::DevDouble[1];
 	/*----- PROTECTED REGION ID(PhyMotionMotor::init_device) ENABLED START -----*/
 
 	phy_motion_control_cmd = new PhyMotionControlCMD(control_device);
@@ -1155,6 +1159,46 @@ void PhyMotionMotor::write_ramp(Tango::WAttribute &attr)
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::write_ramp
 }
+//--------------------------------------------------------
+/**
+ *	Read attribute speed related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::read_speed(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PhyMotionMotor::read_speed(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PhyMotionMotor::read_speed) ENABLED START -----*/
+
+	*attr_speed_read = std::stof(phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P14R"));
+	attr.set_value(attr_speed_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_speed
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute speed related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::write_speed(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "PhyMotionMotor::write_speed(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevDouble	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(PhyMotionMotor::write_speed) ENABLED START -----*/
+
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(w_val));
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::write_speed
+}
 
 //--------------------------------------------------------
 /**
@@ -1257,7 +1301,7 @@ void PhyMotionMotor::set_accel(Tango::DevDouble argin)
 	DEBUG_STREAM << "PhyMotionMotor::setAccel()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionMotor::set_accel) ENABLED START -----*/
 
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(argin));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("15"),std::to_string(argin));
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::set_accel
 }
@@ -1274,7 +1318,7 @@ void PhyMotionMotor::set_decel(Tango::DevDouble argin)
 	DEBUG_STREAM << "PhyMotionMotor::setDecel()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionMotor::set_decel) ENABLED START -----*/
 
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(argin));
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("15"),std::to_string(argin));
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::set_decel
 }
@@ -1313,6 +1357,23 @@ Tango::DevDouble PhyMotionMotor::get_mzc()
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::get_mzc
 	return argout;
+}
+//--------------------------------------------------------
+/**
+ *	Command SetAbsoluteZeroCounter related method
+ *	Description: 
+ *
+ *	@param argin 
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::set_absolute_zero_counter(Tango::DevDouble argin)
+{
+	DEBUG_STREAM << "PhyMotionMotor::SetAbsoluteZeroCounter()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PhyMotionMotor::set_absolute_zero_counter) ENABLED START -----*/
+
+    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("21"),std::to_string(argin));
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::set_absolute_zero_counter
 }
 //--------------------------------------------------------
 /**

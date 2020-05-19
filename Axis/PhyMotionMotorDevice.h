@@ -20,6 +20,7 @@ public:
     double readPosition(void);
     double readAbsolutePosition(void);          // for encoder
     double readRamp(void);
+    double readSpeed(void);
     int readAxisState(void);
     void writePosition(double pos);
     void setSpeed(double speed);

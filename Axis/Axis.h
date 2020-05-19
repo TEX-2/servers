@@ -65,6 +65,7 @@ private:
     void getStateMotor();
 
     Tango::DevState old_state;
+    Tango::DevVarStringArray *global_property_array;
 
 /*----- PROTECTED REGION END -----*/	//	Axis::Data Members
 

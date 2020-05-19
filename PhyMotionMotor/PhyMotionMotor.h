@@ -268,6 +268,7 @@ public:
 	Tango::DevDouble	*attr_power_stage_temperature_read;
 	Tango::DevDouble	*attr_motor_temperature_read;
 	Tango::DevDouble	*attr_ramp_read;
+	Tango::DevDouble	*attr_speed_read;
 
 //	Constructors and destructors
 public:
@@ -402,6 +403,16 @@ public:
 	virtual void read_ramp(Tango::Attribute &attr);
 	virtual void write_ramp(Tango::WAttribute &attr);
 	virtual bool is_ramp_allowed(Tango::AttReqType type);
+/**
+ *	Attribute speed related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_speed(Tango::Attribute &attr);
+	virtual void write_speed(Tango::WAttribute &attr);
+	virtual bool is_speed_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
@@ -479,6 +490,14 @@ public:
 	 */
 	virtual Tango::DevDouble get_mzc();
 	virtual bool is_getMZC_allowed(const CORBA::Any &any);
+	/**
+	 *	Command SetAbsoluteZeroCounter related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 */
+	virtual void set_absolute_zero_counter(Tango::DevDouble argin);
+	virtual bool is_SetAbsoluteZeroCounter_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

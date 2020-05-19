@@ -173,6 +173,26 @@ bool PhyMotionMotor::is_ramp_allowed(TANGO_UNUSED(Tango::AttReqType type))
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_speed_allowed()
+ *	Description : Execution allowed for speed attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_speed_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for speed attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::speedStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::speedStateAllowed_WRITE
+
+	//	Not any excluded states for speed attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::speedStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::speedStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods
@@ -295,6 +315,21 @@ bool PhyMotionMotor::is_getMZC_allowed(TANGO_UNUSED(const CORBA::Any &any))
 	/*----- PROTECTED REGION ID(PhyMotionMotor::getMZCStateAllowed) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::getMZCStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_SetAbsoluteZeroCounter_allowed()
+ *	Description : Execution allowed for SetAbsoluteZeroCounter attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_SetAbsoluteZeroCounter_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for SetAbsoluteZeroCounter command.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::SetAbsoluteZeroCounterStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::SetAbsoluteZeroCounterStateAllowed
 	return true;
 }
 

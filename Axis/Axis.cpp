@@ -191,6 +191,8 @@ void Axis::init_device()
 	phy_motion_motor_device = new PhyMotionMotorDevice(path_to_device);
 
 	old_state = device_state;
+
+    global_property_array = new Tango::DevVarStringArray();
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::init_device
 }
@@ -462,7 +464,7 @@ void Axis::read_decel(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "Axis::read_decel(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(Axis::read_decel) ENABLED START -----*/
-	//	Set the attribute value
+	*attr_decel_read = phy_motion_motor_device->readRamp();
 	attr.set_value(attr_decel_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_decel
@@ -501,7 +503,7 @@ void Axis::read_accel(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "Axis::read_accel(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(Axis::read_accel) ENABLED START -----*/
-	//	Set the attribute value
+    *attr_accel_read = phy_motion_motor_device->readRamp();
 	attr.set_value(attr_accel_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_accel
@@ -580,7 +582,8 @@ void Axis::read_speed(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "Axis::read_speed(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(Axis::read_speed) ENABLED START -----*/
-	//	Set the attribute value
+
+    *attr_speed_read = phy_motion_motor_device->readSpeed();
 	attr.set_value(attr_speed_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_speed
@@ -601,7 +604,8 @@ void Axis::write_speed(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_speed) ENABLED START -----*/
-	
+
+	phy_motion_motor_device->setSpeed(w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::write_speed
 }
@@ -665,7 +669,7 @@ void Axis::read_ramp(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "Axis::read_ramp(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(Axis::read_ramp) ENABLED START -----*/
-	//	Set the attribute value
+	*attr_ramp_read = phy_motion_motor_device->readRamp();
 	attr.set_value(attr_ramp_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_ramp
@@ -686,7 +690,7 @@ void Axis::write_ramp(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_ramp) ENABLED START -----*/
-	
+
 	phy_motion_motor_device->setAccel(w_val);
 
 
@@ -839,7 +843,7 @@ Tango::DevVarStringArray *Axis::get_properties()
 	DEBUG_STREAM << "Axis::GetProperties()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(Axis::get_properties) ENABLED START -----*/
 	
-	//	Add your own code
+	argout = global_property_array;
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::get_properties
 	return argout;

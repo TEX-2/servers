@@ -43,6 +43,12 @@ double PhyMotionMotorDevice::readPosition() {
     return retval;
 }
 
+double PhyMotionMotorDevice::readSpeed() {
+    double retval;
+    device_proxy_phy_motion->read_attribute("speed") >> retval;
+    return retval;
+}
+
 double PhyMotionMotorDevice::readRamp() {
     double retval;
     device_proxy_phy_motion->read_attribute("ramp") >> retval;

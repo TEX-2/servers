@@ -302,6 +302,26 @@ CORBA::Any *getMZCClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const C
 	return insert((static_cast<PhyMotionMotor *>(device))->get_mzc());
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		SetAbsoluteZeroCounterClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *SetAbsoluteZeroCounterClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "SetAbsoluteZeroCounterClass::execute(): arrived" << endl;
+	Tango::DevDouble argin;
+	extract(in_any, argin);
+	((static_cast<PhyMotionMotor *>(device))->set_absolute_zero_counter(argin));
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -1318,6 +1338,30 @@ void PhyMotionMotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	ramp->set_memorized_init(false);
 	att_list.push_back(ramp);
 
+	//	Attribute : speed
+	speedAttrib	*speed = new speedAttrib();
+	Tango::UserDefaultAttrProp	speed_prop;
+	//	description	not set for speed
+	//	label	not set for speed
+	//	unit	not set for speed
+	//	standard_unit	not set for speed
+	//	display_unit	not set for speed
+	//	format	not set for speed
+	//	max_value	not set for speed
+	//	min_value	not set for speed
+	//	max_alarm	not set for speed
+	//	min_alarm	not set for speed
+	//	max_warning	not set for speed
+	//	min_warning	not set for speed
+	//	delta_t	not set for speed
+	//	delta_val	not set for speed
+	
+	speed->set_default_properties(speed_prop);
+	//	Not Polled
+	speed->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(speed);
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
@@ -1434,6 +1478,15 @@ void PhyMotionMotorClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pgetMZCCmd);
+
+	//	Command SetAbsoluteZeroCounter
+	SetAbsoluteZeroCounterClass	*pSetAbsoluteZeroCounterCmd =
+		new SetAbsoluteZeroCounterClass("SetAbsoluteZeroCounter",
+			Tango::DEV_DOUBLE, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pSetAbsoluteZeroCounterCmd);
 
 	/*----- PROTECTED REGION ID(PhyMotionMotorClass::command_factory_after) ENABLED START -----*/
 	
