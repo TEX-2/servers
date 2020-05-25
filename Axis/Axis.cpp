@@ -192,8 +192,7 @@ void Axis::init_device()
 
 	old_state = device_state;
 
-    global_property_array = new Tango::DevVarStringArray();
-	
+
 	/*----- PROTECTED REGION END -----*/	//	Axis::init_device
 }
 
@@ -218,6 +217,15 @@ void Axis::get_device_property()
 	dev_prop.push_back(Tango::DbDatum("encoder"));
 	dev_prop.push_back(Tango::DbDatum("stop_activation"));
 	dev_prop.push_back(Tango::DbDatum("refpos"));
+	dev_prop.push_back(Tango::DbDatum("absmin"));
+	dev_prop.push_back(Tango::DbDatum("absmax"));
+	dev_prop.push_back(Tango::DbDatum("unit"));
+	dev_prop.push_back(Tango::DbDatum("inFormula"));
+	dev_prop.push_back(Tango::DbDatum("maxspeed"));
+	dev_prop.push_back(Tango::DbDatum("minspeed"));
+	dev_prop.push_back(Tango::DbDatum("offset"));
+	dev_prop.push_back(Tango::DbDatum("outFormula"));
+	dev_prop.push_back(Tango::DbDatum("rounding"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -275,6 +283,105 @@ void Axis::get_device_property()
 		}
 		//	And try to extract refpos value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  refpos;
+
+		//	Try to initialize absmin from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  absmin;
+		else {
+			//	Try to initialize absmin from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  absmin;
+		}
+		//	And try to extract absmin value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  absmin;
+
+		//	Try to initialize absmax from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  absmax;
+		else {
+			//	Try to initialize absmax from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  absmax;
+		}
+		//	And try to extract absmax value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  absmax;
+
+		//	Try to initialize unit from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  unit;
+		else {
+			//	Try to initialize unit from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  unit;
+		}
+		//	And try to extract unit value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  unit;
+
+		//	Try to initialize inFormula from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  inFormula;
+		else {
+			//	Try to initialize inFormula from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  inFormula;
+		}
+		//	And try to extract inFormula value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  inFormula;
+
+		//	Try to initialize maxspeed from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  maxspeed;
+		else {
+			//	Try to initialize maxspeed from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  maxspeed;
+		}
+		//	And try to extract maxspeed value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  maxspeed;
+
+		//	Try to initialize minspeed from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  minspeed;
+		else {
+			//	Try to initialize minspeed from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  minspeed;
+		}
+		//	And try to extract minspeed value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  minspeed;
+
+		//	Try to initialize offset from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  offset;
+		else {
+			//	Try to initialize offset from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  offset;
+		}
+		//	And try to extract offset value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  offset;
+
+		//	Try to initialize outFormula from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  outFormula;
+		else {
+			//	Try to initialize outFormula from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  outFormula;
+		}
+		//	And try to extract outFormula value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  outFormula;
+
+		//	Try to initialize rounding from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  rounding;
+		else {
+			//	Try to initialize rounding from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  rounding;
+		}
+		//	And try to extract rounding value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  rounding;
 
 	}
 
@@ -842,7 +949,18 @@ Tango::DevVarStringArray *Axis::get_properties()
 	Tango::DevVarStringArray *argout;
 	DEBUG_STREAM << "Axis::GetProperties()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(Axis::get_properties) ENABLED START -----*/
-	
+
+    global_property_array = new Tango::DevVarStringArray(8);
+    global_property_array->length(8);
+    (*global_property_array)[0] = "refpos";
+    (*global_property_array)[1] = "0";
+    (*global_property_array)[2] = "absmin";
+    (*global_property_array)[3] = "-20";
+    (*global_property_array)[4] = "absmax";
+    (*global_property_array)[5] = "20";
+    (*global_property_array)[6] = "units";
+    (*global_property_array)[7] = "degree";
+
 	argout = global_property_array;
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::get_properties
@@ -886,16 +1004,19 @@ void Axis::off()
  *	Description: 
  *
  *	@param argin 
+ *	@returns 
  */
 //--------------------------------------------------------
-void Axis::set_properties(const Tango::DevVarStringArray *argin)
+Tango::DevBoolean Axis::set_properties(const Tango::DevVarStringArray *argin)
 {
+	Tango::DevBoolean argout;
 	DEBUG_STREAM << "Axis::SetProperties()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(Axis::set_properties) ENABLED START -----*/
 	
 	//	Add your own code
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::set_properties
+	return argout;
 }
 //--------------------------------------------------------
 /**
@@ -986,6 +1107,7 @@ void Axis::add_dynamic_commands()
 
 void Axis::getStateMotor() {
     device_state = phy_motion_motor_device->getDeviceProxy()->state();
+    if(phy_motion_motor_device->getDeviceProxy()->state()==Tango::STANDBY) device_state=Tango::ON;
     device_status = phy_motion_motor_device->getDeviceProxy()->status();
 
 

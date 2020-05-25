@@ -80,6 +80,24 @@ public:
 	Tango::DevBoolean	stop_activation;
 	//	refpos:	
 	Tango::DevDouble	refpos;
+	//	absmin:	
+	Tango::DevDouble	absmin;
+	//	absmax:	
+	Tango::DevDouble	absmax;
+	//	unit:	
+	string	unit;
+	//	inFormula:	
+	string	inFormula;
+	//	maxspeed:	
+	Tango::DevDouble	maxspeed;
+	//	minspeed:	
+	Tango::DevDouble	minspeed;
+	//	offset:	
+	Tango::DevDouble	offset;
+	//	outFormula:	
+	string	outFormula;
+	//	rounding:	
+	Tango::DevDouble	rounding;
 
 //	Attribute data members
 public:
@@ -339,8 +357,9 @@ public:
 	 *	Description: 
 	 *
 	 *	@param argin 
+	 *	@returns 
 	 */
-	virtual void set_properties(const Tango::DevVarStringArray *argin);
+	virtual Tango::DevBoolean set_properties(const Tango::DevVarStringArray *argin);
 	virtual bool is_SetProperties_allowed(const CORBA::Any &any);
 	/**
 	 *	Command Reset related method
