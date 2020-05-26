@@ -152,7 +152,8 @@ void MLZFormatDigitalOutput::init_device()
 	
 	device_proxy_diom = new Tango::DeviceProxy(source_device);
 
-	device_status = Tango::ON;
+	device_state = Tango::ON;
+	device_status = "ok";
 	
 	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalOutput::init_device
 }

@@ -159,6 +159,7 @@ void MLZFormatDigitalInput::init_device()
 	*/
 
 	device_state = Tango::ON;
+	device_status = "ok";
 
 	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::init_device
 }
