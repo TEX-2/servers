@@ -335,7 +335,7 @@ Tango::DevVarStringArray *MLZFormatDigitalInput::get_properties()
 	prop_list->length(2*num_prop);
     (*prop_list)[0] = "bits";
     (*prop_list)[1] = (std::to_string(bits)).c_str();
-
+    argout = prop_list;
 
 	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::get_properties
 	return argout;

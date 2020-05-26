@@ -306,7 +306,11 @@ void MLZFormatDigitalOutput::write_value(Tango::WAttribute &attr)
 	Tango::DevULong64	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(MLZFormatDigitalOutput::write_value) ENABLED START -----*/
-	
+
+	Tango::DevUShort value = w_val;
+
+    Tango::DeviceAttribute a_value("outputs",value);
+    device_proxy_diom->write_attribute(a_value);
 	
 	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalOutput::write_value
 }
@@ -323,7 +327,7 @@ void MLZFormatDigitalOutput::read_version(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "MLZFormatDigitalOutput::read_version(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(MLZFormatDigitalOutput::read_version) ENABLED START -----*/
-	//	Set the attribute value
+	*attr_version_read = "module v1.0";
 	attr.set_value(attr_version_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalOutput::read_version
@@ -358,8 +362,13 @@ Tango::DevVarStringArray *MLZFormatDigitalOutput::get_properties()
 	Tango::DevVarStringArray *argout;
 	DEBUG_STREAM << "MLZFormatDigitalOutput::GetProperties()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(MLZFormatDigitalOutput::get_properties) ENABLED START -----*/
-	
-	//	Add your own code
+
+    const short int num_prop = 1;
+    Tango::DevVarStringArray *prop_list = new Tango::DevVarStringArray(2*num_prop);
+    prop_list->length(2*num_prop);
+    (*prop_list)[0] = "bits";
+    (*prop_list)[1] = (std::to_string(bits)).c_str();
+    argout = prop_list;
 	
 	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalOutput::get_properties
 	return argout;
