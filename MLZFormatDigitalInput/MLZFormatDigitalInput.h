@@ -57,11 +57,22 @@ class MLZFormatDigitalInput : public TANGO_BASE_CLASS
 
 /*----- PROTECTED REGION ID(MLZFormatDigitalInput::Data Members) ENABLED START -----*/
 
-//	Add your own data members
+private:
+    Tango::DeviceProxy *diom_device_proxy;
 
 /*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::Data Members
 
+//	Device property data members
+public:
+	//	source_device:	
+	string	source_device;
+	//	bits:	
+	Tango::DevUShort	bits;
 
+//	Attribute data members
+public:
+	Tango::DevString	*attr_version_read;
+	Tango::DevULong64	*attr_value_read;
 
 //	Constructors and destructors
 public:
@@ -104,6 +115,10 @@ public:
 	 */
 	virtual void init_device();
 	/*
+	 *	Read the device properties from database
+	 */
+	void get_device_property();
+	/*
 	 *	Always executed method before execution command method.
 	 */
 	virtual void always_executed_hook();
@@ -119,6 +134,25 @@ public:
 	//--------------------------------------------------------
 	virtual void read_attr_hardware(vector<long> &attr_list);
 
+/**
+ *	Attribute version related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevString
+ *	Attr type:	Scalar
+ */
+	virtual void read_version(Tango::Attribute &attr);
+	virtual bool is_version_allowed(Tango::AttReqType type);
+/**
+ *	Attribute value related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong64
+ *	Attr type:	Scalar
+ */
+	virtual void read_value(Tango::Attribute &attr);
+	virtual bool is_value_allowed(Tango::AttReqType type);
+
 
 	//--------------------------------------------------------
 	/**
@@ -133,6 +167,44 @@ public:
 
 //	Command related methods
 public:
+	/**
+	 *	Command GetProperties related method
+	 *	Description: 
+	 *
+	 *	@returns 
+	 */
+	virtual Tango::DevVarStringArray *get_properties();
+	virtual bool is_GetProperties_allowed(const CORBA::Any &any);
+	/**
+	 *	Command SetProperties related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 *	@returns 
+	 */
+	virtual Tango::DevBoolean set_properties(const Tango::DevVarStringArray *argin);
+	virtual bool is_SetProperties_allowed(const CORBA::Any &any);
+	/**
+	 *	Command On related method
+	 *	Description: 
+	 *
+	 */
+	virtual void on();
+	virtual bool is_On_allowed(const CORBA::Any &any);
+	/**
+	 *	Command Off related method
+	 *	Description: 
+	 *
+	 */
+	virtual void off();
+	virtual bool is_Off_allowed(const CORBA::Any &any);
+	/**
+	 *	Command Reset related method
+	 *	Description: 
+	 *
+	 */
+	virtual void reset();
+	virtual bool is_Reset_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

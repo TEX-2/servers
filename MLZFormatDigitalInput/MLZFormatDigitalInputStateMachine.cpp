@@ -45,10 +45,117 @@ namespace MLZFormatDigitalInput_ns
 //		Attributes Allowed Methods
 //=================================================
 
+//--------------------------------------------------------
+/**
+ *	Method      : MLZFormatDigitalInput::is_version_allowed()
+ *	Description : Execution allowed for version attribute
+ */
+//--------------------------------------------------------
+bool MLZFormatDigitalInput::is_version_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for version attribute in read access.
+	/*----- PROTECTED REGION ID(MLZFormatDigitalInput::versionStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::versionStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : MLZFormatDigitalInput::is_value_allowed()
+ *	Description : Execution allowed for value attribute
+ */
+//--------------------------------------------------------
+bool MLZFormatDigitalInput::is_value_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for value attribute in read access.
+	/*----- PROTECTED REGION ID(MLZFormatDigitalInput::valueStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::valueStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods
 //=================================================
+
+//--------------------------------------------------------
+/**
+ *	Method      : MLZFormatDigitalInput::is_GetProperties_allowed()
+ *	Description : Execution allowed for GetProperties attribute
+ */
+//--------------------------------------------------------
+bool MLZFormatDigitalInput::is_GetProperties_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for GetProperties command.
+	/*----- PROTECTED REGION ID(MLZFormatDigitalInput::GetPropertiesStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::GetPropertiesStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : MLZFormatDigitalInput::is_SetProperties_allowed()
+ *	Description : Execution allowed for SetProperties attribute
+ */
+//--------------------------------------------------------
+bool MLZFormatDigitalInput::is_SetProperties_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for SetProperties command.
+	/*----- PROTECTED REGION ID(MLZFormatDigitalInput::SetPropertiesStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::SetPropertiesStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : MLZFormatDigitalInput::is_On_allowed()
+ *	Description : Execution allowed for On attribute
+ */
+//--------------------------------------------------------
+bool MLZFormatDigitalInput::is_On_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for On command.
+	/*----- PROTECTED REGION ID(MLZFormatDigitalInput::OnStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::OnStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : MLZFormatDigitalInput::is_Off_allowed()
+ *	Description : Execution allowed for Off attribute
+ */
+//--------------------------------------------------------
+bool MLZFormatDigitalInput::is_Off_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for Off command.
+	/*----- PROTECTED REGION ID(MLZFormatDigitalInput::OffStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::OffStateAllowed
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : MLZFormatDigitalInput::is_Reset_allowed()
+ *	Description : Execution allowed for Reset attribute
+ */
+//--------------------------------------------------------
+bool MLZFormatDigitalInput::is_Reset_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Not any excluded states for Reset command.
+	/*----- PROTECTED REGION ID(MLZFormatDigitalInput::ResetStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::ResetStateAllowed
+	return true;
+}
 
 
 /*----- PROTECTED REGION ID(MLZFormatDigitalInput::MLZFormatDigitalInputStateAllowed.AdditionalMethods) ENABLED START -----*/

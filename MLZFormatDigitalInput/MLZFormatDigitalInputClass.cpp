@@ -149,6 +149,96 @@ MLZFormatDigitalInputClass *MLZFormatDigitalInputClass::instance()
 //===================================================================
 //	Command execution method calls
 //===================================================================
+//--------------------------------------------------------
+/**
+ * method : 		GetPropertiesClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *GetPropertiesClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "GetPropertiesClass::execute(): arrived" << endl;
+	return insert((static_cast<MLZFormatDigitalInput *>(device))->get_properties());
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		SetPropertiesClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *SetPropertiesClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "SetPropertiesClass::execute(): arrived" << endl;
+	const Tango::DevVarStringArray *argin;
+	extract(in_any, argin);
+	return insert((static_cast<MLZFormatDigitalInput *>(device))->set_properties(argin));
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		OnClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *OnClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "OnClass::execute(): arrived" << endl;
+	((static_cast<MLZFormatDigitalInput *>(device))->on());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		OffClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *OffClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "OffClass::execute(): arrived" << endl;
+	((static_cast<MLZFormatDigitalInput *>(device))->off());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		ResetClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *ResetClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "ResetClass::execute(): arrived" << endl;
+	((static_cast<MLZFormatDigitalInput *>(device))->reset());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -218,6 +308,34 @@ void MLZFormatDigitalInputClass::set_default_property()
 	//	Set Default Class Properties
 
 	//	Set Default device Properties
+	prop_name = "source_device";
+	prop_desc = "";
+	prop_def  = "device/phymotion/diom1";
+	vect_data.clear();
+	vect_data.push_back("device/phymotion/diom1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "bits";
+	prop_desc = "";
+	prop_def  = "8";
+	vect_data.clear();
+	vect_data.push_back("8");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 }
 
 //--------------------------------------------------------
@@ -324,6 +442,54 @@ void MLZFormatDigitalInputClass::attribute_factory(vector<Tango::Attr *> &att_li
 	//	Add your own code
 	
 	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInputClass::attribute_factory_before
+	//	Attribute : version
+	versionAttrib	*version = new versionAttrib();
+	Tango::UserDefaultAttrProp	version_prop;
+	//	description	not set for version
+	//	label	not set for version
+	//	unit	not set for version
+	//	standard_unit	not set for version
+	//	display_unit	not set for version
+	//	format	not set for version
+	//	max_value	not set for version
+	//	min_value	not set for version
+	//	max_alarm	not set for version
+	//	min_alarm	not set for version
+	//	max_warning	not set for version
+	//	min_warning	not set for version
+	//	delta_t	not set for version
+	//	delta_val	not set for version
+	
+	version->set_default_properties(version_prop);
+	//	Not Polled
+	version->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(version);
+
+	//	Attribute : value
+	valueAttrib	*value = new valueAttrib();
+	Tango::UserDefaultAttrProp	value_prop;
+	//	description	not set for value
+	//	label	not set for value
+	//	unit	not set for value
+	//	standard_unit	not set for value
+	//	display_unit	not set for value
+	//	format	not set for value
+	//	max_value	not set for value
+	//	min_value	not set for value
+	//	max_alarm	not set for value
+	//	min_alarm	not set for value
+	//	max_warning	not set for value
+	//	min_warning	not set for value
+	//	delta_t	not set for value
+	//	delta_val	not set for value
+	
+	value->set_default_properties(value_prop);
+	//	Not Polled
+	value->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(value);
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
@@ -368,6 +534,51 @@ void MLZFormatDigitalInputClass::command_factory()
 	
 	/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInputClass::command_factory_before
 
+
+	//	Command GetProperties
+	GetPropertiesClass	*pGetPropertiesCmd =
+		new GetPropertiesClass("GetProperties",
+			Tango::DEV_VOID, Tango::DEVVAR_STRINGARRAY,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pGetPropertiesCmd);
+
+	//	Command SetProperties
+	SetPropertiesClass	*pSetPropertiesCmd =
+		new SetPropertiesClass("SetProperties",
+			Tango::DEVVAR_STRINGARRAY, Tango::DEV_BOOLEAN,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pSetPropertiesCmd);
+
+	//	Command On
+	OnClass	*pOnCmd =
+		new OnClass("On",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pOnCmd);
+
+	//	Command Off
+	OffClass	*pOffCmd =
+		new OffClass("Off",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pOffCmd);
+
+	//	Command Reset
+	ResetClass	*pResetCmd =
+		new ResetClass("Reset",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pResetCmd);
 
 	/*----- PROTECTED REGION ID(MLZFormatDigitalInputClass::command_factory_after) ENABLED START -----*/
 	
