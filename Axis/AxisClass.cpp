@@ -442,8 +442,9 @@ void AxisClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "absmin";
 	prop_desc = "";
-	prop_def  = "";
+	prop_def  = "-10";
 	vect_data.clear();
+	vect_data.push_back("-10");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -455,8 +456,9 @@ void AxisClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "absmax";
 	prop_desc = "";
-	prop_def  = "";
+	prop_def  = "10";
 	vect_data.clear();
+	vect_data.push_back("10");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -468,8 +470,9 @@ void AxisClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "unit";
 	prop_desc = "";
-	prop_def  = "";
+	prop_def  = "mm";
 	vect_data.clear();
+	vect_data.push_back("mm");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -495,8 +498,9 @@ void AxisClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "maxspeed";
 	prop_desc = "";
-	prop_def  = "";
+	prop_def  = "300";
 	vect_data.clear();
+	vect_data.push_back("300");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -508,8 +512,9 @@ void AxisClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "minspeed";
 	prop_desc = "";
-	prop_def  = "";
+	prop_def  = "10";
 	vect_data.clear();
+	vect_data.push_back("10");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -521,8 +526,9 @@ void AxisClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "offset";
 	prop_desc = "";
-	prop_def  = "";
+	prop_def  = "0";
 	vect_data.clear();
+	vect_data.push_back("0");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);

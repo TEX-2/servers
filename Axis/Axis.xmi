@@ -28,14 +28,17 @@
     <deviceProperties name="absmin" description="">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>-10</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="absmax" description="">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>10</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="unit" description="">
       <type xsi:type="pogoDsl:StringType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>mm</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="inFormula" description="">
       <type xsi:type="pogoDsl:StringType"/>
@@ -45,14 +48,17 @@
     <deviceProperties name="maxspeed" description="">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>300</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="minspeed" description="">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>10</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="offset" description="">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>0</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="outFormula" description="">
       <type xsi:type="pogoDsl:StringType"/>

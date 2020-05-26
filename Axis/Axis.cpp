@@ -950,18 +950,27 @@ Tango::DevVarStringArray *Axis::get_properties()
 	DEBUG_STREAM << "Axis::GetProperties()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(Axis::get_properties) ENABLED START -----*/
 
-    global_property_array = new Tango::DevVarStringArray(8);
-    global_property_array->length(8);
-    (*global_property_array)[0] = "refpos";
-    (*global_property_array)[1] = "0";
-    (*global_property_array)[2] = "absmin";
-    (*global_property_array)[3] = "-20";
-    (*global_property_array)[4] = "absmax";
-    (*global_property_array)[5] = "20";
-    (*global_property_array)[6] = "units";
-    (*global_property_array)[7] = "degree";
+	const int num_param = 14;
 
-	argout = global_property_array;
+    global_property_array = new Tango::DevVarStringArray(num_param);
+    global_property_array->length(num_param);
+    (*global_property_array)[0] = "refpos";
+    (*global_property_array)[1] = (std::to_string(refpos)).c_str();
+    (*global_property_array)[2] = "absmin";
+    (*global_property_array)[3] = (std::to_string(absmin)).c_str();
+    (*global_property_array)[4] = "absmax";
+    (*global_property_array)[5] = (std::to_string(absmax)).c_str();
+    (*global_property_array)[6] = "unit";
+    (*global_property_array)[7] = unit.c_str();
+    (*global_property_array)[8] = "rounding";
+    (*global_property_array)[9] = (std::to_string(rounding)).c_str();
+    (*global_property_array)[10] = "inFormula";
+    (*global_property_array)[11] = inFormula.c_str();
+    (*global_property_array)[12] = "outFormula";
+    (*global_property_array)[13] = outFormula.c_str();
+
+
+    argout = global_property_array;
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::get_properties
 	return argout;
