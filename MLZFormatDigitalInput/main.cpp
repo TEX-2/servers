@@ -1,9 +1,9 @@
-/*----- PROTECTED REGION ID(MLZFormatDIO::main.cpp) ENABLED START -----*/
+/*----- PROTECTED REGION ID(MLZFormatDigitalInput::main.cpp) ENABLED START -----*/
 //=============================================================================
 //
 // file :        main.cpp
 //
-// description : C++ source for the MLZFormatDIO device server main.
+// description : C++ source for the MLZFormatDigitalInput device server main.
 //               The main rule is to initialise (and create) the Tango
 //               system and to create the DServerClass singleton.
 //               The main should be the same for every Tango device server.
@@ -79,4 +79,4 @@ int main(int argc,char *argv[])
 	return(0);
 }
 
-/*----- PROTECTED REGION END -----*/	//	MLZFormatDIO::main.cpp
+/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::main.cpp

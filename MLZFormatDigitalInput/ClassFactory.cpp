@@ -1,4 +1,4 @@
-/*----- PROTECTED REGION ID(MLZFormatDIO::ClassFactory.cpp) ENABLED START -----*/
+/*----- PROTECTED REGION ID(MLZFormatDigitalInput::ClassFactory.cpp) ENABLED START -----*/
 //=============================================================================
 //
 // file :        ClassFactory.cpp
@@ -34,18 +34,18 @@
 //=============================================================================
 
 #include <tango.h>
-#include <MLZFormatDIOClass.h>
+#include <MLZFormatDigitalInputClass.h>
 
 //	Add class header files if needed
 
 
 /**
- *	Create MLZFormatDIO Class singleton and store it in DServer object.
+ *	Create MLZFormatDigitalInput Class singleton and store it in DServer object.
  */
 
 void Tango::DServer::class_factory()
 {
 	//	Add method class init if needed
-	add_class(MLZFormatDIO_ns::MLZFormatDIOClass::init("MLZFormatDIO"));
+	add_class(MLZFormatDigitalInput_ns::MLZFormatDigitalInputClass::init("MLZFormatDigitalInput"));
 }
-/*----- PROTECTED REGION END -----*/	//	MLZFormatDIO::ClassFactory.cpp
+/*----- PROTECTED REGION END -----*/	//	MLZFormatDigitalInput::ClassFactory.cpp
