@@ -50,7 +50,13 @@ namespace Axis_ns
 {
 /*----- PROTECTED REGION ID(Axis::Additional Class Declarations) ENABLED START -----*/
 
-//	Additional Class Declarations
+#define NICOS_STATUS_OK 200
+#define NICOS_STATUS_WARN 210
+#define NICOS_STATUS_BUSY 220
+#define NICOS_STATUS_NOTREACHED 230
+#define NICOS_STATUS_DISABLED 235
+#define NICOS_STATUS_ERROR 240
+#define NICOS_STATUS_UNKNOWN 999
 
 /*----- PROTECTED REGION END -----*/	//	Axis::Additional Class Declarations
 

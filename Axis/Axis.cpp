@@ -1115,15 +1115,28 @@ void Axis::add_dynamic_commands()
 /*----- PROTECTED REGION ID(Axis::namespace_ending) ENABLED START -----*/
 
 void Axis::getStateMotor() {
-    device_state = phy_motion_motor_device->getDeviceProxy()->state();
-    if(phy_motion_motor_device->getDeviceProxy()->state()==Tango::STANDBY) device_state=Tango::ON;
-    device_status = phy_motion_motor_device->getDeviceProxy()->status();
+    //device_state = phy_motion_motor_device->getDeviceProxy()->state();
 
+    switch(phy_motion_motor_device->getDeviceProxy()->state()){
+    case Tango::STANDBY:
+        device_state = NICOS_STATUS_OK;
+        break;
+    case Tango::MOVING:
+        device_state = NICOS_STATUS_BUSY;
+        break;
 
+    }
+
+    //if(phy_motion_motor_device->getDeviceProxy()->state()==Tango::STANDBY) device_state=Tango::ON;
+    //if(phy_motion_motor_device->getDeviceProxy()->state()==Tango::STANDBY) device_state=Tango::ON;
+    //device_status = phy_motion_motor_device->getDeviceProxy()->status();
+
+    /*
     if(stop_activation){
         if(old_state!=device_state && device_state!=Tango::MOVING) phy_motion_motor_device->activation(false);
     }
-    old_state = device_state;
+    */
+    //old_state = device_state;
 }
 
 /*----- PROTECTED REGION END -----*/	//	Axis::namespace_ending

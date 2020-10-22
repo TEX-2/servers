@@ -1010,10 +1010,12 @@ void PhyMotionMotor::read_axis_status(Tango::Attribute &attr)
 	}else{
         if(axis_status & 0x10000){
             device_state = Tango::MOVING;
+            device_status = "busy";
         }else{
             device_state = Tango::STANDBY;
+            device_status = "ok\n";
         }
-        device_status = "ok\n";
+
 	}
 
 
