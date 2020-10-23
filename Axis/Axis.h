@@ -50,13 +50,13 @@ namespace Axis_ns
 {
 /*----- PROTECTED REGION ID(Axis::Additional Class Declarations) ENABLED START -----*/
 
-#define NICOS_STATUS_OK 200
-#define NICOS_STATUS_WARN 210
-#define NICOS_STATUS_BUSY 220
-#define NICOS_STATUS_NOTREACHED 230
-#define NICOS_STATUS_DISABLED 235
-#define NICOS_STATUS_ERROR 240
-#define NICOS_STATUS_UNKNOWN 999
+#define NICOS_STATUS_OK (Tango::DevState)200
+#define NICOS_STATUS_WARN (Tango::DevState)210
+#define NICOS_STATUS_BUSY (Tango::DevState)220
+#define NICOS_STATUS_NOTREACHED (Tango::DevState)230
+#define NICOS_STATUS_DISABLED (Tango::DevState)235
+#define NICOS_STATUS_ERROR (Tango::DevState)240
+#define NICOS_STATUS_UNKNOWN (Tango::DevState)999
 
 /*----- PROTECTED REGION END -----*/	//	Axis::Additional Class Declarations
 
