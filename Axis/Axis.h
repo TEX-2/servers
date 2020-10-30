@@ -35,6 +35,8 @@
 #define Axis_H
 
 #include <tango.h>
+#include <thread>
+#include <chrono>
 
 #include "PhyMotionMotorDevice.h"
 
@@ -408,8 +410,8 @@ public:
 	void add_dynamic_commands();
 
 /*----- PROTECTED REGION ID(Axis::Additional Method prototypes) ENABLED START -----*/
-
-//	Additional Method prototypes
+public:
+	void waitForUpdateState(Tango::DevState old_state);
 
 /*----- PROTECTED REGION END -----*/	//	Axis::Additional Method prototypes
 };
