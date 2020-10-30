@@ -454,14 +454,14 @@ void Axis::read_position(Tango::Attribute &attr)
 	/*----- PROTECTED REGION ID(Axis::read_position) ENABLED START -----*/
 
 	if(encoder){
-        *attr_position_read = phy_motion_motor_device->readAbsolutePosition();
+		*attr_position_read = phy_motion_motor_device->readAbsolutePosition();
 	}else{
 	    *attr_position_read = phy_motion_motor_device->readPosition();
 	}
 
 	attr.set_value(attr_position_read);
 
-    getStateMotor();
+	getStateMotor();
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_position
 }
@@ -482,12 +482,12 @@ void Axis::write_position(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_position) ENABLED START -----*/
 
-	Tango::DevState curr_state = phy_motion_motor_device->getDeviceProxy()->state();
+	Tango::DevState curr_state_local = phy_motion_motor_device->getDeviceProxy()->state();
 	phy_motion_motor_device->getDeviceProxy()->command_inout("ResetStatus");
 	phy_motion_motor_device->activation(true);
 	phy_motion_motor_device->writePosition(w_val);
 
-	waitForUpdateState(curr_state);
+	waitForUpdateState(curr_state_local);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::write_position
 }
@@ -508,7 +508,7 @@ void Axis::read_limit_switch_p(Tango::Attribute &attr)
 	if(phy_motion_motor_device->readAxisState() & 0x10){
 	    *attr_limit_switch_p_read = true;
 	}else{
-        *attr_limit_switch_p_read = false;
+	    *attr_limit_switch_p_read = false;
 	}
 
 	attr.set_value(attr_limit_switch_p_read);
@@ -1124,22 +1124,25 @@ void Axis::getStateMotor() {
 
 
     if(stop_activation){
-        if(old_state!=device_state && device_state!=Tango::RUNNING) phy_motion_motor_device->activation(false);
+        if(old_state!=device_state && device_state!=Tango::MOVING) phy_motion_motor_device->activation(false);
     }
     old_state = device_state;
 }
 
 
 
-void Axis::waitForUpdateState(Tango::DevState old_state){
-	Tango::DevState new_state {old_state};
+void Axis::waitForUpdateState(Tango::DevState old_state_local){
+	Tango::DevState new_state_local {old_state_local};
 
 	int count = 0;
+
+	std::cout << "old state: " << old_state_local << std::endl;
 	
-	while(old_state == new_state){
+	while(old_state_local == new_state_local){
 		if(count > 25)	break;
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
-		new_state = phy_motion_motor_device->getDeviceProxy()->state();
+		new_state_local = phy_motion_motor_device->getDeviceProxy()->state();
+		std::cout << "new state: " << new_state_local << std::endl;
 		count ++;
 	}
 	
