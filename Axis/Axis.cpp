@@ -453,6 +453,8 @@ void Axis::read_position(Tango::Attribute &attr)
 	DEBUG_STREAM << "Axis::read_position(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(Axis::read_position) ENABLED START -----*/
 
+	getStateMotor();
+	
 	if(encoder){
 		*attr_position_read = phy_motion_motor_device->readAbsolutePosition();
 	}else{
@@ -461,7 +463,6 @@ void Axis::read_position(Tango::Attribute &attr)
 
 	attr.set_value(attr_position_read);
 
-	getStateMotor();
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_position
 }
@@ -476,13 +477,13 @@ void Axis::read_position(Tango::Attribute &attr)
 //--------------------------------------------------------
 void Axis::write_position(Tango::WAttribute &attr)
 {
+
 	DEBUG_STREAM << "Axis::write_position(Tango::WAttribute &attr) entering... " << endl;
 	//	Retrieve write value
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_position) ENABLED START -----*/
 
-	device_state = Tango::MOVING;
 	Tango::DevState curr_state_local = phy_motion_motor_device->getDeviceProxy()->state();
 	phy_motion_motor_device->getDeviceProxy()->command_inout("ResetStatus");
 	phy_motion_motor_device->activation(true);
@@ -758,13 +759,13 @@ void Axis::write_target(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_target) ENABLED START -----*/
 
+	Tango::DevState curr_state_local = phy_motion_motor_device->getDeviceProxy()->state();
+	phy_motion_motor_device->getDeviceProxy()->command_inout("ResetStatus");
+	phy_motion_motor_device->activation(true);
+	phy_motion_motor_device->writePosition(w_val);
 
-    phy_motion_motor_device->getDeviceProxy()->command_inout("ResetStatus");
-    phy_motion_motor_device->activation(true);
-    phy_motion_motor_device->writePosition(w_val);
-
-
-	
+	waitForUpdateState(curr_state_local);
+		
 	/*----- PROTECTED REGION END -----*/	//	Axis::write_target
 }
 //--------------------------------------------------------
@@ -861,7 +862,7 @@ void Axis::read_value(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "Axis::read_value(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(Axis::read_value) ENABLED START -----*/
-    *attr_value_read = *attr_position_read;
+	*attr_value_read = *attr_position_read;
 	attr.set_value(attr_value_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_value
@@ -883,9 +884,12 @@ void Axis::write_value(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_value) ENABLED START -----*/
 
-    phy_motion_motor_device->getDeviceProxy()->command_inout("ResetStatus");
-    phy_motion_motor_device->activation(true);
-    phy_motion_motor_device->writePosition(w_val);
+	Tango::DevState curr_state_local = phy_motion_motor_device->getDeviceProxy()->state();
+	phy_motion_motor_device->getDeviceProxy()->command_inout("ResetStatus");
+	phy_motion_motor_device->activation(true);
+	phy_motion_motor_device->writePosition(w_val);
+
+	waitForUpdateState(curr_state_local);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::write_value
 }
