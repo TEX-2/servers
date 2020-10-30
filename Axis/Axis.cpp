@@ -403,7 +403,7 @@ void Axis::always_executed_hook()
 	DEBUG_STREAM << "Axis::always_executed_hook()  " << device_name << endl;
 	/*----- PROTECTED REGION ID(Axis::always_executed_hook) ENABLED START -----*/
 	
-	//	code always executed before all requests
+	getStateMotor();
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::always_executed_hook
 }
@@ -482,6 +482,7 @@ void Axis::write_position(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_position) ENABLED START -----*/
 
+	device_state = Tango::MOVING;
 	Tango::DevState curr_state_local = phy_motion_motor_device->getDeviceProxy()->state();
 	phy_motion_motor_device->getDeviceProxy()->command_inout("ResetStatus");
 	phy_motion_motor_device->activation(true);
