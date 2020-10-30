@@ -1118,28 +1118,14 @@ void Axis::add_dynamic_commands()
 /*----- PROTECTED REGION ID(Axis::namespace_ending) ENABLED START -----*/
 
 void Axis::getStateMotor() {
-    //device_state = phy_motion_motor_device->getDeviceProxy()->state();
-
-    switch(phy_motion_motor_device->getDeviceProxy()->state()){
-    case Tango::STANDBY:
-        device_state = NICOS_STATUS_OK;
-        break;
-    case Tango::MOVING:
-        device_state = NICOS_STATUS_BUSY;
-        break;
-
-    }
-
-    //if(phy_motion_motor_device->getDeviceProxy()->state()==Tango::STANDBY) device_state=Tango::ON;
-    //if(phy_motion_motor_device->getDeviceProxy()->state()==Tango::STANDBY) device_state=Tango::ON;
-    //device_status = phy_motion_motor_device->getDeviceProxy()->status();
-
-    /*
+    device_state = phy_motion_motor_device->getDeviceProxy()->state();
+    if(phy_motion_motor_device->getDeviceProxy()->state()==Tango::STANDBY) device_state=Tango::ON;
+    device_status = phy_motion_motor_device->getDeviceProxy()->status();
+    
     if(stop_activation){
         if(old_state!=device_state && device_state!=Tango::MOVING) phy_motion_motor_device->activation(false);
     }
-    */
-    //old_state = device_state;
+    old_state = device_state;
 }
 
 
@@ -1152,7 +1138,7 @@ void Axis::waitForUpdateState(Tango::DevState old_state_local){
 	std::cout << "old state: " << old_state_local << std::endl;
 	
 	while(old_state_local == new_state_local){
-		if(count > 25)	break;
+		if(count > 28)	break;
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		new_state_local = phy_motion_motor_device->getDeviceProxy()->state();
 		std::cout << "new state: " << new_state_local << std::endl;
