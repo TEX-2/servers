@@ -1136,11 +1136,12 @@ void Axis::waitForUpdateState(Tango::DevState old_state_local){
 	int count = 0;
 
 	std::cout << "old state: " << old_state_local << std::endl;
-	
+	phy_motion_motor_device->readAxisState();
 	while(old_state_local == new_state_local){
-		if(count > 5)	break;
-		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		if(count > 7)	break;
+		std::this_thread::sleep_for(std::chrono::milliseconds(250));
 		new_state_local = phy_motion_motor_device->getDeviceProxy()->state();
+		//if(new_state_local==Tango::MOVING) break;  //?
 		std::cout << "new state: " << new_state_local << std::endl;
 		count ++;
 	}
