@@ -1138,8 +1138,8 @@ void Axis::waitForUpdateState(Tango::DevState old_state_local){
 	std::cout << "old state: " << old_state_local << std::endl;
 	
 	while(old_state_local == new_state_local){
-		if(count > 28)	break;
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		if(count > 5)	break;
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		new_state_local = phy_motion_motor_device->getDeviceProxy()->state();
 		std::cout << "new state: " << new_state_local << std::endl;
 		count ++;
