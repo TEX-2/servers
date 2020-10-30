@@ -202,6 +202,132 @@ CORBA::Any *ClearClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CO
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		PrepareClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *PrepareClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "PrepareClass::execute(): arrived" << endl;
+	((static_cast<PSDTex *>(device))->prepare());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		ResumeClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *ResumeClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "ResumeClass::execute(): arrived" << endl;
+	((static_cast<PSDTex *>(device))->resume());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		OnClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *OnClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "OnClass::execute(): arrived" << endl;
+	((static_cast<PSDTex *>(device))->on());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		OffClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *OffClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "OffClass::execute(): arrived" << endl;
+	((static_cast<PSDTex *>(device))->off());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		ResetClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *ResetClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "ResetClass::execute(): arrived" << endl;
+	((static_cast<PSDTex *>(device))->reset());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		GetPropertiesClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *GetPropertiesClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "GetPropertiesClass::execute(): arrived" << endl;
+	return insert((static_cast<PSDTex *>(device))->get_properties());
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		SetPropertiesClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *SetPropertiesClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "SetPropertiesClass::execute(): arrived" << endl;
+	const Tango::DevVarStringArray *argin;
+	extract(in_any, argin);
+	return insert((static_cast<PSDTex *>(device))->set_properties(argin));
+}
+
 
 //===================================================================
 //	Properties management
@@ -391,6 +517,222 @@ void PSDTexClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Add your own code
 	
 	/*----- PROTECTED REGION END -----*/	//	PSDTexClass::attribute_factory_before
+	//	Attribute : active
+	activeAttrib	*active = new activeAttrib();
+	Tango::UserDefaultAttrProp	active_prop;
+	//	description	not set for active
+	//	label	not set for active
+	//	unit	not set for active
+	//	standard_unit	not set for active
+	//	display_unit	not set for active
+	//	format	not set for active
+	//	max_value	not set for active
+	//	min_value	not set for active
+	//	max_alarm	not set for active
+	//	min_alarm	not set for active
+	//	max_warning	not set for active
+	//	min_warning	not set for active
+	//	delta_t	not set for active
+	//	delta_val	not set for active
+	
+	active->set_default_properties(active_prop);
+	//	Not Polled
+	active->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(active);
+
+	//	Attribute : version
+	versionAttrib	*version = new versionAttrib();
+	Tango::UserDefaultAttrProp	version_prop;
+	//	description	not set for version
+	//	label	not set for version
+	//	unit	not set for version
+	//	standard_unit	not set for version
+	//	display_unit	not set for version
+	//	format	not set for version
+	//	max_value	not set for version
+	//	min_value	not set for version
+	//	max_alarm	not set for version
+	//	min_alarm	not set for version
+	//	max_warning	not set for version
+	//	min_warning	not set for version
+	//	delta_t	not set for version
+	//	delta_val	not set for version
+	
+	version->set_default_properties(version_prop);
+	//	Not Polled
+	version->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(version);
+
+	//	Attribute : preselection
+	preselectionAttrib	*preselection = new preselectionAttrib();
+	Tango::UserDefaultAttrProp	preselection_prop;
+	//	description	not set for preselection
+	//	label	not set for preselection
+	//	unit	not set for preselection
+	//	standard_unit	not set for preselection
+	//	display_unit	not set for preselection
+	//	format	not set for preselection
+	//	max_value	not set for preselection
+	//	min_value	not set for preselection
+	//	max_alarm	not set for preselection
+	//	min_alarm	not set for preselection
+	//	max_warning	not set for preselection
+	//	min_warning	not set for preselection
+	//	delta_t	not set for preselection
+	//	delta_val	not set for preselection
+	
+	preselection->set_default_properties(preselection_prop);
+	//	Not Polled
+	preselection->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(preselection);
+
+	//	Attribute : value
+	valueAttrib	*value = new valueAttrib();
+	Tango::UserDefaultAttrProp	value_prop;
+	//	description	not set for value
+	//	label	not set for value
+	//	unit	not set for value
+	//	standard_unit	not set for value
+	//	display_unit	not set for value
+	//	format	not set for value
+	//	max_value	not set for value
+	//	min_value	not set for value
+	//	max_alarm	not set for value
+	//	min_alarm	not set for value
+	//	max_warning	not set for value
+	//	min_warning	not set for value
+	//	delta_t	not set for value
+	//	delta_val	not set for value
+	
+	value->set_default_properties(value_prop);
+	//	Not Polled
+	value->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(value);
+
+	//	Attribute : zeroPoint
+	zeroPointAttrib	*zeropoint = new zeroPointAttrib();
+	Tango::UserDefaultAttrProp	zeropoint_prop;
+	//	description	not set for zeroPoint
+	//	label	not set for zeroPoint
+	//	unit	not set for zeroPoint
+	//	standard_unit	not set for zeroPoint
+	//	display_unit	not set for zeroPoint
+	//	format	not set for zeroPoint
+	//	max_value	not set for zeroPoint
+	//	min_value	not set for zeroPoint
+	//	max_alarm	not set for zeroPoint
+	//	min_alarm	not set for zeroPoint
+	//	max_warning	not set for zeroPoint
+	//	min_warning	not set for zeroPoint
+	//	delta_t	not set for zeroPoint
+	//	delta_val	not set for zeroPoint
+	
+	zeropoint->set_default_properties(zeropoint_prop);
+	//	Not Polled
+	zeropoint->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(zeropoint);
+
+	//	Attribute : binning
+	binningAttrib	*binning = new binningAttrib();
+	Tango::UserDefaultAttrProp	binning_prop;
+	//	description	not set for binning
+	//	label	not set for binning
+	//	unit	not set for binning
+	//	standard_unit	not set for binning
+	//	display_unit	not set for binning
+	//	format	not set for binning
+	//	max_value	not set for binning
+	//	min_value	not set for binning
+	//	max_alarm	not set for binning
+	//	min_alarm	not set for binning
+	//	max_warning	not set for binning
+	//	min_warning	not set for binning
+	//	delta_t	not set for binning
+	//	delta_val	not set for binning
+	
+	binning->set_default_properties(binning_prop);
+	//	Not Polled
+	binning->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(binning);
+
+	//	Attribute : detectorSize
+	detectorSizeAttrib	*detectorsize = new detectorSizeAttrib();
+	Tango::UserDefaultAttrProp	detectorsize_prop;
+	//	description	not set for detectorSize
+	//	label	not set for detectorSize
+	//	unit	not set for detectorSize
+	//	standard_unit	not set for detectorSize
+	//	display_unit	not set for detectorSize
+	//	format	not set for detectorSize
+	//	max_value	not set for detectorSize
+	//	min_value	not set for detectorSize
+	//	max_alarm	not set for detectorSize
+	//	min_alarm	not set for detectorSize
+	//	max_warning	not set for detectorSize
+	//	min_warning	not set for detectorSize
+	//	delta_t	not set for detectorSize
+	//	delta_val	not set for detectorSize
+	
+	detectorsize->set_default_properties(detectorsize_prop);
+	//	Not Polled
+	detectorsize->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(detectorsize);
+
+	//	Attribute : roiOffset
+	roiOffsetAttrib	*roioffset = new roiOffsetAttrib();
+	Tango::UserDefaultAttrProp	roioffset_prop;
+	//	description	not set for roiOffset
+	//	label	not set for roiOffset
+	//	unit	not set for roiOffset
+	//	standard_unit	not set for roiOffset
+	//	display_unit	not set for roiOffset
+	//	format	not set for roiOffset
+	//	max_value	not set for roiOffset
+	//	min_value	not set for roiOffset
+	//	max_alarm	not set for roiOffset
+	//	min_alarm	not set for roiOffset
+	//	max_warning	not set for roiOffset
+	//	min_warning	not set for roiOffset
+	//	delta_t	not set for roiOffset
+	//	delta_val	not set for roiOffset
+	
+	roioffset->set_default_properties(roioffset_prop);
+	//	Not Polled
+	roioffset->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(roioffset);
+
+	//	Attribute : roiSize
+	roiSizeAttrib	*roisize = new roiSizeAttrib();
+	Tango::UserDefaultAttrProp	roisize_prop;
+	//	description	not set for roiSize
+	//	label	not set for roiSize
+	//	unit	not set for roiSize
+	//	standard_unit	not set for roiSize
+	//	display_unit	not set for roiSize
+	//	format	not set for roiSize
+	//	max_value	not set for roiSize
+	//	min_value	not set for roiSize
+	//	max_alarm	not set for roiSize
+	//	min_alarm	not set for roiSize
+	//	max_warning	not set for roiSize
+	//	min_warning	not set for roiSize
+	//	delta_t	not set for roiSize
+	//	delta_val	not set for roiSize
+	
+	roisize->set_default_properties(roisize_prop);
+	//	Not Polled
+	roisize->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(roisize);
+
 	//	Attribute : image
 	imageAttrib	*image = new imageAttrib();
 	Tango::UserDefaultAttrProp	image_prop;
@@ -486,6 +828,69 @@ void PSDTexClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pClearCmd);
+
+	//	Command Prepare
+	PrepareClass	*pPrepareCmd =
+		new PrepareClass("Prepare",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pPrepareCmd);
+
+	//	Command Resume
+	ResumeClass	*pResumeCmd =
+		new ResumeClass("Resume",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pResumeCmd);
+
+	//	Command On
+	OnClass	*pOnCmd =
+		new OnClass("On",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pOnCmd);
+
+	//	Command Off
+	OffClass	*pOffCmd =
+		new OffClass("Off",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pOffCmd);
+
+	//	Command Reset
+	ResetClass	*pResetCmd =
+		new ResetClass("Reset",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pResetCmd);
+
+	//	Command GetProperties
+	GetPropertiesClass	*pGetPropertiesCmd =
+		new GetPropertiesClass("GetProperties",
+			Tango::DEV_VOID, Tango::DEVVAR_STRINGARRAY,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pGetPropertiesCmd);
+
+	//	Command SetProperties
+	SetPropertiesClass	*pSetPropertiesCmd =
+		new SetPropertiesClass("SetProperties",
+			Tango::DEVVAR_STRINGARRAY, Tango::DEV_BOOLEAN,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pSetPropertiesCmd);
 
 	/*----- PROTECTED REGION ID(PSDTexClass::command_factory_after) ENABLED START -----*/
 	

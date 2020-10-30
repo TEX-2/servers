@@ -69,6 +69,15 @@ public:
 
 //	Attribute data members
 public:
+	Tango::DevBoolean	*attr_active_read;
+	Tango::DevString	*attr_version_read;
+	Tango::DevULong64	*attr_preselection_read;
+	Tango::DevULong	*attr_value_read;
+	Tango::DevULong	*attr_zeroPoint_read;
+	Tango::DevULong	*attr_binning_read;
+	Tango::DevULong	*attr_detectorSize_read;
+	Tango::DevULong	*attr_roiOffset_read;
+	Tango::DevULong	*attr_roiSize_read;
 	Tango::DevDouble	*attr_image_read;
 
 //	Constructors and destructors
@@ -130,7 +139,97 @@ public:
 	 */
 	//--------------------------------------------------------
 	virtual void read_attr_hardware(vector<long> &attr_list);
+	//--------------------------------------------------------
+	/*
+	 *	Method      : PSDTex::write_attr_hardware()
+	 *	Description : Hardware writing for attributes.
+	 */
+	//--------------------------------------------------------
+	virtual void write_attr_hardware(vector<long> &attr_list);
 
+/**
+ *	Attribute active related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_active(Tango::Attribute &attr);
+	virtual void write_active(Tango::WAttribute &attr);
+	virtual bool is_active_allowed(Tango::AttReqType type);
+/**
+ *	Attribute version related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevString
+ *	Attr type:	Scalar
+ */
+	virtual void read_version(Tango::Attribute &attr);
+	virtual bool is_version_allowed(Tango::AttReqType type);
+/**
+ *	Attribute preselection related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong64
+ *	Attr type:	Scalar
+ */
+	virtual void read_preselection(Tango::Attribute &attr);
+	virtual void write_preselection(Tango::WAttribute &attr);
+	virtual bool is_preselection_allowed(Tango::AttReqType type);
+/**
+ *	Attribute value related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 16777216
+ */
+	virtual void read_value(Tango::Attribute &attr);
+	virtual bool is_value_allowed(Tango::AttReqType type);
+/**
+ *	Attribute zeroPoint related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 10
+ */
+	virtual void read_zeroPoint(Tango::Attribute &attr);
+	virtual bool is_zeroPoint_allowed(Tango::AttReqType type);
+/**
+ *	Attribute binning related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 10
+ */
+	virtual void read_binning(Tango::Attribute &attr);
+	virtual bool is_binning_allowed(Tango::AttReqType type);
+/**
+ *	Attribute detectorSize related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 10
+ */
+	virtual void read_detectorSize(Tango::Attribute &attr);
+	virtual bool is_detectorSize_allowed(Tango::AttReqType type);
+/**
+ *	Attribute roiOffset related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 10
+ */
+	virtual void read_roiOffset(Tango::Attribute &attr);
+	virtual bool is_roiOffset_allowed(Tango::AttReqType type);
+/**
+ *	Attribute roiSize related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 10
+ */
+	virtual void read_roiSize(Tango::Attribute &attr);
+	virtual bool is_roiSize_allowed(Tango::AttReqType type);
 /**
  *	Attribute image related methods
  *	Description: 
@@ -176,6 +275,58 @@ public:
 	 */
 	virtual void clear();
 	virtual bool is_Clear_allowed(const CORBA::Any &any);
+	/**
+	 *	Command Prepare related method
+	 *	Description: 
+	 *
+	 */
+	virtual void prepare();
+	virtual bool is_Prepare_allowed(const CORBA::Any &any);
+	/**
+	 *	Command Resume related method
+	 *	Description: 
+	 *
+	 */
+	virtual void resume();
+	virtual bool is_Resume_allowed(const CORBA::Any &any);
+	/**
+	 *	Command On related method
+	 *	Description: 
+	 *
+	 */
+	virtual void on();
+	virtual bool is_On_allowed(const CORBA::Any &any);
+	/**
+	 *	Command Off related method
+	 *	Description: 
+	 *
+	 */
+	virtual void off();
+	virtual bool is_Off_allowed(const CORBA::Any &any);
+	/**
+	 *	Command Reset related method
+	 *	Description: 
+	 *
+	 */
+	virtual void reset();
+	virtual bool is_Reset_allowed(const CORBA::Any &any);
+	/**
+	 *	Command GetProperties related method
+	 *	Description: 
+	 *
+	 *	@returns 
+	 */
+	virtual Tango::DevVarStringArray *get_properties();
+	virtual bool is_GetProperties_allowed(const CORBA::Any &any);
+	/**
+	 *	Command SetProperties related method
+	 *	Description: 
+	 *
+	 *	@param argin 
+	 *	@returns 
+	 */
+	virtual Tango::DevBoolean set_properties(const Tango::DevVarStringArray *argin);
+	virtual bool is_SetProperties_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

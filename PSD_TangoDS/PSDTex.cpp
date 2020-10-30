@@ -48,19 +48,35 @@
 //  The following table gives the correspondence
 //  between command and method names.
 //
-//  Command name  |  Method name
+//  Command name   |  Method name
 //================================================================
-//  State         |  Inherited (no method)
-//  Status        |  Inherited (no method)
-//  Start         |  start
-//  Stop          |  stop
-//  Clear         |  clear
+//  State          |  Inherited (no method)
+//  Status         |  Inherited (no method)
+//  Start          |  start
+//  Stop           |  stop
+//  Clear          |  clear
+//  Prepare        |  prepare
+//  Resume         |  resume
+//  On             |  on
+//  Off            |  off
+//  Reset          |  reset
+//  GetProperties  |  get_properties
+//  SetProperties  |  set_properties
 //================================================================
 
 //================================================================
-//  Attributes managed is:
+//  Attributes managed are:
 //================================================================
-//  image  |  Tango::DevDouble	Image  ( max = 256 x 256)
+//  active        |  Tango::DevBoolean	Scalar
+//  version       |  Tango::DevString	Scalar
+//  preselection  |  Tango::DevULong64	Scalar
+//  value         |  Tango::DevULong	Spectrum  ( max = 16777216)
+//  zeroPoint     |  Tango::DevULong	Spectrum  ( max = 10)
+//  binning       |  Tango::DevULong	Spectrum  ( max = 10)
+//  detectorSize  |  Tango::DevULong	Spectrum  ( max = 10)
+//  roiOffset     |  Tango::DevULong	Spectrum  ( max = 10)
+//  roiSize       |  Tango::DevULong	Spectrum  ( max = 10)
+//  image         |  Tango::DevDouble	Image  ( max = 256 x 256)
 //================================================================
 
 namespace PSDTex_ns
@@ -119,6 +135,15 @@ void PSDTex::delete_device()
 	//	Delete device allocated objects
 	
 	/*----- PROTECTED REGION END -----*/	//	PSDTex::delete_device
+	delete[] attr_active_read;
+	delete[] attr_version_read;
+	delete[] attr_preselection_read;
+	delete[] attr_value_read;
+	delete[] attr_zeroPoint_read;
+	delete[] attr_binning_read;
+	delete[] attr_detectorSize_read;
+	delete[] attr_roiOffset_read;
+	delete[] attr_roiSize_read;
 	delete[] attr_image_read;
 }
 
@@ -141,6 +166,15 @@ void PSDTex::init_device()
 	//	Get the device properties from database
 	get_device_property();
 	
+	attr_active_read = new Tango::DevBoolean[1];
+	attr_version_read = new Tango::DevString[1];
+	attr_preselection_read = new Tango::DevULong64[1];
+	attr_value_read = new Tango::DevULong[16777216];
+	attr_zeroPoint_read = new Tango::DevULong[10];
+	attr_binning_read = new Tango::DevULong[10];
+	attr_detectorSize_read = new Tango::DevULong[10];
+	attr_roiOffset_read = new Tango::DevULong[10];
+	attr_roiSize_read = new Tango::DevULong[10];
 	attr_image_read = new Tango::DevDouble[256*256];
 	/*----- PROTECTED REGION ID(PSDTex::init_device) ENABLED START -----*/
 	
@@ -237,7 +271,224 @@ void PSDTex::read_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
 	
 	/*----- PROTECTED REGION END -----*/	//	PSDTex::read_attr_hardware
 }
+//--------------------------------------------------------
+/**
+ *	Method      : PSDTex::write_attr_hardware()
+ *	Description : Hardware writing for attributes
+ */
+//--------------------------------------------------------
+void PSDTex::write_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
+{
+	DEBUG_STREAM << "PSDTex::write_attr_hardware(vector<long> &attr_list) entering... " << endl;
+	/*----- PROTECTED REGION ID(PSDTex::write_attr_hardware) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::write_attr_hardware
+}
 
+//--------------------------------------------------------
+/**
+ *	Read attribute active related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PSDTex::read_active(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::read_active(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PSDTex::read_active) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_active_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::read_active
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute active related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PSDTex::write_active(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::write_active(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevBoolean	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(PSDTex::write_active) ENABLED START -----*/
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::write_active
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute version related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevString
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PSDTex::read_version(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::read_version(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PSDTex::read_version) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_version_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::read_version
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute preselection related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong64
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PSDTex::read_preselection(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::read_preselection(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PSDTex::read_preselection) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_preselection_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::read_preselection
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute preselection related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong64
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PSDTex::write_preselection(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::write_preselection(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevULong64	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(PSDTex::write_preselection) ENABLED START -----*/
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::write_preselection
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute value related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 16777216
+ */
+//--------------------------------------------------------
+void PSDTex::read_value(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::read_value(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PSDTex::read_value) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_value_read, 16777216);
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::read_value
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute zeroPoint related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 10
+ */
+//--------------------------------------------------------
+void PSDTex::read_zeroPoint(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::read_zeroPoint(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PSDTex::read_zeroPoint) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_zeroPoint_read, 10);
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::read_zeroPoint
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute binning related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 10
+ */
+//--------------------------------------------------------
+void PSDTex::read_binning(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::read_binning(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PSDTex::read_binning) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_binning_read, 10);
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::read_binning
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute detectorSize related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 10
+ */
+//--------------------------------------------------------
+void PSDTex::read_detectorSize(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::read_detectorSize(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PSDTex::read_detectorSize) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_detectorSize_read, 10);
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::read_detectorSize
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute roiOffset related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 10
+ */
+//--------------------------------------------------------
+void PSDTex::read_roiOffset(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::read_roiOffset(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PSDTex::read_roiOffset) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_roiOffset_read, 10);
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::read_roiOffset
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute roiSize related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 10
+ */
+//--------------------------------------------------------
+void PSDTex::read_roiSize(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PSDTex::read_roiSize(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PSDTex::read_roiSize) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_roiSize_read, 10);
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::read_roiSize
+}
 //--------------------------------------------------------
 /**
  *	Read attribute image related method
@@ -252,18 +503,18 @@ void PSDTex::read_image(Tango::Attribute &attr)
 	DEBUG_STREAM << "PSDTex::read_image(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(PSDTex::read_image) ENABLED START -----*/
 
-    const int size_x = 256;
-    const int size_y = 256;
+	const int size_x = 256;
+	const int size_y = 256;
 
-    int sum_x {0}, sum_y{0}, ix{0},iy{0};
-    double c_x{1.0},c_y{1.0};
+	int sum_x {0}, sum_y{0}, ix{0},iy{0};
+	double c_x{1.0},c_y{1.0};
 
-    PLX9030Detector::four_value data4;
-    do{
-        data4 = pd->read4Value();
-        if(!data4.correct) continue;
-        sum_x = data4.x1+data4.x2;
-        sum_y = data4.y1+data4.y2;
+	PLX9030Detector::four_value data4;
+	do{
+		data4 = pd->read4Value();
+		if(!data4.correct) continue;
+		sum_x = data4.x1+data4.x2;
+		sum_y = data4.y1+data4.y2;
 
         /*
         if(manual_ceoff){
@@ -291,7 +542,7 @@ void PSDTex::read_image(Tango::Attribute &attr)
 
         //emit setCell(ix,iy,1);
         setImageCell(ix,iy,1.0);
-    }while(data4.correct);
+	}while(data4.correct);
 
 	attr.set_value(attr_image_read, 256, 256);
 	
@@ -366,6 +617,125 @@ void PSDTex::clear()
     clearImage();
 	
 	/*----- PROTECTED REGION END -----*/	//	PSDTex::clear
+}
+//--------------------------------------------------------
+/**
+ *	Command Prepare related method
+ *	Description: 
+ *
+ */
+//--------------------------------------------------------
+void PSDTex::prepare()
+{
+	DEBUG_STREAM << "PSDTex::Prepare()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PSDTex::prepare) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::prepare
+}
+//--------------------------------------------------------
+/**
+ *	Command Resume related method
+ *	Description: 
+ *
+ */
+//--------------------------------------------------------
+void PSDTex::resume()
+{
+	DEBUG_STREAM << "PSDTex::Resume()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PSDTex::resume) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::resume
+}
+//--------------------------------------------------------
+/**
+ *	Command On related method
+ *	Description: 
+ *
+ */
+//--------------------------------------------------------
+void PSDTex::on()
+{
+	DEBUG_STREAM << "PSDTex::On()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PSDTex::on) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::on
+}
+//--------------------------------------------------------
+/**
+ *	Command Off related method
+ *	Description: 
+ *
+ */
+//--------------------------------------------------------
+void PSDTex::off()
+{
+	DEBUG_STREAM << "PSDTex::Off()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PSDTex::off) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::off
+}
+//--------------------------------------------------------
+/**
+ *	Command Reset related method
+ *	Description: 
+ *
+ */
+//--------------------------------------------------------
+void PSDTex::reset()
+{
+	DEBUG_STREAM << "PSDTex::Reset()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PSDTex::reset) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::reset
+}
+//--------------------------------------------------------
+/**
+ *	Command GetProperties related method
+ *	Description: 
+ *
+ *	@returns 
+ */
+//--------------------------------------------------------
+Tango::DevVarStringArray *PSDTex::get_properties()
+{
+	Tango::DevVarStringArray *argout;
+	DEBUG_STREAM << "PSDTex::GetProperties()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PSDTex::get_properties) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::get_properties
+	return argout;
+}
+//--------------------------------------------------------
+/**
+ *	Command SetProperties related method
+ *	Description: 
+ *
+ *	@param argin 
+ *	@returns 
+ */
+//--------------------------------------------------------
+Tango::DevBoolean PSDTex::set_properties(const Tango::DevVarStringArray *argin)
+{
+	Tango::DevBoolean argout;
+	DEBUG_STREAM << "PSDTex::SetProperties()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(PSDTex::set_properties) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	PSDTex::set_properties
+	return argout;
 }
 //--------------------------------------------------------
 /**

@@ -54,6 +54,127 @@ namespace PSDTex_ns
 //=========================================
 //	Define classes for attributes
 //=========================================
+//	Attribute active class definition
+class activeAttrib: public Tango::Attr
+{
+public:
+	activeAttrib():Attr("active",
+			Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~activeAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PSDTex *>(dev))->read_active(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<PSDTex *>(dev))->write_active(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PSDTex *>(dev))->is_active_allowed(ty);}
+};
+
+//	Attribute version class definition
+class versionAttrib: public Tango::Attr
+{
+public:
+	versionAttrib():Attr("version",
+			Tango::DEV_STRING, Tango::READ) {};
+	~versionAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PSDTex *>(dev))->read_version(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PSDTex *>(dev))->is_version_allowed(ty);}
+};
+
+//	Attribute preselection class definition
+class preselectionAttrib: public Tango::Attr
+{
+public:
+	preselectionAttrib():Attr("preselection",
+			Tango::DEV_ULONG64, Tango::READ_WRITE) {};
+	~preselectionAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PSDTex *>(dev))->read_preselection(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<PSDTex *>(dev))->write_preselection(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PSDTex *>(dev))->is_preselection_allowed(ty);}
+};
+
+//	Attribute value class definition
+class valueAttrib: public Tango::SpectrumAttr
+{
+public:
+	valueAttrib():SpectrumAttr("value",
+			Tango::DEV_ULONG, Tango::READ, 16777216) {};
+	~valueAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PSDTex *>(dev))->read_value(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PSDTex *>(dev))->is_value_allowed(ty);}
+};
+
+//	Attribute zeroPoint class definition
+class zeroPointAttrib: public Tango::SpectrumAttr
+{
+public:
+	zeroPointAttrib():SpectrumAttr("zeroPoint",
+			Tango::DEV_ULONG, Tango::READ, 10) {};
+	~zeroPointAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PSDTex *>(dev))->read_zeroPoint(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PSDTex *>(dev))->is_zeroPoint_allowed(ty);}
+};
+
+//	Attribute binning class definition
+class binningAttrib: public Tango::SpectrumAttr
+{
+public:
+	binningAttrib():SpectrumAttr("binning",
+			Tango::DEV_ULONG, Tango::READ, 10) {};
+	~binningAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PSDTex *>(dev))->read_binning(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PSDTex *>(dev))->is_binning_allowed(ty);}
+};
+
+//	Attribute detectorSize class definition
+class detectorSizeAttrib: public Tango::SpectrumAttr
+{
+public:
+	detectorSizeAttrib():SpectrumAttr("detectorSize",
+			Tango::DEV_ULONG, Tango::READ, 10) {};
+	~detectorSizeAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PSDTex *>(dev))->read_detectorSize(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PSDTex *>(dev))->is_detectorSize_allowed(ty);}
+};
+
+//	Attribute roiOffset class definition
+class roiOffsetAttrib: public Tango::SpectrumAttr
+{
+public:
+	roiOffsetAttrib():SpectrumAttr("roiOffset",
+			Tango::DEV_ULONG, Tango::READ, 10) {};
+	~roiOffsetAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PSDTex *>(dev))->read_roiOffset(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PSDTex *>(dev))->is_roiOffset_allowed(ty);}
+};
+
+//	Attribute roiSize class definition
+class roiSizeAttrib: public Tango::SpectrumAttr
+{
+public:
+	roiSizeAttrib():SpectrumAttr("roiSize",
+			Tango::DEV_ULONG, Tango::READ, 10) {};
+	~roiSizeAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PSDTex *>(dev))->read_roiSize(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PSDTex *>(dev))->is_roiSize_allowed(ty);}
+};
+
 //	Attribute image class definition
 class imageAttrib: public Tango::ImageAttr
 {
@@ -138,6 +259,167 @@ public:
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
 	{return (static_cast<PSDTex *>(dev))->is_Clear_allowed(any);}
+};
+
+//	Command Prepare class definition
+class PrepareClass : public Tango::Command
+{
+public:
+	PrepareClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	PrepareClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~PrepareClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PSDTex *>(dev))->is_Prepare_allowed(any);}
+};
+
+//	Command Resume class definition
+class ResumeClass : public Tango::Command
+{
+public:
+	ResumeClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	ResumeClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~ResumeClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PSDTex *>(dev))->is_Resume_allowed(any);}
+};
+
+//	Command On class definition
+class OnClass : public Tango::Command
+{
+public:
+	OnClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	OnClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~OnClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PSDTex *>(dev))->is_On_allowed(any);}
+};
+
+//	Command Off class definition
+class OffClass : public Tango::Command
+{
+public:
+	OffClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	OffClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~OffClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PSDTex *>(dev))->is_Off_allowed(any);}
+};
+
+//	Command Reset class definition
+class ResetClass : public Tango::Command
+{
+public:
+	ResetClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	ResetClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~ResetClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PSDTex *>(dev))->is_Reset_allowed(any);}
+};
+
+//	Command GetProperties class definition
+class GetPropertiesClass : public Tango::Command
+{
+public:
+	GetPropertiesClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	GetPropertiesClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~GetPropertiesClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PSDTex *>(dev))->is_GetProperties_allowed(any);}
+};
+
+//	Command SetProperties class definition
+class SetPropertiesClass : public Tango::Command
+{
+public:
+	SetPropertiesClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	SetPropertiesClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~SetPropertiesClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<PSDTex *>(dev))->is_SetProperties_allowed(any);}
 };
 
 
