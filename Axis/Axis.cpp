@@ -482,9 +482,12 @@ void Axis::write_position(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_position) ENABLED START -----*/
 
+	Tango::DevState curr_state = phy_motion_motor_device->getDeviceProxy()->state();
 	phy_motion_motor_device->getDeviceProxy()->command_inout("ResetStatus");
 	phy_motion_motor_device->activation(true);
 	phy_motion_motor_device->writePosition(w_val);
+
+	waitForUpdateState(curr_state);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::write_position
 }
@@ -672,7 +675,7 @@ void Axis::write_refpos(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(Axis::write_refpos) ENABLED START -----*/
 
-    refpos = w_val;
+	refpos = w_val;
 
 	/*----- PROTECTED REGION END -----*/	//	Axis::write_refpos
 }
@@ -690,7 +693,7 @@ void Axis::read_speed(Tango::Attribute &attr)
 	DEBUG_STREAM << "Axis::read_speed(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(Axis::read_speed) ENABLED START -----*/
 
-    *attr_speed_read = phy_motion_motor_device->readSpeed();
+	*attr_speed_read = phy_motion_motor_device->readSpeed();
 	attr.set_value(attr_speed_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::read_speed
@@ -1124,6 +1127,23 @@ void Axis::getStateMotor() {
         if(old_state!=device_state && device_state!=Tango::RUNNING) phy_motion_motor_device->activation(false);
     }
     old_state = device_state;
+}
+
+
+
+void Axis::waitForUpdateState(Tango::DevState old_state){
+	Tango::DevState new_state {old_state};
+
+	int count = 0;
+	
+	while(old_state == new_state){
+		if(count > 25)	break;
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		new_state = phy_motion_motor_device->getDeviceProxy()->state();
+		count ++;
+	}
+	
+	return;
 }
 
 /*----- PROTECTED REGION END -----*/	//	Axis::namespace_ending
