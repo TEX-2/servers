@@ -1121,7 +1121,7 @@ void Axis::getStateMotor() {
 
 
     if(stop_activation){
-        if(old_state!=device_state && device_state!=Tango::MOVING) phy_motion_motor_device->activation(false);
+        if(old_state!=device_state && device_state!=Tango::RUNNING) phy_motion_motor_device->activation(false);
     }
     old_state = device_state;
 }

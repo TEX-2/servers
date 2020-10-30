@@ -1009,11 +1009,13 @@ void PhyMotionMotor::read_axis_status(Tango::Attribute &attr)
         if(axis_status & 0x0800) device_status += "Axis internal error!\n";
 	}else{
         if(axis_status & 0x10000){
-            device_state = Tango::MOVING;
+            device_state = Tango::RUNNING;
+            device_status = "BUSY";
         }else{
             device_state = Tango::STANDBY;
+            device_status = "OK";
         }
-        device_status = "ok\n";
+
 	}
 
 
