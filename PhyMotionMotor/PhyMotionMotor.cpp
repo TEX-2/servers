@@ -1005,24 +1005,16 @@ void PhyMotionMotor::read_axis_status(Tango::Attribute &attr)
 	    if(axis_status & 0x8000) device_status += "Axis ENDAT error!\n";
 	    if(axis_status & 0x4000) device_status += "Axis SFI error!\n";
 	    if(axis_status & 0x2000) device_status += "Axis power stage error!\n";
-        if(axis_status & 0x1000) device_status += "Axis limit switch error!\n";
-        if(axis_status & 0x0800) device_status += "Axis internal error!\n";
+	    if(axis_status & 0x1000) device_status += "Axis limit switch error!\n";
+	    if(axis_status & 0x0800) device_status += "Axis internal error!\n";
 	}else{
-        if(axis_status & 0x10000){
-<<<<<<< HEAD
-            device_state = Tango::MOVING;
-            device_status = "busy";
-        }else{
-            device_state = Tango::STANDBY;
-            device_status = "ok\n";
-=======
-            device_state = Tango::RUNNING;
-            device_status = "BUSY";
-        }else{
-            device_state = Tango::STANDBY;
-            device_status = "OK";
->>>>>>> devel
-        }
+		if(axis_status & 0x10000){
+			device_state = Tango::MOVING;
+			device_status = "busy";
+		}else{
+			device_state = Tango::STANDBY;
+			device_status = "OK";
+		}
 
 	}
 
