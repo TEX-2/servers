@@ -237,7 +237,7 @@ void PhyMotionMotor::init_device()
 	if(self_device_proxy!= nullptr) delete self_device_proxy;
 	self_device_proxy = new Tango::DeviceProxy(device_name);
 
-	
+
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::init_device
 }
 
@@ -918,21 +918,13 @@ void PhyMotionMotor::read_position(Tango::Attribute &attr)
 	DEBUG_STREAM << "PhyMotionMotor::read_position(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(PhyMotionMotor::read_position) ENABLED START -----*/
 
-	Tango::DevDouble value = .0;
-
-	if(!restore_position){
-		value = global_position;
-                //self_device_proxy->read_attribute("memorized_position") >> value;
-		phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("20"),std::to_string(value));
-		restore_position = true;
-	}
-	
+		
 	mux.lock();
 	auto str_val = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P20R");  //read 20 parameter
 	global_position = std::stod(str_val);
 
 	
-	value = std::stod(str_val);
+	Tango::DevDouble value = std::stod(str_val);
 	Tango::DeviceAttribute a_value("memorized_position",value);
 	self_device_proxy->write_attribute(a_value);
 
@@ -1265,6 +1257,17 @@ void PhyMotionMotor::write_memorized_position(Tango::WAttribute &attr)
 	/*----- PROTECTED REGION ID(PhyMotionMotor::write_memorized_position) ENABLED START -----*/
 
 	global_position = w_val;
+
+	//Tango::DevDouble value = .0;
+
+	if(!restore_position){
+		//value = global_position;
+                //self_device_proxy->read_attribute("memorized_position") >> value;
+		phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("20"),std::to_string(global_position));
+		restore_position = true;
+		//std::cout << "Global Position : " << global_position << std::endl;
+	}
+
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::write_memorized_position
 }
