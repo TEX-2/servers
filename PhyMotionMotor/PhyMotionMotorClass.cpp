@@ -1385,7 +1385,7 @@ void PhyMotionMotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Polled
 	memorized_position->set_disp_level(Tango::OPERATOR);
 	memorized_position->set_memorized();
-	memorized_position->set_memorized_init(false);
+	memorized_position->set_memorized_init(true);
 	att_list.push_back(memorized_position);
 
 

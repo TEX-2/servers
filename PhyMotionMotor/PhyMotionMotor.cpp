@@ -921,13 +921,16 @@ void PhyMotionMotor::read_position(Tango::Attribute &attr)
 	Tango::DevDouble value = .0;
 
 	if(!restore_position){
-		self_device_proxy->read_attribute("memorized_position") >> value;
+		value = global_position;
+                //self_device_proxy->read_attribute("memorized_position") >> value;
 		phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("20"),std::to_string(value));
 		restore_position = true;
 	}
 	
 	mux.lock();
 	auto str_val = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P20R");  //read 20 parameter
+	global_position = std::stod(str_val);
+
 	
 	value = std::stod(str_val);
 	Tango::DeviceAttribute a_value("memorized_position",value);
@@ -935,7 +938,6 @@ void PhyMotionMotor::read_position(Tango::Attribute &attr)
 
 	mux.unlock();
 
-	global_position = std::stod(str_val);
 	*attr_position_read = global_position;
 	attr.set_value(attr_position_read);
 	
@@ -967,10 +969,10 @@ void PhyMotionMotor::write_position(Tango::WAttribute &attr)
 	    str_w_val=std::to_string(w_val);
 	}
 
-    str_arg = str_addr_axis_module+str_w_val;
+	str_arg = str_addr_axis_module+str_w_val;
 	mux.lock();
 	phy_motion_control_cmd->sendCMD(str_arg);
-    mux.unlock();
+	mux.unlock();
 
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::write_position
 }
@@ -988,11 +990,11 @@ void PhyMotionMotor::read_absolute_counter(Tango::Attribute &attr)
 	DEBUG_STREAM << "PhyMotionMotor::read_absolute_counter(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(PhyMotionMotor::read_absolute_counter) ENABLED START -----*/
 
-    mux.lock();
-    auto str_val = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P21R");  //read 21 parameter
-    mux.unlock();
+	mux.lock();
+	auto str_val = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P21R");  //read 21 parameter
+	mux.unlock();
 
-    *attr_absolute_counter_read = std::stod(str_val);
+	*attr_absolute_counter_read = std::stod(str_val);
 	attr.set_value(attr_absolute_counter_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_absolute_counter
@@ -1221,7 +1223,7 @@ void PhyMotionMotor::write_speed(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(PhyMotionMotor::write_speed) ENABLED START -----*/
 
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(w_val));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(w_val));
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::write_speed
 }
@@ -1240,6 +1242,7 @@ void PhyMotionMotor::read_memorized_position(Tango::Attribute &attr)
 	/*----- PROTECTED REGION ID(PhyMotionMotor::read_memorized_position) ENABLED START -----*/
 
 	*attr_memorized_position_read = global_position;
+
 	attr.set_value(attr_memorized_position_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_memorized_position
@@ -1260,7 +1263,8 @@ void PhyMotionMotor::write_memorized_position(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(PhyMotionMotor::write_memorized_position) ENABLED START -----*/
-	
+
+	global_position = w_val;
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::write_memorized_position
 }
