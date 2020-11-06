@@ -190,6 +190,9 @@ void Axis::init_device()
 	if(phy_motion_motor_device!=nullptr) delete phy_motion_motor_device;
 	phy_motion_motor_device = new PhyMotionMotorDevice(path_to_device);
 
+	device_state = phy_motion_motor_device->getDeviceProxy()->state();
+	if(phy_motion_motor_device->getDeviceProxy()->state()==Tango::STANDBY) device_state=Tango::ON;
+
 	old_state = device_state;
 
 
@@ -458,7 +461,7 @@ void Axis::read_position(Tango::Attribute &attr)
 	if(encoder){
 		*attr_position_read = phy_motion_motor_device->readAbsolutePosition();
 	}else{
-	    *attr_position_read = phy_motion_motor_device->readPosition();
+		*attr_position_read = phy_motion_motor_device->readPosition();
 	}
 
 	attr.set_value(attr_position_read);
@@ -1011,7 +1014,7 @@ void Axis::off()
 	DEBUG_STREAM << "Axis::Off()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(Axis::off) ENABLED START -----*/
 
-    phy_motion_motor_device->activation(false);
+	phy_motion_motor_device->activation(false);
 	
 	/*----- PROTECTED REGION END -----*/	//	Axis::off
 }
@@ -1128,7 +1131,10 @@ void Axis::getStateMotor() {
     device_status = phy_motion_motor_device->getDeviceProxy()->status();
     
     if(stop_activation){
-        if(old_state!=device_state && device_state!=Tango::MOVING) phy_motion_motor_device->activation(false);
+	    if(old_state!=device_state && device_state!=Tango::MOVING){
+		    phy_motion_motor_device->activation(false);
+		    phy_motion_motor_device->getDeviceProxy()->command_inout("Stop");
+	    }
     }
     old_state = device_state;
 }
@@ -1140,14 +1146,14 @@ void Axis::waitForUpdateState(Tango::DevState old_state_local){
 
 	int count = 0;
 
-	std::cout << "old state: " << old_state_local << std::endl;
+	//std::cout << "old state: " << old_state_local << std::endl;
 	phy_motion_motor_device->readAxisState();
 	while(old_state_local == new_state_local){
 		if(count > 7)	break;
 		std::this_thread::sleep_for(std::chrono::milliseconds(250));
 		new_state_local = phy_motion_motor_device->getDeviceProxy()->state();
 		//if(new_state_local==Tango::MOVING) break;  //?
-		std::cout << "new state: " << new_state_local << std::endl;
+		//std::cout << "new state: " << new_state_local << std::endl;
 		count ++;
 	}
 	
