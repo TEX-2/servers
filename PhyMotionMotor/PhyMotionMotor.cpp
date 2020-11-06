@@ -175,7 +175,9 @@ void PhyMotionMotor::init_device()
 	attr_memorized_position_read = new Tango::DevDouble[1];
 	/*----- PROTECTED REGION ID(PhyMotionMotor::init_device) ENABLED START -----*/
 
+	if(phy_motion_control_cmd!=nullptr) delete phy_motion_control_cmd;
 	phy_motion_control_cmd = new PhyMotionControlCMD(control_device);
+	phy_motion_control_cmd->pingControl();
 	str_axis = std::to_string(axis);
 	str_module = std::to_string(module);
 
@@ -236,6 +238,8 @@ void PhyMotionMotor::init_device()
 
 	if(self_device_proxy!= nullptr) delete self_device_proxy;
 	self_device_proxy = new Tango::DeviceProxy(device_name);
+
+	//std::cout << device_name << " complete!" << std::endl;
 
 
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::init_device
@@ -938,10 +942,11 @@ void PhyMotionMotor::read_position(Tango::Attribute &attr)
 	
 	Tango::DevDouble value = std::stod(str_val);
 	Tango::DeviceAttribute a_value("memorized_position",value);
-	self_device_proxy->write_attribute(a_value);
+	if(restore_position) self_device_proxy->write_attribute(a_value);
 
 	mux.unlock();
 
+	
 	*attr_position_read = global_position;
 	attr.set_value(attr_position_read);
 	
@@ -1145,9 +1150,9 @@ void PhyMotionMotor::read_motor_temperature(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "PhyMotionMotor::read_motor_temperature(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(PhyMotionMotor::read_motor_temperature) ENABLED START -----*/
-    std::string response = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P54R");
-    double temperature = std::stod(response)/10;
-    *attr_motor_temperature_read = temperature;
+	std::string response = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P54R");
+	double temperature = std::stod(response)/10;
+	*attr_motor_temperature_read = temperature;
 	attr.set_value(attr_motor_temperature_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_motor_temperature
@@ -1246,7 +1251,6 @@ void PhyMotionMotor::read_memorized_position(Tango::Attribute &attr)
 	/*----- PROTECTED REGION ID(PhyMotionMotor::read_memorized_position) ENABLED START -----*/
 
 	*attr_memorized_position_read = global_position;
-
 	attr.set_value(attr_memorized_position_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_memorized_position
@@ -1268,17 +1272,17 @@ void PhyMotionMotor::write_memorized_position(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(PhyMotionMotor::write_memorized_position) ENABLED START -----*/
 
-	global_position = w_val;
-
+	
 	if(!restore_position){
 		mux.lock();
+		global_position = w_val;
 		phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("20"),std::to_string(global_position));
 		//auto str_val_p22 = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P21R");  //read 21 parameter
 		//auto str_val = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P21R");  //read 21 parameter
 		//set_absolute_zero_counter(std::stod(str_val)-encoder_delta);
 		mux.unlock();
 		restore_position = true;
-		//std::cout << "Global Position : " << global_position << std::endl;
+		//std::cout << device_name << ": " <<"Global position " << global_position << std::endl;
 	}
 
 	
