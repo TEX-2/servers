@@ -75,6 +75,7 @@
 //  motor_temperature        |  Tango::DevDouble	Scalar
 //  ramp                     |  Tango::DevDouble	Scalar
 //  speed                    |  Tango::DevDouble	Scalar
+//  memorized_position       |  Tango::DevDouble	Scalar
 //================================================================
 
 namespace PhyMotionMotor_ns
@@ -141,6 +142,7 @@ void PhyMotionMotor::delete_device()
 	delete[] attr_motor_temperature_read;
 	delete[] attr_ramp_read;
 	delete[] attr_speed_read;
+	delete[] attr_memorized_position_read;
 }
 
 //--------------------------------------------------------
@@ -170,6 +172,7 @@ void PhyMotionMotor::init_device()
 	attr_motor_temperature_read = new Tango::DevDouble[1];
 	attr_ramp_read = new Tango::DevDouble[1];
 	attr_speed_read = new Tango::DevDouble[1];
+	attr_memorized_position_read = new Tango::DevDouble[1];
 	/*----- PROTECTED REGION ID(PhyMotionMotor::init_device) ENABLED START -----*/
 
 	phy_motion_control_cmd = new PhyMotionControlCMD(control_device);
@@ -178,55 +181,62 @@ void PhyMotionMotor::init_device()
 
 	str_addr_axis_module = address+"M"+str_module+"."+str_axis;
 
+	restore_position = false;
+	
 	// init parameters
 	mux.lock();
 	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("01"),std::to_string(p01));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("02"),std::to_string(p02));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("03"),std::to_string(p03));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("04"),std::to_string(p04));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("07"),std::to_string(p07));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("08"),std::to_string(p08));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("09"),std::to_string(p09));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("10"),std::to_string(p10));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("11"),std::to_string(p11));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("12"),std::to_string(p12));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("13"),std::to_string(p13));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(p14));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("15"),std::to_string(p15));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("16"),std::to_string(p16));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("17"),std::to_string(p17));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("23"),std::to_string(p23));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("24"),std::to_string(p24));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("25"),std::to_string(p25));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("26"),std::to_string(p26));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("27"),std::to_string(p27));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("28"),std::to_string(p28));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("30"),std::to_string(p30));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("31"),std::to_string(p31));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("32"),std::to_string(p32));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("33"),std::to_string(p33));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("34"),std::to_string(p34));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("35"),std::to_string(p35));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("36"),std::to_string(p36));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("37"),std::to_string(p37));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("38"),std::to_string(p38));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("39"),std::to_string(p39));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("40"),std::to_string(p40));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("41"),std::to_string(p41));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("42"),std::to_string(p42));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("43"),std::to_string(p43));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("44"),std::to_string(p44));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("45"),std::to_string(p45));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("50"),std::to_string(p50));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("51"),std::to_string(p51));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("53"),std::to_string(p53));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("55"),std::to_string(p55));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("56"),std::to_string(p56));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("57"),std::to_string(p57));
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("58"),std::to_string(p58));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("02"),std::to_string(p02));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("03"),std::to_string(p03));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("04"),std::to_string(p04));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("07"),std::to_string(p07));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("08"),std::to_string(p08));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("09"),std::to_string(p09));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("10"),std::to_string(p10));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("11"),std::to_string(p11));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("12"),std::to_string(p12));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("13"),std::to_string(p13));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(p14));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("15"),std::to_string(p15));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("16"),std::to_string(p16));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("17"),std::to_string(p17));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("23"),std::to_string(p23));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("24"),std::to_string(p24));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("25"),std::to_string(p25));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("26"),std::to_string(p26));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("27"),std::to_string(p27));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("28"),std::to_string(p28));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("30"),std::to_string(p30));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("31"),std::to_string(p31));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("32"),std::to_string(p32));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("33"),std::to_string(p33));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("34"),std::to_string(p34));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("35"),std::to_string(p35));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("36"),std::to_string(p36));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("37"),std::to_string(p37));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("38"),std::to_string(p38));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("39"),std::to_string(p39));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("40"),std::to_string(p40));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("41"),std::to_string(p41));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("42"),std::to_string(p42));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("43"),std::to_string(p43));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("44"),std::to_string(p44));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("45"),std::to_string(p45));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("50"),std::to_string(p50));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("51"),std::to_string(p51));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("53"),std::to_string(p53));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("55"),std::to_string(p55));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("56"),std::to_string(p56));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("57"),std::to_string(p57));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("58"),std::to_string(p58));
 	mux.unlock();
 
 	device_state = Tango::STANDBY;
+
+
+	if(self_device_proxy!= nullptr) delete self_device_proxy;
+	self_device_proxy = new Tango::DeviceProxy(device_name);
+
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::init_device
 }
@@ -908,11 +918,25 @@ void PhyMotionMotor::read_position(Tango::Attribute &attr)
 	DEBUG_STREAM << "PhyMotionMotor::read_position(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(PhyMotionMotor::read_position) ENABLED START -----*/
 
-    mux.lock();
-    auto str_val = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P20R");  //read 20 parameter
-    mux.unlock();
+	Tango::DevDouble value = .0;
 
-    *attr_position_read = std::stod(str_val);
+	if(!restore_position){
+		self_device_proxy->read_attribute("memorized_position") >> value;
+		phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("20"),std::to_string(value));
+		restore_position = true;
+	}
+	
+	mux.lock();
+	auto str_val = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P20R");  //read 20 parameter
+	
+	value = std::stod(str_val);
+	Tango::DeviceAttribute a_value("memorized_position",value);
+	self_device_proxy->write_attribute(a_value);
+
+	mux.unlock();
+
+	global_position = std::stod(str_val);
+	*attr_position_read = global_position;
 	attr.set_value(attr_position_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_position
@@ -1200,6 +1224,45 @@ void PhyMotionMotor::write_speed(Tango::WAttribute &attr)
     phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("14"),std::to_string(w_val));
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::write_speed
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute memorized_position related method
+ *	Description: This is memorized attribute of clone the postion, please do not write!
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::read_memorized_position(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "PhyMotionMotor::read_memorized_position(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(PhyMotionMotor::read_memorized_position) ENABLED START -----*/
+
+	*attr_memorized_position_read = global_position;
+	attr.set_value(attr_memorized_position_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::read_memorized_position
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute memorized_position related method
+ *	Description: This is memorized attribute of clone the postion, please do not write!
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void PhyMotionMotor::write_memorized_position(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "PhyMotionMotor::write_memorized_position(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevDouble	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(PhyMotionMotor::write_memorized_position) ENABLED START -----*/
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::write_memorized_position
 }
 
 //--------------------------------------------------------

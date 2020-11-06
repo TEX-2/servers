@@ -1363,6 +1363,31 @@ void PhyMotionMotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(speed);
 
+	//	Attribute : memorized_position
+	memorized_positionAttrib	*memorized_position = new memorized_positionAttrib();
+	Tango::UserDefaultAttrProp	memorized_position_prop;
+	memorized_position_prop.set_description("This is memorized attribute of clone the postion, please do not write!");
+	memorized_position_prop.set_label("memorized postion");
+	//	unit	not set for memorized_position
+	//	standard_unit	not set for memorized_position
+	//	display_unit	not set for memorized_position
+	//	format	not set for memorized_position
+	//	max_value	not set for memorized_position
+	//	min_value	not set for memorized_position
+	//	max_alarm	not set for memorized_position
+	//	min_alarm	not set for memorized_position
+	//	max_warning	not set for memorized_position
+	//	min_warning	not set for memorized_position
+	//	delta_t	not set for memorized_position
+	//	delta_val	not set for memorized_position
+	
+	memorized_position->set_default_properties(memorized_position_prop);
+	//	Not Polled
+	memorized_position->set_disp_level(Tango::OPERATOR);
+	memorized_position->set_memorized();
+	memorized_position->set_memorized_init(false);
+	att_list.push_back(memorized_position);
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());

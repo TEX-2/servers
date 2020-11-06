@@ -193,6 +193,26 @@ bool PhyMotionMotor::is_speed_allowed(TANGO_UNUSED(Tango::AttReqType type))
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : PhyMotionMotor::is_memorized_position_allowed()
+ *	Description : Execution allowed for memorized_position attribute
+ */
+//--------------------------------------------------------
+bool PhyMotionMotor::is_memorized_position_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for memorized_position attribute in Write access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::memorized_positionStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::memorized_positionStateAllowed_WRITE
+
+	//	Not any excluded states for memorized_position attribute in read access.
+	/*----- PROTECTED REGION ID(PhyMotionMotor::memorized_positionStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::memorized_positionStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods

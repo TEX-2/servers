@@ -60,11 +60,17 @@ class PhyMotionMotor : public TANGO_BASE_CLASS
 
 /*----- PROTECTED REGION ID(PhyMotionMotor::Data Members) ENABLED START -----*/
 
-PhyMotionControlCMD *phy_motion_control_cmd = nullptr;
-std::string str_module, str_axis, str_addr_axis_module;
-std::mutex mux;
-uint32_t axis_status;
+private:
+	PhyMotionControlCMD *phy_motion_control_cmd = nullptr;
+	std::string str_module, str_axis, str_addr_axis_module;
+	std::mutex mux;
+	uint32_t axis_status;
 
+	Tango::DeviceProxy *self_device_proxy = nullptr;
+	bool restore_position = false;
+	double global_position = 0.0;
+	
+	
 /*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::Data Members
 
 //	Device property data members
@@ -269,6 +275,7 @@ public:
 	Tango::DevDouble	*attr_motor_temperature_read;
 	Tango::DevDouble	*attr_ramp_read;
 	Tango::DevDouble	*attr_speed_read;
+	Tango::DevDouble	*attr_memorized_position_read;
 
 //	Constructors and destructors
 public:
@@ -413,6 +420,16 @@ public:
 	virtual void read_speed(Tango::Attribute &attr);
 	virtual void write_speed(Tango::WAttribute &attr);
 	virtual bool is_speed_allowed(Tango::AttReqType type);
+/**
+ *	Attribute memorized_position related methods
+ *	Description: This is memorized attribute of clone the postion, please do not write!
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_memorized_position(Tango::Attribute &attr);
+	virtual void write_memorized_position(Tango::WAttribute &attr);
+	virtual bool is_memorized_position_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------

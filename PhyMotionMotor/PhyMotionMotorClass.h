@@ -167,6 +167,21 @@ public:
 		{return (static_cast<PhyMotionMotor *>(dev))->is_speed_allowed(ty);}
 };
 
+//	Attribute memorized_position class definition
+class memorized_positionAttrib: public Tango::Attr
+{
+public:
+	memorized_positionAttrib():Attr("memorized_position",
+			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~memorized_positionAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<PhyMotionMotor *>(dev))->read_memorized_position(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<PhyMotionMotor *>(dev))->write_memorized_position(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<PhyMotionMotor *>(dev))->is_memorized_position_allowed(ty);}
+};
+
 
 //=========================================
 //	Define classes for commands
