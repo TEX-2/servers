@@ -192,8 +192,10 @@ void PhyMotionDIOM::init_device()
 	attr_o6_read = new Tango::DevBoolean[1];
 	attr_o7_read = new Tango::DevBoolean[1];
 	/*----- PROTECTED REGION ID(PhyMotionDIOM::init_device) ENABLED START -----*/
-	
+
+	if(phy_control!=nullptr) delete phy_control;
 	phy_control = new PhyMotionControlCMD(control_device);
+	device_status = "ping to control device: "+std::to_string(phy_control->pingControl())+" ms";
 	device_state = Tango::ON;
 
 	

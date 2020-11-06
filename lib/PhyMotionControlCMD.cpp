@@ -5,7 +5,11 @@
 #include "PhyMotionControlCMD.h"
 
 PhyMotionControlCMD::PhyMotionControlCMD(std::string path_cotrol_device){
-    proxy_control_device = new Tango::DeviceProxy(path_cotrol_device);
+	setDevicePath(path_cotrol_device);
+}
+
+void PhyMotionControlCMD::setDevicePath(std::string path_cotrol_device){
+	proxy_control_device = new Tango::DeviceProxy(path_cotrol_device);
 }
 
 PhyMotionControlCMD::~PhyMotionControlCMD() {

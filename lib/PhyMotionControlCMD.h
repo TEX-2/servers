@@ -9,11 +9,19 @@
 #include <iostream>
 #include <string>
 
+
 class PhyMotionControlCMD {
 public:
     PhyMotionControlCMD(std::string path_cotrol_device);
     ~PhyMotionControlCMD();
+
+    void setDevicePath(std::string path_cotrol_device);
+    
     std::string sendCMD(std::string arg);
+
+    int pingControl(void){
+	    return proxy_control_device->ping();
+    }
 
     void setParameter(std::string str_addr_axis, std::string param, std::string value, bool force_if);
     void setParameter(std::string str_addr_axis, std::string param, std::string value){setParameter(str_addr_axis, param, value, false);}

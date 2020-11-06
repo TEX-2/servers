@@ -157,7 +157,7 @@ void PhyMotionControl::init_device()
 
 	phymotion_command = new PhyMotionCommand(tcp_connection);
 
-	//reset_device(); reservate
+	//reset_device(); reservate (can disconnect)
 	reset_status();
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device
@@ -292,15 +292,15 @@ Tango::DevString PhyMotionControl::send_cmd(Tango::DevString argin)
 	/*----- PROTECTED REGION ID(PhyMotionControl::send_cmd) ENABLED START -----*/
 
 	phymotion_command->send(argin);
-    if(tcp_connection->getErrno()==TCP_Connection::ERR_SEND){
-        set_status(std::string("Send message error!\n"));
-        return nullptr;
-    }
-    std::string data = tcp_connection->recvData();
-    if(tcp_connection->getErrno()==TCP_Connection::ERR_RECV){
-        set_status(std::string("Recevory message error!\n"));
-        return nullptr;
-    }
+	if(tcp_connection->getErrno()==TCP_Connection::ERR_SEND){
+		set_status(std::string("Send message error!\n"));
+		return nullptr;
+	}
+	std::string data = tcp_connection->recvData();
+	if(tcp_connection->getErrno()==TCP_Connection::ERR_RECV){
+		set_status(std::string("Recevory message error!\n"));
+		return nullptr;
+	}
 	argout = new char [data.length()];
 	strcpy(argout,data.c_str());
 
