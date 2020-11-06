@@ -155,10 +155,11 @@ void PhyMotionControl::init_device()
 	tcp_connection = new TCP_Connection::TCPConnection(ip_addr,tcp_port);
 	open_connection();
 
-    phymotion_command = new PhyMotionCommand(tcp_connection);
+	phymotion_command = new PhyMotionCommand(tcp_connection);
 
-    //reset_device(); reservate
-
+	//reset_device(); reservate
+	reset_status();
+	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::init_device
 }
 
@@ -397,7 +398,7 @@ void PhyMotionControl::reset_status()
 	DEBUG_STREAM << "PhyMotionControl::ResetStatus()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionControl::reset_status) ENABLED START -----*/
 
-    send_cmd("@SEC");
+	send_cmd("@SEC");
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionControl::reset_status
 }
