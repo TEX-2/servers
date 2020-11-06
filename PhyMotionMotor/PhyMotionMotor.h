@@ -264,6 +264,8 @@ public:
 	//  [0,    1,    2,    3, 4]
 	//  [1/8, 1/4, 1/2, 1, 2]
 	Tango::DevUShort	p58;
+	//	encoder_delta:	
+	Tango::DevDouble	encoder_delta;
 
 //	Attribute data members
 public:

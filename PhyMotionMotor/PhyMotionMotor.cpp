@@ -306,6 +306,7 @@ void PhyMotionMotor::get_device_property()
 	dev_prop.push_back(Tango::DbDatum("P56"));
 	dev_prop.push_back(Tango::DbDatum("P57"));
 	dev_prop.push_back(Tango::DbDatum("P58"));
+	dev_prop.push_back(Tango::DbDatum("encoder_delta"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -848,6 +849,17 @@ void PhyMotionMotor::get_device_property()
 		//	And try to extract P58 value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  p58;
 
+		//	Try to initialize encoder_delta from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  encoder_delta;
+		else {
+			//	Try to initialize encoder_delta from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  encoder_delta;
+		}
+		//	And try to extract encoder_delta value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  encoder_delta;
+
 	}
 
 	/*----- PROTECTED REGION ID(PhyMotionMotor::get_device_property_after) ENABLED START -----*/
@@ -1258,12 +1270,13 @@ void PhyMotionMotor::write_memorized_position(Tango::WAttribute &attr)
 
 	global_position = w_val;
 
-	//Tango::DevDouble value = .0;
-
 	if(!restore_position){
-		//value = global_position;
-                //self_device_proxy->read_attribute("memorized_position") >> value;
+		mux.lock();
 		phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("20"),std::to_string(global_position));
+		//auto str_val_p22 = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P21R");  //read 21 parameter
+		//auto str_val = phy_motion_control_cmd->sendCMD(str_addr_axis_module+"P21R");  //read 21 parameter
+		//set_absolute_zero_counter(std::stod(str_val)-encoder_delta);
+		mux.unlock();
 		restore_position = true;
 		//std::cout << "Global Position : " << global_position << std::endl;
 	}
@@ -1443,7 +1456,7 @@ void PhyMotionMotor::set_absolute_zero_counter(Tango::DevDouble argin)
 	DEBUG_STREAM << "PhyMotionMotor::SetAbsoluteZeroCounter()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(PhyMotionMotor::set_absolute_zero_counter) ENABLED START -----*/
 
-    phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("21"),std::to_string(argin));
+	phy_motion_control_cmd->setParameter(str_addr_axis_module,std::string("21"),std::to_string(argin));
 	
 	/*----- PROTECTED REGION END -----*/	//	PhyMotionMotor::set_absolute_zero_counter
 }
