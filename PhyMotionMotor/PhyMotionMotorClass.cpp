@@ -1191,7 +1191,7 @@ void PhyMotionMotorClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Polled
 	position->set_disp_level(Tango::OPERATOR);
 	position->set_memorized();
-	position->set_memorized_init(false);
+	position->set_memorized_init(true);
 	att_list.push_back(position);
 
 	//	Attribute : absolute_counter
