@@ -7,35 +7,33 @@
 
 using namespace SP;
 
-SerialPort::SerialPort(const char *path) {
+SerialPort::SerialPort(std::string path, unsigned int speed) {
 
-    sp = new boost::asio::serial_port(ios,path);
-    sp->set_option(boost::asio::serial_port::baud_rate(9600));
-#ifdef DEBUG_MESSAGE
-    printf("PATH: %s\n",path);
-#endif
+	sp = new boost::asio::serial_port(ios,path.c_str());
+	setSpeed(speed);
+    
+	std::cout << "Path: " << path << "\n";
 
 }
 
 SerialPort::~SerialPort() {
-    Close();
+	Close();
 }
 
 void SerialPort::Close() {
-    sp->close();
-    delete sp;
+	sp->close();
+	delete sp;
 }
 
 void SerialPort::setSpeed(int value) {
-
+	sp->set_option(boost::asio::serial_port::baud_rate(value));
 }
 
-/*
-boost::asio::serial_port *SerialPort::getDescriptor() {
-    return sp;
-}
- */
 
 int SerialPort::getSpeed() {
-    return speed;
+	return _speed;
+}
+
+int WriteRead(char *write, char *read){
+	return 0;
 }

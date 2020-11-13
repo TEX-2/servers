@@ -5,12 +5,12 @@
       <inheritances classname="Device_Impl" sourcePath=""/>
       <identification contact="at mail.ru - pshcyrill" author="pshcyrill" emailDomain="mail.ru" classFamily="Communication" siteSpecific="" platform="Unix Like" bus="Serial Line" manufacturer="Moxa" reference=""/>
     </description>
-    <deviceProperties name="device" description="path to device file">
+    <deviceProperties name="device_path" description="path to device file">
       <type xsi:type="pogoDsl:StringType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>/dev/ttyS0</DefaultPropValue>
     </deviceProperties>
-    <deviceProperties name="speed" description="">
+    <deviceProperties name="baud_rate" description="">
       <type xsi:type="pogoDsl:UIntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>9600</DefaultPropValue>

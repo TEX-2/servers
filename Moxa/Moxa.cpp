@@ -138,7 +138,8 @@ void Moxa::init_device()
 	
 	/*----- PROTECTED REGION ID(Moxa::init_device) ENABLED START -----*/
 	
-	//	Initialize device
+	if(serial_port!=nullptr) delete serial_port;
+	serial_port = SP::SerialPort(device_path,baud_rate);
 	
 	/*----- PROTECTED REGION END -----*/	//	Moxa::init_device
 }
@@ -160,8 +161,8 @@ void Moxa::get_device_property()
 
 	//	Read device properties from database.
 	Tango::DbData	dev_prop;
-	dev_prop.push_back(Tango::DbDatum("device"));
-	dev_prop.push_back(Tango::DbDatum("speed"));
+	dev_prop.push_back(Tango::DbDatum("device_path"));
+	dev_prop.push_back(Tango::DbDatum("baud_rate"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -176,27 +177,27 @@ void Moxa::get_device_property()
 			(static_cast<MoxaClass *>(get_device_class()));
 		int	i = -1;
 
-		//	Try to initialize device from class property
+		//	Try to initialize device_path from class property
 		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
-		if (cl_prop.is_empty()==false)	cl_prop  >>  device;
+		if (cl_prop.is_empty()==false)	cl_prop  >>  device_path;
 		else {
-			//	Try to initialize device from default device value
+			//	Try to initialize device_path from default device value
 			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
-			if (def_prop.is_empty()==false)	def_prop  >>  device;
+			if (def_prop.is_empty()==false)	def_prop  >>  device_path;
 		}
-		//	And try to extract device value from database
-		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  device;
+		//	And try to extract device_path value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  device_path;
 
-		//	Try to initialize speed from class property
+		//	Try to initialize baud_rate from class property
 		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
-		if (cl_prop.is_empty()==false)	cl_prop  >>  speed;
+		if (cl_prop.is_empty()==false)	cl_prop  >>  baud_rate;
 		else {
-			//	Try to initialize speed from default device value
+			//	Try to initialize baud_rate from default device value
 			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
-			if (def_prop.is_empty()==false)	def_prop  >>  speed;
+			if (def_prop.is_empty()==false)	def_prop  >>  baud_rate;
 		}
-		//	And try to extract speed value from database
-		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  speed;
+		//	And try to extract baud_rate value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  baud_rate;
 
 	}
 

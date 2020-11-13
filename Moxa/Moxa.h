@@ -35,6 +35,8 @@
 
 #include <tango.h>
 
+#include "SerialPort.h"
+
 
 /*----- PROTECTED REGION END -----*/	//	Moxa.h
 
@@ -56,16 +58,17 @@ class Moxa : public TANGO_BASE_CLASS
 
 /*----- PROTECTED REGION ID(Moxa::Data Members) ENABLED START -----*/
 
-//	Add your own data members
-
+private:
+	SP::SerialPort *serial_port = nullptr;
+	
 /*----- PROTECTED REGION END -----*/	//	Moxa::Data Members
 
 //	Device property data members
 public:
-	//	device:	path to device file
-	string	device;
-	//	speed:	
-	Tango::DevULong	speed;
+	//	device_path:	path to device file
+	string	device_path;
+	//	baud_rate:	
+	Tango::DevULong	baud_rate;
 
 
 //	Constructors and destructors

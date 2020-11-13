@@ -217,7 +217,7 @@ void MoxaClass::set_default_property()
 	//	Set Default Class Properties
 
 	//	Set Default device Properties
-	prop_name = "device";
+	prop_name = "device_path";
 	prop_desc = "path to device file";
 	prop_def  = "/dev/ttyS0";
 	vect_data.clear();
@@ -231,7 +231,7 @@ void MoxaClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "speed";
+	prop_name = "baud_rate";
 	prop_desc = "";
 	prop_def  = "9600";
 	vect_data.clear();
