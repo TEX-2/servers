@@ -27,5 +27,5 @@ void PhyMotionCommand::send(std::string instruction) {
     message = message+std::string("\x3a");          // seporator ":"
     message = std::string("\x02")+message+checksum(message)+std::string("\x03");
 
-    i_tcp_connection->sendData(message);
+    if(i_tcp_connection->getErrno()==0) i_tcp_connection->sendData(message);
 }
