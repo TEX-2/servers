@@ -239,6 +239,7 @@ void PhyMotionMotor::init_device()
 	if(self_device_proxy!= nullptr) delete self_device_proxy;
 	self_device_proxy = new Tango::DeviceProxy(device_name);
 
+	reset_status();
 	//std::cout << device_name << " complete!" << std::endl;
 
 
